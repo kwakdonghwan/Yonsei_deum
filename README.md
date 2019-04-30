@@ -11,6 +11,7 @@ raspberrypi GPIO23 -> arduino in 9 -> out 11  -> plate, fan, led
 
 # Camera
 
+
 refference : https://github.com/abood91/RPiMLX90640 
 
 before use it 
@@ -23,4 +24,6 @@ make
 
 to use
 
-sudo ./MLX90640 10
+sudo ./MLX90640 10 8800
+
+(sudo ./MLX90640 sleepsec portnumber)
