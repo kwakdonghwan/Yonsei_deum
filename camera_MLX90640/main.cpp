@@ -643,8 +643,11 @@ int main(int argc =2, const char* argv[] =defaults)
 
     init_socket();
 
+
     while(1) {
-        listen_to_socket()
+        int port;
+        scanf("enter port: ", &port);
+        listen_to_socket(port);
         //GET_A_KEY();
         find_objects();     // call to top level routine
         //End i2c
