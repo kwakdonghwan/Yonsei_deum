@@ -44,11 +44,17 @@ void error(const char *msg) {
     exit(1);
 }
 
-void init_socket(int port) {
+void init_socket() {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0) {
         error("Error opening Socket.");
     }
+
+
+
+}
+
+void listen_to_socket(int port) {
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
     portno = port;
@@ -59,10 +65,6 @@ void init_socket(int port) {
 
     if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
         error("Binding Failed");
-
-}
-
-void listen_to_socket() {
 
     listen(sockfd, 5);
     printf("Listening...\n");
