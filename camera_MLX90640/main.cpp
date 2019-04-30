@@ -32,23 +32,26 @@
 #include <netinet/in.h>
 #define SIZE 768
 
-void error(const char *msg) {
-    perror(msg);
-    exit(1);
-}
+
 int sockfd, newsockfd, portno, n;
 short buffer[SIZE];
 struct sockaddr_in serv_addr, cli_addr;
 socklen_t clilen;
 
-void init_socket() {
+
+void error(const char *msg) {
+    perror(msg);
+    exit(1);
+}
+
+void init_socket(int port) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0) {
         error("Error opening Socket.");
     }
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
-    portno = 8889;
+    portno = port;
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -56,6 +59,10 @@ void init_socket() {
 
     if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
         error("Binding Failed");
+
+}
+
+void listen_to_socket() {
 
     listen(sockfd, 5);
     printf("Listening...\n");
@@ -65,7 +72,6 @@ void init_socket() {
 
     if(newsockfd < 0)
         error("Error on Accept");
-
 }
 
 
@@ -637,8 +643,12 @@ int main(int argc =2, const char* argv[] =defaults)
 
     init_socket();
 
-    //GET_A_KEY();
-    find_objects();     // call to top level routine
-    //End i2c
+    while(1) {
+        listen_to_socket()
+        //GET_A_KEY();
+        find_objects();     // call to top level routine
+        //End i2c
+    }
     bcm2835_i2c_end();
+
 } // end main
