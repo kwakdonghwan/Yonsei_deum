@@ -57,6 +57,11 @@ def make_hsv(data, img):
 
 def absolute_HSV_Control (data, img):
 
+    thickness = 2
+    org = ( 2, 478 )
+    font = cv.FONT_HERSHEY_SIMPLEX
+    fontScale = 1.2
+
     for py in range(24):
         for px in range(32):
             value_2 = 255
@@ -87,8 +92,11 @@ def absolute_HSV_Control (data, img):
             img[py][px][1] = int(value_2)
             img[py][px][2] = int(value_3)
 
+    max_tmp = np.amax(data) / 10
+    text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
     img = cv.cvtColor(img, cv.COLOR_HSV2RGB)
     img = cv.resize(img, None, fx=20, fy=20, interpolation=cv.INTER_CUBIC)
+    cv.putText(img, text_for_display, org, font , fontScale , black , thickness , cv.LINE_AA)
     cv.imshow('frame', img)
     cv.waitKey(1)  # & 0xFF == ord('q')
 
