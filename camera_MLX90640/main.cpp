@@ -648,7 +648,8 @@ int main(int argc =2, const char* argv[] =defaults)
 
     while(1) {
         int port;
-        scanf("enter port: ", &port);
+        printf("enter port: ");
+        scanf("%d", &port);
         listen_to_socket(port);
         //GET_A_KEY();
         find_objects();     // call to top level routine
