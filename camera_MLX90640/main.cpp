@@ -23,6 +23,7 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <ctype.h>
 
 
 // socket
@@ -97,7 +98,10 @@ char            refesh_rate = '0';
 
 char            mlxFifo[] = "/var/run/mlx90640.sock";
 
-int             num, fd, sleepinsec;
+// int             num, fd, sleepinsec;
+
+int num,fd;
+double sleepinsec;
 
 pid_t           pid;
 
@@ -444,7 +448,7 @@ pixelArray* Colorise()
 void display_Ima()
 {
 
-  int             fd, sleeper;
+  int    fd, sleeper;
   std::ostringstream tempfile, bmpFileName; //rawfile,
   std::string oneHBack = OneHoureBackTime();
   tempfile << "./img/" << currentDateTime() << ".temp.txt";
@@ -610,11 +614,12 @@ void find_objects()
 // = main routine =
 // ================
 const char *defaults[] = { "5"};
-int main(int argc =2, const char* argv[] =defaults)
+int main(int argc =3, const char* argv[] =defaults)
 {
-    if (argc < 2)
+    int port;
+    if (argc < 3)
     {
-        std::cerr << "Usage: " << argv[0] << " Sleep in secounds" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " Sleep in secounds," <<  argv[1] << "Port number" <<std::endl;
         return 1;
     }
     else
@@ -626,7 +631,15 @@ int main(int argc =2, const char* argv[] =defaults)
           std::cerr << "Usage: " << argv[0] << " Sleep in secounds <-THIS MEANS NUMBERS ONLY !" << std::endl;
           return 1;
         }
+
     }
+
+    /////////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/////////////////////
+    // sleepinsec to double
+    sleepinsec = atoi(argv[1]);
+    ////////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/////////////////////////
+
+
     int x,y;
     if (!bcm2835_init())
     {
@@ -641,9 +654,10 @@ int main(int argc =2, const char* argv[] =defaults)
     printf("Note: due to the slow To screen print of each pixel\n\r");
     printf("Image sync is lost, fix speed in your application!\n\r");
 
-    int port;
-    printf("enter port: ");
-    scanf("%d", &port);
+
+    port = atoi(argv[2]);
+    //printf("enter port: ");
+    //scanf("%d", &port);
     init_socket(port);
 
 
