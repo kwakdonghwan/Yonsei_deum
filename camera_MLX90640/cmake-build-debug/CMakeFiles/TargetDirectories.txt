@@ -1,0 +1,3 @@
+/Users/changmin/CLionProjects/RPiMLX90640/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/changmin/CLionProjects/RPiMLX90640/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/changmin/CLionProjects/RPiMLX90640/cmake-build-debug/CMakeFiles/MLX90640.dir

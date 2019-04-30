@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <unistd.h>
 #include <math.h>
 #include <signal.h>
@@ -25,6 +24,49 @@
 #include <time.h>
 #include <cstdlib>
 
+
+// socket
+#include <cstdio>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#define SIZE 768
+
+void error(const char *msg) {
+    perror(msg);
+    exit(1);
+}
+int sockfd, newsockfd, portno, n;
+short buffer[SIZE];
+struct sockaddr_in serv_addr, cli_addr;
+socklen_t clilen;
+
+void init_socket() {
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        error("Error opening Socket.");
+    }
+
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    portno = 8889;
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = htons(portno); // host to network shot?
+
+    if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+        error("Binding Failed");
+
+    listen(sockfd, 5);
+    printf("Listening...\n");
+    clilen = sizeof(cli_addr);
+
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+
+    if(newsockfd < 0)
+        error("Error on Accept");
+
+}
 
 
 extern void Prepaire_coeff();
@@ -427,19 +469,19 @@ void display_Ima()
   printf("************Temp Data***********\n\r");
   printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
   //currentDateTime();
+  int buffer_index = 0;
   for (i=0; i<NROWS; i++) {
       //pc.printf("D%2d:",i);
       for (j=0; j<NCOLS; j++) {
-        //out+=IMA[i][j];
-        //ss <<"%5d;" << IMA[i][j];
-        printf("%5d;", IMA[i][j]);
 
+        buffer[buffer_index++] = IMA[i][j];
+
+        printf("%5d;", IMA[i][j]);
         if (mytempfile.is_open())
         {
           mytempfile << IMA[i][j] << " ";
-          //myfile.close();
         }
-        //printf("Print from ss %5d;",ss.str());
+
       }
        if (mytempfile.is_open())
        {
@@ -448,6 +490,10 @@ void display_Ima()
        }
        printf("\n\r");
   }
+
+  write(newsockfd, buffer, SIZE*2);
+
+
   if (mytempfile.is_open())
     mytempfile.close();
   printf("\n\r");
@@ -588,6 +634,9 @@ int main(int argc =2, const char* argv[] =defaults)
     Prepaire_coeff();  // get and prepare all eeprom calibration coeff's
     printf("Note: due to the slow To screen print of each pixel\n\r");
     printf("Image sync is lost, fix speed in your application!\n\r");
+
+    init_socket();
+
     //GET_A_KEY();
     find_objects();     // call to top level routine
     //End i2c
