@@ -44,17 +44,11 @@ void error(const char *msg) {
     exit(1);
 }
 
-void init_socket() {
+void init_socket(int port) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0) {
         error("Error opening Socket.");
     }
-
-
-
-}
-
-void listen_to_socket(int port) {
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
     portno = port;
@@ -66,6 +60,10 @@ void listen_to_socket(int port) {
     if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
         error("Binding Failed");
 
+}
+
+void listen_to_socket() {
+    print("dddd");
     listen(sockfd, 5);
     printf("Listening...\n");
     clilen = sizeof(cli_addr);
@@ -643,17 +641,20 @@ int main(int argc =2, const char* argv[] =defaults)
     printf("Note: due to the slow To screen print of each pixel\n\r");
     printf("Image sync is lost, fix speed in your application!\n\r");
 
-    init_socket();
+    int port;
+    printf("enter port: ");
+    scanf("%d", &port);
+    init_socket(port);
 
 
     while(1) {
-        int port;
-        scanf("enter port: ", &port);
-        listen_to_socket(port);
+
+        listen_to_socket();
         //GET_A_KEY();
         find_objects();     // call to top level routine
-        //End i2c
+
     }
+    //End i2c
     bcm2835_i2c_end();
 
 } // end main
