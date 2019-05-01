@@ -3,8 +3,8 @@ import numpy as np
 import struct
 import cv2 as cv
 
-#ip = '172.24.223.90'
-ip = '127.0.0.1'
+ip = '192.168.219.118'
+# ip = '127.0.0.1'
 port = 8888
 
 clientSock = socket(AF_INET, SOCK_STREAM)
