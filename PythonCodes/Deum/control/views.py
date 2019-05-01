@@ -7,7 +7,7 @@ import numpy as np
 import struct
 import cv2
 import threading
-from . import maxheat
+from .microwave import maxheat
 
 
 # ip = '192.168.219.118'
@@ -134,7 +134,8 @@ def absolute_HSV_Control (data, img):
 
 @gzip.gzip_page
 def run(request):
-
+    global temperature_controller
+    temperature_controller.on()
     try:
         return StreamingHttpResponse(gen(VideoCamera()),
                                      content_type="multipart/x-mixed-replace;boundary=frame")

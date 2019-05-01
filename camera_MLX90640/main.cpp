@@ -487,7 +487,7 @@ void display_Ima()
 
         buffer[buffer_index++] = IMA[i][j];
 
-        printf("%5d;", IMA[i][j]);
+        //printf("%5d;", IMA[i][j]);
         if (mytempfile.is_open())
         {
           mytempfile << IMA[i][j] << " ";

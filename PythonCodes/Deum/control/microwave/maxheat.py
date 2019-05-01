@@ -46,11 +46,5 @@ class TemperatureController:
 
     def check_temp(self, current_max):
         if current_max > self.limit_temp:
+            print("!!!!!!!micro wave off!!!!!")
             self.stop = True
-
-
-if __name__ == '__main__':
-    print("hhhhhh")
-
-
-
