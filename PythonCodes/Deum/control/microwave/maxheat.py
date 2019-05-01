@@ -1,8 +1,5 @@
-
-
 import RPi.GPIO as GPIO
-
-import time #sleep함수를쓰기위해
+import time
 
 
 class TemperatureController:
@@ -28,18 +25,10 @@ class TemperatureController:
     def run(self, current_max):
         if self.stop:
             return
-        self.check_temp(current_max)
-        # current_time = time.time()
-        # if(current_time - self.start_time > t):
-        #     self.stop = True
-        #     GPIO.output(self.magnetron_pin, True)
-        #     GPIO.output(self.fan_pin, True)
-        #     print("!!!!!!!micro wave off!!!!!")
-        #     # GPIO.cleanup()
-        #     # print("cleanup")
 
         GPIO.output(self.magnetron_pin, False)
         print("running microwave!")
+        self.check_temp(current_max)
 
     def on(self):
         self.stop = False

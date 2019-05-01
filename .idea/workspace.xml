@@ -10,7 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8a83ed8-3675-477e-9b51-841a7a4df401" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/camera_MLX90640/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/camera_MLX90640/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index_backup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/maxheat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,11 +27,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+          <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/camera_MLX90640/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="499">
-                  <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+                <state relative-caret-position="-50">
+                  <caret line="492" column="41" lean-forward="true" selection-start-line="492" selection-start-column="41" selection-end-line="492" selection-end-column="41" />
                 </state>
               </provider>
             </entry>
@@ -35,8 +39,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-12">
-                  <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+                <state relative-caret-position="480">
+                  <caret line="32" column="45" lean-forward="true" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                   </folding>
@@ -44,13 +48,22 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="maxheat.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/maxheat.py">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+                <state relative-caret-position="165">
+                  <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index_backup.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index_backup.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="165">
+                  <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
                   <folding>
-                    <element signature="e#2#25#0" expanded="true" />
+                    <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -73,30 +86,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/StreamingTest/caca/urls.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-                  <folding>
-                    <element signature="e#0#28#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/Deum/urls.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-                  <folding>
-                    <element signature="e#628#660#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
@@ -106,9 +95,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="15">
                   <caret line="9" selection-start-line="9" selection-end-line="9" />
-                  <folding>
-                    <element signature="e#0#35#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -116,10 +102,9 @@
           <file leaf-file-name="maxheat.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="574">
-                  <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+                <state>
                   <folding>
-                    <element signature="e#2#25#0" expanded="true" />
+                    <element signature="e#0#23#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -152,6 +137,7 @@
       <find>disp</find>
       <find>display_Ima</find>
       <find>NormaliseValue</find>
+      <find>runn</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -169,9 +155,11 @@
         <option value="$PROJECT_DIR$/PythonCodes/Deum/microwave/manual.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/microwave/maxheat.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/microwave/__init__.py" />
-        <option value="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/control/views.py" />
         <option value="$PROJECT_DIR$/camera_MLX90640/main.cpp" />
+        <option value="$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index_backup.html" />
+        <option value="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py" />
+        <option value="$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index.html" />
       </list>
     </option>
   </component>
@@ -195,12 +183,37 @@
             <path>
               <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
               <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
-              <item name="camera_MLX90640" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
               <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
               <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="Deum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="Deum" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="Deum" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="Deum" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -220,6 +233,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/PythonCodes/Deum/control/templates/control" />
       <recent name="$PROJECT_DIR$/PythonCodes/Deum/control" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -282,17 +296,17 @@
     <option name="totallyTimeSpent" value="3078000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="1184" y="37" width="185" height="1005" id="Project" order="0" visible="true" weight="0.15165877" />
+      <window_info active="true" content_ui="combo" x="1184" y="37" width="185" height="1005" id="Project" order="0" visible="true" weight="0.22875299" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32935324" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32935324" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32935324" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.45655173" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -329,16 +343,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/StreamingTest/caca/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/Deum/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -354,7 +358,7 @@
         <state relative-caret-position="574">
           <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
           <folding>
-            <element signature="e#2#25#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -532,8 +536,8 @@
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/microwave/socket_client.py" />
     <entry file="file://$PROJECT_DIR$/camera_MLX90640/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+        <state relative-caret-position="-50">
+          <caret line="492" column="41" lean-forward="true" selection-start-line="492" selection-start-column="41" selection-end-line="492" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -558,13 +562,6 @@
           <folding>
             <element signature="e#627#659#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -626,33 +623,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
-          <folding>
-            <element signature="e#2#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/maxheat.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#2#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        <state relative-caret-position="480">
+          <caret line="32" column="45" lean-forward="true" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/microwave/maxheat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index_backup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/templates/control/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
