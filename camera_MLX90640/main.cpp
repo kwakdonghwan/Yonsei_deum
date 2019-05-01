@@ -38,7 +38,7 @@ int sockfd, newsockfd, portno, n;
 short buffer[SIZE];
 struct sockaddr_in serv_addr, cli_addr;
 socklen_t clilen;
-
+bool socket_flag = true;
 
 void error(const char *msg) {
     perror(msg);
@@ -64,12 +64,12 @@ void init_socket(int port) {
 }
 
 void listen_to_socket() {
-    printf("dddd");
     listen(sockfd, 5);
     printf("Listening...\n");
     clilen = sizeof(cli_addr);
 
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+    socket_flag = true;
 
     if(newsockfd < 0)
         error("Error on Accept");
@@ -146,7 +146,7 @@ array2d* NormaliseValue()
         returnValues[i][j] = (double)(IMA[i][j] - MINTEMP) / (double)(MAXTEMP - MINTEMP);
       }
   }
-
+  /*
   for (i=0; i<NROWS; i++) {
       //pc.printf("D%2d:",i);
       for (j=0; j<NCOLS; j++) {
@@ -154,6 +154,7 @@ array2d* NormaliseValue()
       }
        printf("\n\r");
   }
+  */
   return &returnValues;
 }
 
@@ -470,14 +471,14 @@ void display_Ima()
   ///std::string out;
   static array2d *NORMALIZED;
   pixelArray *COLORIZED;
-  printf("************NORMALIZED Data***********\n\r");
+  //printf("************NORMALIZED Data***********\n\r");
   NORMALIZED = NormaliseValue();
-  printf("************NORMALIZED Data: %.3f ***********\n\r", *NORMALIZED+6);
+  //printf("************NORMALIZED Data: %.3f ***********\n\r", *NORMALIZED+6);
 
 	//************************************This saves file to local disk (temp.txt file to img folder) *****************************************************//
 
-  printf("************Temp Data***********\n\r");
-  printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
+  //printf("************Temp Data***********\n\r");
+  //printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
   //currentDateTime();
   int buffer_index = 0;
   for (i=0; i<NROWS; i++) {
@@ -501,7 +502,8 @@ void display_Ima()
        printf("\n\r");
   }
 
-  write(newsockfd, buffer, SIZE*2);
+  n = write(newsockfd, buffer, SIZE*2);
+  if(n < 0) socket_flag = false;
 
 
   if (mytempfile.is_open())
@@ -598,8 +600,9 @@ void find_objects()
 #else
                 Get_Image_Median(0);
 #endif
-
+               if(!socket_flag) break;
                (void) display_Ima();
+
                 //GET_A_KEY();
     } // end while
 
@@ -666,7 +669,7 @@ int main(int argc =3, const char* argv[] =defaults)
         listen_to_socket();
         //GET_A_KEY();
         find_objects();     // call to top level routine
-
+        close(newsockfd);
     }
     //End i2c
     bcm2835_i2c_end();
