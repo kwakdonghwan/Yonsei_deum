@@ -8,7 +8,7 @@ import subprocess
 try :
     Main_Cpp_Path = "../camera_MLX90640/MLX90640"
 
-    if not os.path.isfile(RAW_RGB_PATH):
+    if not os.path.isfile(Main_Cpp_Path):
         raise RuntimeError("{} doesn't exist, did you forget to run \"make\"?".format(Main_Cpp_Path))
 
     subprocess.Popen(["sudo", Main_Cpp_Path, "0.125" , "8888" ], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

@@ -64,7 +64,7 @@ void init_socket(int port) {
 }
 
 void listen_to_socket() {
-    print("dddd");
+    printf("dddd");
     listen(sockfd, 5);
     printf("Listening...\n");
     clilen = sizeof(cli_addr);

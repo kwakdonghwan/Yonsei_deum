@@ -53,6 +53,8 @@ time.h
 -
 cstdlib
 -
+ctype.h
+-
 cstdio
 -
 string.h
