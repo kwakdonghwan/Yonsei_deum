@@ -15,8 +15,8 @@ try :
 except:
     print("can`t load camera cpp in this device")
 
-#ip = '172.24.223.90'
-ip = '127.0.0.1'
+ip = '192.168.219.118'
+# ip = '127.0.0.1'
 port = 8888
 
 clientSock = socket(AF_INET, SOCK_STREAM)
