@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseServerError, StreamingHttpResponse
 
 from django.views.decorators import gzip
 from socket import *
 import numpy as np
 import struct
-import cv2 as cv
+import cv2
+import time
+import threading
+
 
 ip = '192.168.219.118'
 # ip = '127.0.0.1'
@@ -15,6 +18,57 @@ clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
+
+def get_image():
+    bin_data = clientSock.recv(1536)
+    # print("len bin data", len(bin_data))
+    count = int(len(bin_data) / 2)
+    short_arr = struct.unpack('<' + ('h' * count), bin_data)
+    np.asarray(short_arr)
+
+    try:
+        short_arr = np.reshape(short_arr, (24, 32))
+        img = np.zeros((24, 32, 3), np.uint8)
+        # make_hsv(short_arr, img)
+        frame = absolute_HSV_Control(short_arr, img)
+        return True, frame
+    except:
+        print("Fail")
+        return False, None
+
+
+
+
+
+class VideoCamera(object):
+    def __init__(self):
+        # self.video = cv2.VideoCapture(0)
+
+        (self.grabbed, self.frame) = get_image()
+        threading.Thread(target=self.update, args=()).start()
+
+    # def __del__(self):
+    #     self.video.release()
+
+    def get_frame(self):
+        image = self.frame
+        ret, jpeg = cv2.imencode('.jpg', image)
+        return jpeg.tobytes()
+
+    def update(self):
+        while True:
+            (self.grabbed, self.frame) = get_image()
+
+
+cam = VideoCamera()
+
+
+def gen(camera):
+    while True:
+        frame = cam.get_frame()
+        yield(b'--frame\r\n'
+              b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
 
 
 
@@ -29,7 +83,7 @@ def absolute_HSV_Control (data, img):
 
     thickness = 2
     org = ( 2, 478 )
-    font = cv.FONT_HERSHEY_SIMPLEX
+    font = cv2.FONT_HERSHEY_SIMPLEX
     fontScale = 1.2
 
     for py in range(24):
@@ -64,39 +118,12 @@ def absolute_HSV_Control (data, img):
 
     max_tmp = np.amax(data) / 10
     text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
-    img = cv.cvtColor(img, cv.COLOR_HSV2RGB)
-    img = cv.resize(img, None, fx=20, fy=20, interpolation=cv.INTER_CUBIC)
-    cv.putText(img, text_for_display, org, font , fontScale , (255,255,255) , thickness , cv.LINE_AA)
-    # cv.imshow('frame', img)
-    # cv.waitKey(1)
+    img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+    img = cv2.resize(img, None, fx=20, fy=20, interpolation=cv2.INTER_CUBIC)
+    cv2.putText(img, text_for_display, org, font , fontScale , (255,255,255) , thickness , cv2.LINE_AA)
+    # cv2.imshow('frame', img)
+    # cv2.waitKey(1)
     return img
-
-
-def gen():
-    while True:
-        bin_data = clientSock.recv(1536)
-        # print("len bin data", len(bin_data))
-        count = int(len(bin_data) / 2)
-        short_arr = struct.unpack('<' + ('h' * count), bin_data)
-        np.asarray(short_arr)
-
-        try:
-            short_arr = np.reshape(short_arr, (24, 32))
-            img = np.zeros((24, 32, 3), np.uint8)
-            ##make_hsv(short_arr, img)
-            frame = absolute_HSV_Control(short_arr, img)
-            frame = camera.get_frame()
-            yield (frame)
-            time.sleep(1)
-        except:
-            print("Fail")
-
-
-
-
-
-
-
 
 
 
@@ -104,9 +131,11 @@ def gen():
 def run(request):
 
     try:
-        return StreamingHttpResponse(gen(),
+        return StreamingHttpResponse(gen(VideoCamera()),
                                      content_type="multipart/x-mixed-replace;boundary=frame")
-    except HttpResponseServerError as e:
-        print("aborted")
+    except:
+        print("getting image fail")
+        pass
+
 
 
