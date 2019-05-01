@@ -50,8 +50,9 @@ def make_hsv(data, img):
 
     img = cv.cvtColor(img, cv.COLOR_HSV2RGB)
     img = cv.resize(img, None, fx=20, fy=20, interpolation=cv.INTER_CUBIC)
-    cv.imshow('frame', img)
-    cv.waitKey(1)  # & 0xFF == ord('q')
+
+    yield (b'--frame\r\n'
+           b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 
