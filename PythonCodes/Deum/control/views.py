@@ -120,6 +120,7 @@ def absolute_HSV_Control (data, img):
             img[py][px][2] = int(value_3)
 
     max_tmp = np.amax(data) / 10
+    global current_max
     current_max = max_tmp
     text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
     img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)

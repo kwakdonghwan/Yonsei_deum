@@ -26,7 +26,9 @@ class TemperatureController:
 
 
     def run(self, current_max):
+        print("current_max:", current_max)
         if self.stop:
+            print("!!!!!!!micro wave off!!!!!")
             return
         self.check_temp(current_max)
         # current_time = time.time()
