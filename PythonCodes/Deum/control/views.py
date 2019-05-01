@@ -6,8 +6,8 @@ from socket import *
 import numpy as np
 import struct
 import cv2
-import time
 import threading
+from microwave import maxheat.TemperatureController
 
 
 ip = '192.168.219.118'
@@ -18,6 +18,8 @@ clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
+temperature_controller = TemperatureController()
+current_max = 0
 
 def get_image():
     bin_data = clientSock.recv(1536)
@@ -66,6 +68,7 @@ cam = VideoCamera()
 def gen(camera):
     while True:
         frame = cam.get_frame()
+        temperature_controller.run(current_max)
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
@@ -117,6 +120,7 @@ def absolute_HSV_Control (data, img):
             img[py][px][2] = int(value_3)
 
     max_tmp = np.amax(data) / 10
+    current_max = max_tmp
     text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
     img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
     img = cv2.resize(img, None, fx=20, fy=20, interpolation=cv2.INTER_CUBIC)
