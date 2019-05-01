@@ -7,18 +7,18 @@ import numpy as np
 import struct
 import cv2
 import threading
-from microwave import maxheat.TemperatureController
+from . import maxheat
 
 
-ip = '192.168.219.118'
-# ip = '127.0.0.1'
+# ip = '192.168.219.118'
+ip = '127.0.0.1'
 port = 8888
 
 clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
-temperature_controller = TemperatureController()
+temperature_controller = maxheat.TemperatureController(32)
 current_max = 0
 
 def get_image():
