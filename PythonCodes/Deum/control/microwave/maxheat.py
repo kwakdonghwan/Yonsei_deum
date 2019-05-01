@@ -25,8 +25,8 @@ class TemperatureController:
     def run(self, current_max):
         if self.stop:
             return
-
         GPIO.output(self.magnetron_pin, False)
+        GPIO.output(self.fan_pin, False)
         print("running microwave!")
         self.check_temp(current_max)
 
@@ -36,4 +36,6 @@ class TemperatureController:
     def check_temp(self, current_max):
         if current_max > self.limit_temp:
             print("!!!!!!!micro wave off!!!!!")
+            GPIO.output(self.magnetron_pin, True)
+            GPIO.output(self.fan_pin, True)
             self.stop = True
