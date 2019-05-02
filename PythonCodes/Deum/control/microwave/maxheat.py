@@ -10,7 +10,7 @@ class TemperatureController:
         self.max_power = 10
         self.control_time = 10  # 10 -> 한 루프가 1/10초 100 -> 1/100
         self.limit_temp = limit_temp
-        self.on_flag = True
+        self.on_flag = 0
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.magnetron_pin, GPIO.OUT)
@@ -26,10 +26,16 @@ class TemperatureController:
     def run(self, current_max):
         if self.stop:
             return
+        if self.on_flag >= 3:
+            power = True
+            if self.on_flag >= 5:
+                self.on_flag = 0
+        else:
+            power = False
 
-        GPIO.output(self.magnetron_pin, self.on_flag)
-        GPIO.output(self.fan_pin, self.on_flag)
-        self.on_flag = not self.on_flag
+        self.on_flag += 1
+        GPIO.output(self.magnetron_pin, power)
+        GPIO.output(self.fan_pin, False)
         # GPIO.output(self.magnetron_pin, False)
         # GPIO.output(self.fan_pin, False)
         #print("running microwave!")
@@ -37,6 +43,7 @@ class TemperatureController:
 
     def on(self):
         self.stop = False
+        self.on_flag = 0
 
     def check_temp(self, current_max):
         if current_max > self.limit_temp:

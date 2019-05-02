@@ -18,7 +18,7 @@ clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
-temperature_controller = maxheat.TemperatureController(32)
+temperature_controller = maxheat.TemperatureController(70)
 current_max = 0
 
 def get_image():
@@ -102,20 +102,20 @@ def absolute_HSV_Control (data, img):
                 value_1 = 25 - ((data[py][px] - 800)*15 / 200)
             elif data[py][px] > 600 :
                 value_1 = 45 - ((data[py][px] - 600)*20 / 200)
-            elif data[py][px] > 400 :
-                value_1 = 90 - ((data[py][px] - 400)*45 / 200)
-            elif data[py][px] > 200 :
-                value_1 = 135 - ((data[py][px] - 200)*45 / 200)
+            elif data[py][px] > 300 :
+                value_1 = 90 - ((data[py][px] - 300)*45 / 300)
+            elif data[py][px] > 100 :
+                value_1 = 155 - ((data[py][px] - 100)*65 / 200)
             elif data[py][px] > 0 :
-                value_1 = 175 - ((data[py][px] )*40 / 200)
+                value_1 = 160 - ((data[py][px] )*5 / 100)
             elif data[py][px] > -100:
-                value_1 = 179 - ((data[py][px] + 100 )*4 / 100)
+                value_1 = 175 - ((data[py][px] + 100 )*15 / 100)
             elif data[py][px] >= -300 :
-                value_1 = 179
+                value_1 = 175
                 value_3 = ((data[py][px] + 300) * 254 / 200) ## 0 = black
 
 
-            img[py][px][0] = int(value_1)  # 0~180
+            img[py][px][0] = 180 - int(value_1)  # 0~180
             img[py][px][1] = int(value_2)
             img[py][px][2] = int(value_3)
 
