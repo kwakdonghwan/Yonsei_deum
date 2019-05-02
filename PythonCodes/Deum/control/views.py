@@ -35,7 +35,7 @@ def get_image():
         frame = absolute_HSV_Control(short_arr, img)
         return True, frame
     except:
-        print("Fail")
+        print("--------------Fail--------------")
         return False, None
 
 

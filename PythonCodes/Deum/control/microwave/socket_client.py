@@ -15,7 +15,7 @@ try :
 except:
     print("can`t load camera cpp in this device")
 
-ip = '192.168.219.118'
+ip = '172.24.221.208'
 # ip = '127.0.0.1'
 port = 8888
 
@@ -96,7 +96,7 @@ def absolute_HSV_Control (data, img):
     text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
     img = cv.cvtColor(img, cv.COLOR_HSV2RGB)
     img = cv.resize(img, None, fx=20, fy=20, interpolation=cv.INTER_CUBIC)
-    cv.putText(img, text_for_display, org, font , fontScale , black , thickness , cv.LINE_AA)
+    cv.putText(img, text_for_display, org, font , fontScale , (255,255,255), thickness , cv.LINE_AA)
     cv.imshow('frame', img)
     cv.waitKey(1)  # & 0xFF == ord('q')
 
