@@ -28,57 +28,6 @@ import os
 
 
 class Thermal_Data():
-    ################ dictionaly define 
-    #this is for control 
-    No_condition = 0
-    Room_temperature_condition = 1
-    refrigeration_termperagrure_condition = 2
-    icy_termperagrure_condition = 3
-    
-
-    room_temperature = 200 # 200 = 20.0
-
-    #  #this is old type
-    #TD = {}
-    #TD['condition'] = No_condition
-    #
-    #TD['old_time'] = 0   #run time_ unit= sec
-    #TD['old_Number_of_real_temp'] = 0 
-    #TD['old_max_temp'] = 0
-    #TD['old_min_temp'] = 0
-    #TD['old_average_temp'] = 0
-    #TD['old_average_rise_temp'] = 0
-    #
-    #TD['time'] = 0   #run time_ unit= sec
-    #TD['Number_of_real_temp'] = 0 
-    #TD['max_temp'] = 0
-    #TD['min_temp'] = 0
-    #TD['average_temp'] = 0
-    #TD['average_rise_temp'] = 0
-  
-    
-    old_condition = No_condition
-    
-    old_times = 0   #run time_ unit= sec
-    old_Number_of_real_part = 0 
-    old_max_temp = 0
-    old_max_rise_temp = 0
-    old_min_temp = 0
-    old_min_rise_temp = 0
-    old_average_temp = 0
-    old_average_rise_temp = 0
-    
-
-    condition = No_condition
-    times = 0   #run time_ unit= sec
-    Number_of_real_part = 0 
-    max_temp = 0
-    max_rise_temp = 0
-    min_temp = 0
-    min_rise_temp = 0
-    average_temp = 0
-    average_rise_temp = 0
-
     
     def __init__(self,room_termp):
         self.No_condition = 0
