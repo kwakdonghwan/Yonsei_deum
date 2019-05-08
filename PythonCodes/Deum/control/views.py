@@ -12,7 +12,7 @@ from .microwave import maxheat
 
 # ip = '192.168.219.118'
 ip = '127.0.0.1'
-port = 8888
+port = 8880
 
 clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")

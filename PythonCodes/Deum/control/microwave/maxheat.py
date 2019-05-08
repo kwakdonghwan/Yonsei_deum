@@ -26,7 +26,7 @@ class TemperatureController:
     def run(self, current_max):
         if self.stop:
             return
-        if self.on_flag >= 3:
+        if self.on_flag >= 4:
             power = True
             if self.on_flag >= 5:
                 self.on_flag = 0
