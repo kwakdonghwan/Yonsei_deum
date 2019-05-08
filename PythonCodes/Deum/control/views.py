@@ -22,7 +22,7 @@ temperature_controller = maxheat.TemperatureController(70)
 current_max = 0
 
 
-TD = Temp_process.Thermal_Data()
+TD = Temp_process.Thermal_Data(200)
 
 
 

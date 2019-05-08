@@ -80,13 +80,13 @@ class Thermal_Data():
     average_rise_temp = 0
 
     
-    def __init__(self):
+    def __init__(self,room_termp):
         self.No_condition = 0
        
         self.Room_temperature_condition = 1
         self.refrigeration_termperagrure_condition = 2
         self.icy_termperagrure_condition = 3
-        self.room_temperature = 200 
+        self.room_temperature = room_termp 
         
         self.condition = self.No_condition
         self.old_condition = self.No_condition
