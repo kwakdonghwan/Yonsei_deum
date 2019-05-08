@@ -108,13 +108,14 @@ class Thermal_Data():
         Left_X = 5
         Right_X = 3 
         
-        Newdata= np.zeros((24,24),np.uint8)  ##need to check
+        Newdata2= np.zeros((24,24),np.uint8)  ##need to check
         #make new data array
         newpx = 0
         newpy = 0
-    
-        for py in range(Left_Y,23-Right_Y):
-            for px in range(Left_X -1,31-Right_X):
+        print("112121212")
+        for py in range(0,24):
+            newpx = 0 
+            for px in range(5,29):
 
                 ###########################################################################
                 #if data[py][px] == 0:
@@ -122,15 +123,17 @@ class Thermal_Data():
                 #
                 ###############################################################################
                 if py == 1 and px == 9:
-                    data[py][px] = data[py][px - 1]
+                    Newdata2[py][newpx] = data[py][px - 1]
+                    print(py,newpx,'zero')
 
-
-                Newdata[newpy][newpx] = data[py][px]
+                else:
+                    Newdata2[py][newpx] = data[py][px]
+                    print(py,newpx)
                 newpx += 1
-            newpy += 1
+            
                 # cut data on dish
     
-        return Newdata
+        return Newdata2
     
     ## Max data = np.amax(data)
     ## Min data = np.amin(data)

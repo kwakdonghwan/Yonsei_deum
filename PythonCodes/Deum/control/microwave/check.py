@@ -8,7 +8,7 @@ import Temp_process
 
 #ip = '172.24.221.208'
 ip = '127.0.0.1'
-port = 8888
+port = 8880
 
 clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
@@ -79,9 +79,12 @@ while True:
     try:
         short_arr = np.reshape(short_arr, (24, 32))
         img = np.zeros((24, 32, 3), np.uint8)
+        print('img is finish')
         ##make_hsv(short_arr, img)
         Newdata= np.zeros((24,24),np.uint8)
+        print('make new data')
         Newdata =  TD.Thermal_data_cut(short_arr)
+        print('cut is finish')
         absolute_HSV_Control (Newdata, img)
         print('img_showed')
         TD.run1(Newdata)
