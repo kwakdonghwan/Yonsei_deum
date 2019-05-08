@@ -223,19 +223,19 @@ class Thermal_Data():
         self.max_temp = max(real_object_temp)
         self.min_temp = min(real_object_temp)
         self.average_temp = s.mean(real_object_temp)
-        self.times = time.time()  # we need a time difference
+        self.times = time.time() - self.initial_time  # we need a time difference
 
         self.claculate_temperature_change()
 
         ##################################################3
         #print it to terminal
 
-        print('time:',self.times - self.initial_time,'real_part:',self.Number_of_real_part,'max:',self.max_temp ,'min:',self.min_temp,'average:',self.average_temp)
+        print('time:',self.times,'real_part:',self.Number_of_real_part,'max:',self.max_temp ,'min:',self.min_temp,'average:',self.average_temp)
         print('RiseMax:',self.max_rise_temp ,'RiseMin:',self.min_rise_temp,'RiseAverage:', self.average_rise_temp )
         
         #write csv file
 
-        self.wr.writerow([self.times - self.initial_time , self.Number_of_real_part , self.max_temp , self.min_temp , self.average_temp , self.max_rise_temp , self.min_rise_temp , self.average_rise_temp])
+        self.wr.writerow([self.times , self.Number_of_real_part , self.max_temp , self.min_temp , self.average_temp , self.max_rise_temp , self.min_rise_temp , self.average_rise_temp])
         
 
 
