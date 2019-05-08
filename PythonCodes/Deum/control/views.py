@@ -7,8 +7,15 @@ import numpy as np
 import struct
 import cv2
 import threading
-from .microwave import maxheat
+from .microwave import manual
 from .microwave import Temp_process
+
+
+import RPi.GPIO as GPIO
+import time #sleep함수를쓰기위해
+
+
+
 
 # ip = '192.168.219.118'
 ip = '127.0.0.1'
@@ -18,7 +25,9 @@ clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
-temperature_controller = maxheat.TemperatureController(70)
+# temperature_controller = maxheat.TemperatureController(70)
+manual_controller = manual.ManualController()
+
 current_max = 0
 
 
@@ -38,9 +47,9 @@ def get_image():
         img = np.zeros((24, 32, 3), np.uint8)
         # make_hsv(short_arr, img)
 
-        print("try to thermal calcuation")
-        TD.run1(short_arr)
-
+        #print("try to thermal calcuation")
+        #TD.run1(short_arr)
+	#print("run success")
         frame = absolute_HSV_Control(short_arr, img)
         return True, frame
     except:
@@ -77,7 +86,8 @@ cam = VideoCamera()
 def gen(camera):
     while True:
         frame = cam.get_frame()
-        temperature_controller.run(current_max)
+        # temperature_controller.run(current_max)
+        manual_controller.run()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
@@ -145,6 +155,24 @@ def absolute_HSV_Control (data, img):
 def run(request):
     global temperature_controller
     temperature_controller.on()
+    try:
+        return StreamingHttpResponse(gen(VideoCamera()),
+                                     content_type="multipart/x-mixed-replace;boundary=frame")
+    except:
+        print("getting image fail")
+        pass
+
+
+
+@gzip.gzip_page
+def manual(request):
+    global manual_controller
+    power = int(request.POST['power'])
+    duration = int(request.POST['duration'])
+
+    manual_controller.reset_param(power, duration)
+    print("duration: ", power, duration)
+
     try:
         return StreamingHttpResponse(gen(VideoCamera()),
                                      content_type="multipart/x-mixed-replace;boundary=frame")
