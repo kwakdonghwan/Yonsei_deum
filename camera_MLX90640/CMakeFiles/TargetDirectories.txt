@@ -1,3 +1,0 @@
-/home/pi/Yonsei_deum/camera_MLX90640/CMakeFiles/rebuild_cache.dir
-/home/pi/Yonsei_deum/camera_MLX90640/CMakeFiles/edit_cache.dir
-/home/pi/Yonsei_deum/camera_MLX90640/CMakeFiles/MLX90640.dir
