@@ -27,7 +27,7 @@ def absolute_HSV_Control (data, img):
     fontScale = 1.2
 
     for py in range(24):
-        for px in range(32):
+        for px in range(24):
             value_2 = 255
             value_3 = 255
             if 3000 >= data[py][px] > 2000: #2000 = 200C  max = 300
@@ -52,14 +52,14 @@ def absolute_HSV_Control (data, img):
                 value_3 = ((data[py][px] + 300) * 254 / 200) ## 0 = black
 
 
-            img[py][px][0] = int(value_1)  # 0~180
+            img[py][px][0] = 180 - int(value_1)  # 0~180
             img[py][px][1] = int(value_2)
             img[py][px][2] = int(value_3)
 
     max_tmp = np.amax(data) / 10
     text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
     img = cv.cvtColor(img, cv.COLOR_HSV2RGB)
-    img = cv.resize(img, None, fx=20, fy=20, interpolation=cv.INTER_CUBIC)
+    img = cv.resize(img, None, fx=20, fy=15, interpolation=cv.INTER_CUBIC)
     cv.putText(img, text_for_display, org, font , fontScale , (255,255,255), thickness , cv.LINE_AA)
     cv.imshow('frame', img)
     cv.waitKey(1)  # & 0xFF == ord('q')
@@ -73,16 +73,19 @@ while True:
     # print("len bin data", len(bin_data))
     count = int(len(bin_data) / 2)
     short_arr = struct.unpack('<' + ('h' * count), bin_data)
-    # print('받은 데이터 : ', short_arr)
+   
     # print(np.shape(short_arr))
     np.asarray(short_arr)
     try:
         short_arr = np.reshape(short_arr, (24, 32))
         img = np.zeros((24, 32, 3), np.uint8)
         ##make_hsv(short_arr, img)
-        absolute_HSV_Control (short_arr, img)
+        Newdata= np.zeros((24,24),np.uint8)
+        Newdata =  TD.Thermal_data_cut(short_arr)
+        absolute_HSV_Control (Newdata, img)
         print('img_showed')
-        TD.run1(short_arr)
+        TD.run1(Newdata)
+
     except:
         print("Fail")
 

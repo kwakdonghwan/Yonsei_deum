@@ -101,14 +101,26 @@ class Thermal_Data():
 
 
         
-    def Thermal_data_cut(self,Left_X,Left_Y,Right_X,Right_Y,data):
+    def Thermal_data_cut(self,data):
         #to cut the thermal data set
+        Left_Y = 0
+        Right_Y = 0
+        Left_X = 5
+        Right_X = 3 
         
         Newdata= np.zeros((24-Left_Y-Right_Y,32-Left_X-Right_X),np.uint8)  ##need to check
         #make new data array
+
     
         for py in range(Left_Y,24-Right_Y):
             for px in range(Left_X,32-Right_X):
+
+                ###########################################################################
+                if data[py][px] == 0:
+                    print("x:", px , "y:", py)
+
+                ###############################################################################
+
                 Newdata[py][px] = data[py][px]
     
                 # cut data on dish
