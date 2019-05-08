@@ -172,7 +172,7 @@ def manual(request):
     duration = int(request.POST['duration'])
 
     manual_controller.reset_param(power, duration)
-
+    print("duration: ", power, duration)
 
     try:
         return StreamingHttpResponse(gen(VideoCamera()),

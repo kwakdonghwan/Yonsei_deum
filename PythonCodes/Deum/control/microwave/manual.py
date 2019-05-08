@@ -20,7 +20,6 @@ class ManualController:
         # t = int(input("enter time (s): "))
         # power = int(input("enter power(1-{}): ".format(max_power)))
 
-        GPIO.output(self.fan_pin, False)
         self.start_time = time.time()
         self.duration = 0
         self.power = 0
@@ -36,17 +35,24 @@ class ManualController:
         print("target duration:", duration)
 
     def run(self):
+
         if self.stop_flag:
             return
-        current_time = time.time()
-        if(current_time - self.start_time > self.duration):
-            GPIO.output(self.magnetron_pin, True)
-            GPIO.output(self.fan_pin, True)
-            self.stop_flag = True
 
+        GPIO.output(self.fan_pin, False)
         GPIO.output(self.magnetron_pin, False)
         time.sleep(self.power/(self.max_power*self.control_time))
         GPIO.output(self.magnetron_pin, True)
         time.sleep((self.max_power-self.power)/(self.max_power*self.control_time))
+        GPIO.output(self.fan_pin, False)
+
+        current_time = time.time()
+        if(current_time - self.start_time > self.duration):
+            GPIO.output(self.magnetron_pin, True)
+            GPIO.output(self.fan_pin, True)
+            time.sleep(1)
+            GPIO.output(self.fan_pin, True)
+            GPIO.output(self.magnetron_pin, True)
+            self.stop_flag = True
 
 
