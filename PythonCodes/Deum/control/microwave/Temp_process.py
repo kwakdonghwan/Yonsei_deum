@@ -27,7 +27,7 @@ import os
 
 
 
-class Thermal_Data():
+class Thermal_Data:
     
     def __init__(self,room_termp):
         self.No_condition = 0
