@@ -176,7 +176,7 @@ class Thermal_Data():
 
         self.claculate_temperature_change()
 
-        ##################################################3
+        ##################################################
         #print it to terminal
 
         print('time:',self.times,'real_part:',self.Number_of_real_part,'max:',self.max_temp ,'min:',self.min_temp,'average:',self.average_temp)
@@ -185,7 +185,5 @@ class Thermal_Data():
         #write csv file
 
         self.wr.writerow([self.times , self.Number_of_real_part , self.max_temp , self.min_temp , self.average_temp , self.max_rise_temp , self.min_rise_temp , self.average_rise_temp])
-        
 
 
-            

@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Deum</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="centerHolder">
-        <a href="/control/run" class="button center">Deum</a>
+        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+
+        <form action="/control/manual" method="post">
+            <input type="text" id="power" name="power" value="10">
+            <a href="#" id="power_plus">+</a>
+            <a href="#"id="power_minus">-</a><br>
+
+            <input type="text" id="duration" name="duration" value="20">
+            <a href="#" id="duration_plus">+</a>
+            <a href="#" id="duration_minus">-</a><br>
+            <input type="submit" value="돌리기">
+        </form>
     </div>
 </body>
 </html>
@@ -37,3 +49,35 @@ body {
 .centerHolder{ text-align: center; }
 
 </style>
+
+<script>
+    $('#power_plus').click(function(){
+        var x = parseInt(document.getElementById("power").value);
+        x += 1;
+        if(x > 10) x = 10;
+        document.getElementById("power").value = x;
+    });
+
+    $('#power_minus').click(function(){
+        var x = parseInt(document.getElementById("power").value);
+        x -= 1;
+        if(x < 0) x = 0;
+        document.getElementById("power").value = x;
+    });
+
+    $('#duration_plus').click(function(){
+        var x = parseInt(document.getElementById("duration").value);
+        x += 5;
+        document.getElementById("duration").value = x;
+    });
+
+    $('#duration_minus').click(function(){
+        var x = parseInt(document.getElementById("duration").value);
+        x -= 5;
+        if(x < 0) x = 0;
+        document.getElementById("duration").value = x;
+    });
+
+
+</script>
+

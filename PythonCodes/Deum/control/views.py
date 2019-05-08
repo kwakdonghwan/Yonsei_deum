@@ -8,7 +8,15 @@ import struct
 import cv2
 import threading
 from .microwave import maxheat
+from .microwave import manual
 from .microwave import Temp_process
+
+
+import RPi.GPIO as GPIO
+import time #sleep함수를쓰기위해
+
+
+
 
 # ip = '192.168.219.118'
 ip = '127.0.0.1'
@@ -18,7 +26,9 @@ clientSock = socket(AF_INET, SOCK_STREAM)
 print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
-temperature_controller = maxheat.TemperatureController(70)
+# temperature_controller = maxheat.TemperatureController(70)
+manual_controller = manual.ManualController
+
 current_max = 0
 
 
@@ -77,7 +87,8 @@ cam = VideoCamera()
 def gen(camera):
     while True:
         frame = cam.get_frame()
-        temperature_controller.run(current_max)
+        # temperature_controller.run(current_max)
+        manual_controller.run()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
@@ -151,6 +162,26 @@ def run(request):
     except:
         print("getting image fail")
         pass
+
+
+
+@gzip.gzip_page
+def manual(request):
+    global manual_controller
+    power = request.POST['power']
+    duration = request.POST['duration']
+
+    manual_controller.reset_param(power, duration)
+
+
+    try:
+        return StreamingHttpResponse(gen(VideoCamera()),
+                                     content_type="multipart/x-mixed-replace;boundary=frame")
+    except:
+        print("getting image fail")
+        pass
+
+
 
 
 
