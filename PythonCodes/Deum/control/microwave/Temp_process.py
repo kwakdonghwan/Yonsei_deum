@@ -108,21 +108,26 @@ class Thermal_Data():
         Left_X = 5
         Right_X = 3 
         
-        Newdata= np.zeros((24-Left_Y-Right_Y,32-Left_X-Right_X),np.uint8)  ##need to check
+        Newdata= np.zeros((24,24),np.uint8)  ##need to check
         #make new data array
-
+        newpx = 0
+        newpy = 0
     
-        for py in range(Left_Y,24-Right_Y):
-            for px in range(Left_X,32-Right_X):
+        for py in range(Left_Y,23-Right_Y):
+            for px in range(Left_X -1,31-Right_X):
 
                 ###########################################################################
-                if data[py][px] == 0:
-                    print("x:", px , "y:", py)
-
+                #if data[py][px] == 0:
+                #    print("x:", px , "y:", py)
+                #
                 ###############################################################################
+                if py == 1 and px == 9:
+                    data[py][px] = data[py][px - 1]
 
-                Newdata[py][px] = data[py][px]
-    
+
+                Newdata[newpy][newpx] = data[py][px]
+                newpx += 1
+            newpy += 1
                 # cut data on dish
     
         return Newdata
