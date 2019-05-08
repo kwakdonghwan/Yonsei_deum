@@ -64,6 +64,9 @@ class Thermal_Data():
         now = datetime.now()
         time_name = now.strftime("%H_%M_%S")
         new_time_name = current_path +"/data_out/" +time_name + '.csv'
+        directory = current_path +"/data_out"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         self.f = open(new_time_name, 'w+', encoding='utf-8', newline='')
 
         self.wr = csv.writer(self.f)
