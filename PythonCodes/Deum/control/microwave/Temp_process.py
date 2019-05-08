@@ -22,7 +22,7 @@ import os
 #
 #TD.run1(new_short_arr)
 #
-#����� �͹̳ο� ������ ��µ� + working path�� csv������ ������.
+#the data will display to terminal and save to workingPath/-----.csv
 ###############################
 
 
