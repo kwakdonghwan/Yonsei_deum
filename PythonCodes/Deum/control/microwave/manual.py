@@ -1,4 +1,3 @@
-
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 
@@ -50,9 +49,5 @@ class ManualController:
         if(current_time - self.start_time > self.duration):
             GPIO.output(self.magnetron_pin, True)
             GPIO.output(self.fan_pin, True)
-            time.sleep(1)
-            GPIO.output(self.fan_pin, True)
-            GPIO.output(self.magnetron_pin, True)
             self.stop_flag = True
-
 
