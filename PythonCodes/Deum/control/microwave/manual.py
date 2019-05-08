@@ -31,7 +31,9 @@ class ManualController:
         self.duration = duration
         self.power = power
         self.stop_flag = False
-
+        GPIO.output(self.magnetron_pin, True)
+        GPIO.output(self.fan_pin, True)
+        print("target duration:", duration)
 
     def run(self):
         if self.stop_flag:

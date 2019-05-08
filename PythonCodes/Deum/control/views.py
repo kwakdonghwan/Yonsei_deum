@@ -27,7 +27,7 @@ print("connect start")
 clientSock.connect((ip, port))
 print("connect success")
 # temperature_controller = maxheat.TemperatureController(70)
-manual_controller = manual.ManualController
+manual_controller = manual.ManualController()
 
 current_max = 0
 
@@ -48,9 +48,9 @@ def get_image():
         img = np.zeros((24, 32, 3), np.uint8)
         # make_hsv(short_arr, img)
 
-        print("try to thermal calcuation")
-        TD.run1(short_arr)
-
+        #print("try to thermal calcuation")
+        #TD.run1(short_arr)
+	#print("run success")
         frame = absolute_HSV_Control(short_arr, img)
         return True, frame
     except:
@@ -168,8 +168,8 @@ def run(request):
 @gzip.gzip_page
 def manual(request):
     global manual_controller
-    power = request.POST['power']
-    duration = request.POST['duration']
+    power = int(request.POST['power'])
+    duration = int(request.POST['duration'])
 
     manual_controller.reset_param(power, duration)
 

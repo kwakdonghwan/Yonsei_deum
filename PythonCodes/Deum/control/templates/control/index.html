@@ -9,7 +9,8 @@
     <div class="centerHolder">
         <!--<a href="/control/run" class="button center">Deum</a><br>-->
 
-        <form action="/control/manual" method="post">
+        <form action="http://localhost:8000/control/manual/" method="post">
+            {% csrf_token %}
             <input type="text" id="power" name="power" value="10">
             <a href="#" id="power_plus">+</a>
             <a href="#"id="power_minus">-</a><br>
