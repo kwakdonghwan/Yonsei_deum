@@ -8,7 +8,7 @@ import struct
 import cv2
 import threading
 from .microwave import maxheat
-
+from .microwave import Temp_process
 
 # ip = '192.168.219.118'
 ip = '127.0.0.1'
@@ -21,6 +21,11 @@ print("connect success")
 temperature_controller = maxheat.TemperatureController(70)
 current_max = 0
 
+
+TD = Temp_process.Thermal_Data()
+
+
+
 def get_image():
     bin_data = clientSock.recv(1536)
     # print("len bin data", len(bin_data))
@@ -32,6 +37,10 @@ def get_image():
         short_arr = np.reshape(short_arr, (24, 32))
         img = np.zeros((24, 32, 3), np.uint8)
         # make_hsv(short_arr, img)
+
+        print("try to thermal calcuation")
+        TD.run1(short_arr)
+
         frame = absolute_HSV_Control(short_arr, img)
         return True, frame
     except:

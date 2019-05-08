@@ -9,20 +9,20 @@ import csv
 import os
 
 
-######################### »ç¿ë¹ý
-#ÃÊ±âÈ­ ¼±¾ð¹ý 
+######################### ï¿½ï¿½ï¿½ï¿½
+#initiallise
 #
 #TD = Thermal_Data()
 #
-#¿Âµµ µ¥ÀÌÅ¸ ¼Â ÀÚ¸£´Â ÇÔ¼ö 
+#cut_data
 #
-#new_short_arr = TD.Thermal_data_cut(¿ÞÂÊxÇÈ»ø,¿ÞÂÊYÇÈ¼¿,¿À¸¥ÂÊXÇÈ¼¿,¿À¸¥ÂÊYÇÈ¼¿,short_arr)
+#new_short_arr = TD.Thermal_data_cut(Left_X,Left_Y,Right_X,Right_Y,short_arr)
 #
-#¸ÞÀÎ ÇÔ¼ö¿¡¼­ »ç¿ëÇÏ´Â ¹ý
+#run_calcuation
 #
 #TD.run1(new_short_arr)
 #
-#½ÇÇà½Ã ÅÍ¹Ì³Î¿¡ µ¥ÀÌÅÍ Ãâ·ÂµÊ + working path¿¡ csvÆÄÀÏÀÌ »ý¼ºµÊ.
+#ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í¹Ì³Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Âµï¿½ + working pathï¿½ï¿½ csvï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 ###############################
 
 
@@ -235,7 +235,7 @@ class Thermal_Data():
         
         #write csv file
 
-        self.wr.writerow([self.times - self.initial_time,self.Number_of_real_part,self.max_temp,self.min_temp,self.average_temp,self.max_rise_temp,self.min_rise_temp,self.average_rise_temp])
+        self.wr.writerow([self.times - self.initial_time , self.Number_of_real_part , self.max_temp , self.min_temp , self.average_temp , self.max_rise_temp , self.min_rise_temp , self.average_rise_temp])
         
 
 
