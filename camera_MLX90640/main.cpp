@@ -651,7 +651,7 @@ int main(int argc =3, const char* argv[] =defaults)
     }
     bcm2835_i2c_begin();
 
-    bcm2835_i2c_set_baudrate(25000);
+    bcm2835_i2c_set_baudrate(400000);
 
     Prepaire_coeff();  // get and prepare all eeprom calibration coeff's
     printf("Note: due to the slow To screen print of each pixel\n\r");
