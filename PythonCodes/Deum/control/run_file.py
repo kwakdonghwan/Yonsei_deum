@@ -8,6 +8,37 @@ import struct
 import cv2
 import threading
 
+import subprocess
+import argparse
+import os
+
+class CPP_open:
+    def __init__(self):
+
+        try:
+            self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
+            self.cpp_camera.start()
+
+            sleep(2)
+
+            print("camera_cpp is started")
+        except:
+            print("fail to open MLX90640 file (in thread level)")
+            print("Please open it manualy")
+
+
+    def camera_CPP(self):
+        CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
+        operator = "sudo "+ CPP_path + " 0.0625 8888"  ## if you want use other program need to change
+        if not os.path.isfile(CPP_path):
+            print("CPP_file_ doesn`t exixt!!!!! did you make it?")
+            print("please check:",CPP_path)
+        try:
+            subprocess.Popen([operator], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except:
+            print("fail to open MLX90640`s CPP file (in subprocess level)")
+
+
 class ManualController:
     def __init__(self):
 
@@ -69,6 +100,9 @@ print("sudo /home/pi/Yonsei_deum/camera_MLX90640/MLX90640 0.0625 8888")
 print("or in camera_path")
 print("sudo ./MLX90640 0.0625 8888")
 
+print("try to open cpp file automatically")
+CPPfile = CPP_open()
+
 ip = '127.0.0.1'
 port = 8888
 
@@ -82,10 +116,10 @@ print("micro wave controller setup")
 
 print("input_your_time(min is 1s) and power(max is 10)")
 print("only 'int' type will be accepted")
-duration = int(input("enter time (s) ex) 15: "))
-power = int(input("enter power(10-{}): ex) 7 "))
+duration = int(input("enter time (s) ex) '15' : "))
+power = int(input("enter power(10-{}): ex) '10' : "))
 
-TD = Temp_process.Thermal_Data(200)
+TD = Temp_process.Thermal_Data(210)
 print("thermal_data_set_up")
 
 manual_controller.reset_param(power, duration)
