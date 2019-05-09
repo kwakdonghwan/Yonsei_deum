@@ -1,3 +1,4 @@
+# import Temp_process2
 from .microwave import Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
@@ -41,7 +42,7 @@ class ManualController:
     def run(self):
 
         if self.stop_flag:
-            return 8888
+            return True
 
         GPIO.output(self.fan_pin, False)
         GPIO.output(self.magnetron_pin, False)
@@ -58,7 +59,7 @@ class ManualController:
             print("micro_wave_is_duen")
 
 
-        return 0
+        return False
 
 
 print("open new terminal key : Ctrl + Shift + T")
@@ -79,15 +80,16 @@ print("connect success")
 manual_controller = ManualController()
 print("micro wave controller setup")
 
-TD = Temp_process.Thermal_Data(200)
-print("thermal_data_set_up")
-
 print("input_your_time(min is 1s) and power(max is 10)")
 print("only 'int' type will be accepted")
 duration = int(input("enter time (s) ex) 15: "))
-power = int(input("enter power(1-{}): ex) 7 "))
+power = int(input("enter power(10-{}): ex) 7 "))
+
+TD = Temp_process.Thermal_Data(200)
+print("thermal_data_set_up")
 
 manual_controller.reset_param(power, duration)
+
 
 lets_stop = 0
 
@@ -99,11 +101,17 @@ while True:
 
     try:
         short_arr = np.reshape(short_arr, (24, 32))
-        img = np.zeros((24, 24, 3), np.uint8)
-        Newdata = np.zeros((24,24),np.int8)
+        print("shrot_arr asign")
+        img = np.zeros((24, 32, 3), np.uint8)
+        print("img_ assign")
+        Newdata = np.zeros((24,24),np.int16)
+        print("empty _ NEwdata")
         Newdata = TD.Thermal_data_cut(short_arr)
+        print("cut data finish")
         Temp_process.absolute_HSV_Control2_cut(Newdata, img)
+        print("imshow finsish")
         TD.run1(Newdata)
+        print("CSV_file make")
 
     except:
         print("Fail_in_camera")
@@ -115,9 +123,9 @@ while True:
         print("Fail_in_manual_controller")
 
 
-    if lets_stop == 8888:
+    if lets_stop:
         print("turn_off_micro_wave")
-        str1 = input("enter_the_object_name(in english):")
+        str1 = input("enter_the_object_name(in english): ")
         TD.csv_write_add(str1)
         break
 
