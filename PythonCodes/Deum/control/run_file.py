@@ -92,7 +92,7 @@ class ManualController:
 
         return False
 
-
+    
 print("open new terminal key : Ctrl + Shift + T")
 
 print("camera operation using terminal")
@@ -103,58 +103,67 @@ print("sudo ./MLX90640 0.0625 8888")
 print("try to open cpp file automatically")
 CPPfile = CPP_open()
 
-ip = '127.0.0.1'
-port = 8888
-
-clientSock = socket(AF_INET, SOCK_STREAM)
-print("connect start")
-clientSock.connect((ip, port))
-print("connect success")
-# temperature_controller = maxheat.TemperatureController(70)
-manual_controller = ManualController()
-print("micro wave controller setup")
-
-print("input_your_time(min is 1s) and power(max is 10)")
-print("only 'int' type will be accepted")
-duration = int(input("enter time (s) ex) '15' : "))
-power = int(input("enter power(10-{}): ex) '10' : "))
-
-TD = Temp_process.Thermal_Data(210)
-print("thermal_data_set_up")
-
-manual_controller.reset_param(power, duration)
-
-
-lets_stop = 0
-
 while True:
-    bin_data = clientSock.recv(1536)
-    count = int(len(bin_data) / 2)
-    short_arr = struct.unpack('<' + ('h' * count), bin_data)
-    np.asarray(short_arr)
-
-    try:
-        short_arr = np.reshape(short_arr, (24, 32))
-        img = np.zeros((24, 24, 3), np.uint8)
-        Newdata = np.zeros((24,24),np.int16)
-        Newdata = TD.Thermal_data_cut(short_arr)
-        min_tem = TD.run1(Newdata)
-        Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-
-
-    except:
-        print("Fail_in_camera")
-
-    try:
-        lets_stop = manual_controller.run()
-
-    except:
-        print("Fail_in_manual_controller")
-
-
-    if lets_stop:
-        print("turn_off_micro_wave")
-        str1 = input("enter_the_object_name(in english): ")
-        TD.csv_write_add(str1)
-        break
-
+    
+    ip = '127.0.0.1'
+    port = 8888
+    
+    clientSock = socket(AF_INET, SOCK_STREAM)
+    #print("connect start")
+    clientSock.connect((ip, port))
+    print("connect success")
+    # temperature_controller = maxheat.TemperatureController(70)
+    manual_controller = ManualController()
+    print("micro wave controller setup")
+    
+    print("input_your_time(min is 1s) and power(max is 10)")
+    print("only 'int' type will be accepted")
+    duration = int(input("enter time (s) ex) '15' : "))
+    power = int(input("enter power(10-{}): ex) '10' : "))
+    
+    TD = Temp_process.Thermal_Data(210)
+    print("thermal_data_set_up")
+    
+    manual_controller.reset_param(power, duration)
+    
+    
+    lets_stop = 0
+    
+    while True:
+        bin_data = clientSock.recv(1536)
+        count = int(len(bin_data) / 2)
+        short_arr = struct.unpack('<' + ('h' * count), bin_data)
+        np.asarray(short_arr)
+    
+        try:
+            short_arr = np.reshape(short_arr, (24, 32))
+            img = np.zeros((24, 24, 3), np.uint8)
+            Newdata = np.zeros((24,24),np.int16)
+            Newdata = TD.Thermal_data_cut(short_arr)
+            min_tem = TD.run1(Newdata)
+            Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
+    
+    
+        except:
+            print("Fail_in_camera")
+    
+        try:
+            lets_stop = manual_controller.run()
+    
+        except:
+            print("Fail_in_manual_controller")
+    
+    
+        if lets_stop:
+            try:
+                print("turn_off_micro_wave")
+                str1 = input("enter_the_object_name(in english): ")
+                TD.csv_write_add(str1)
+                del TD #delete class
+            except:
+                print("some error occured during to finish microwave")
+            break
+    print("try to reset microwave")
+    print("if you want to close program press 'Ctrl + C'")
+    
+    
