@@ -80,20 +80,29 @@ class ManualController:
         GPIO.output(self.fan_pin, True)
         print("target duration:", duration)
 
-    def run(self):
+    def run(self,start_time2):
 
         if self.stop_flag:
             return True
 
-        GPIO.output(self.fan_pin, False)
-        GPIO.output(self.magnetron_pin, False)
-        time.sleep(self.power/(self.max_power*self.control_time))
-        GPIO.output(self.magnetron_pin, True)
-        time.sleep((self.max_power-self.power)/(self.max_power*self.control_time))
-        GPIO.output(self.magnetron_pin, False)
+        ## GPIO.output(self.fan_pin, False)
+        ## GPIO.output(self.magnetron_pin, False)
+        ## time.sleep(self.power/(self.max_power*self.control_time))
+        ## GPIO.output(self.magnetron_pin, True)
+        ## time.sleep((self.max_power-self.power)/(self.max_power*self.control_time))
+        ## GPIO.output(self.magnetron_pin, False)
 
         current_time = time.time()
-        if(current_time - self.start_time > self.duration):
+        operation_time = current_time - start_time2
+        operation_range = operation_time % 10
+        if operation_range < self.duration:
+            GPIO.output(self.fan_pin, False)
+            GPIO.output(self.magnetron_pin, False)
+        else:
+            GPIO.output(self.fan_pin, False)
+            GPIO.output(self.magnetron_pin, True)
+
+        if(operation_time > self.duration):
             GPIO.output(self.magnetron_pin, True)
             GPIO.output(self.fan_pin, True)
             self.stop_flag = True
@@ -138,7 +147,7 @@ while True:
     TD = Temp_process.Thermal_Data(210)
     print("thermal_data_set_up")
 
-
+    start_time = TD.initial_time
     
     manual_controller.reset_param(power, duration)
     
@@ -164,7 +173,7 @@ while True:
             print("Fail_in_camera")
     
         try:
-            lets_stop = manual_controller.run()
+            lets_stop = manual_controller.run(start_time)
     
         except:
             print("Fail_in_manual_controller")
@@ -172,10 +181,11 @@ while True:
     
         if lets_stop:
             try:
+                del TD #delete class
                 print("turn_off_micro_wave")
                 str1 = input("enter_the_object_name(in english): ")
                 TD.csv_write_add(str1)
-                del TD #delete class
+                
             except:
                 print("some error occured during to finish microwave")
             break

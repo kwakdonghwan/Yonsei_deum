@@ -113,6 +113,11 @@ class Thermal_Data:
 
         self.f.close()
 
+        try:
+            cv2.destroyAllWindows()
+        except:
+            print("faile to close data")
+
     def New_data_to_old_data(self):
 
         self.old_condition = self.condition
