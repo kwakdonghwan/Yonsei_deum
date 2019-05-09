@@ -8,6 +8,37 @@ import struct
 import cv2
 import threading
 
+import subprocess
+import argparse
+import os
+
+class CPP_open:
+    def __init__(self):
+
+        try:
+            self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
+            self.cpp_camera.start()
+
+            sleep(2)
+
+            print("camera_cpp is started")
+        except:
+            print("fail to open MLX90640 file (in thread level)")
+            print("Please open it manualy")
+
+
+    def camera_CPP(self):
+        CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
+        operator = "sudo "+ CPP_path + " 0.0625 8888"  ## if you want use other program need to change
+        if not os.path.isfile(CPP_path):
+            print("CPP_file_ doesn`t exixt!!!!! did you make it?")
+            print("please check:",CPP_path)
+        try:
+            subprocess.Popen([operator], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except:
+            print("fail to open MLX90640`s CPP file (in subprocess level)")
+
+
 class ManualController:
     def __init__(self):
 
@@ -30,6 +61,16 @@ class ManualController:
         self.power = 0
         self.stop_flag = False
 
+    def reset_origin(self):
+
+        GPIO.output(self.magnetron_pin, True)
+        GPIO.output(self.fan_pin, True)
+        self.start_time = time.time()
+        self.duration = 0
+        self.power = 0
+        self.stop_flag = False
+
+
     def reset_param(self, power, duration):
         self.start_time = time.time()
         self.duration = duration
@@ -39,20 +80,29 @@ class ManualController:
         GPIO.output(self.fan_pin, True)
         print("target duration:", duration)
 
-    def run(self):
+    def run(self,start_time2):
 
         if self.stop_flag:
             return True
 
-        GPIO.output(self.fan_pin, False)
-        GPIO.output(self.magnetron_pin, False)
-        time.sleep(self.power/(self.max_power*self.control_time))
-        GPIO.output(self.magnetron_pin, True)
-        time.sleep((self.max_power-self.power)/(self.max_power*self.control_time))
-        GPIO.output(self.magnetron_pin, False)
+        ## GPIO.output(self.fan_pin, False)
+        ## GPIO.output(self.magnetron_pin, False)
+        ## time.sleep(self.power/(self.max_power*self.control_time))
+        ## GPIO.output(self.magnetron_pin, True)
+        ## time.sleep((self.max_power-self.power)/(self.max_power*self.control_time))
+        ## GPIO.output(self.magnetron_pin, False)
 
         current_time = time.time()
-        if(current_time - self.start_time > self.duration):
+        operation_time = current_time - start_time2
+        operation_range = operation_time % 10
+        if operation_range < self.duration:
+            GPIO.output(self.fan_pin, False)
+            GPIO.output(self.magnetron_pin, False)
+        else:
+            GPIO.output(self.fan_pin, False)
+            GPIO.output(self.magnetron_pin, True)
+
+        if(operation_time > self.duration):
             GPIO.output(self.magnetron_pin, True)
             GPIO.output(self.fan_pin, True)
             self.stop_flag = True
@@ -60,7 +110,7 @@ class ManualController:
 
         return False
 
-
+    
 print("open new terminal key : Ctrl + Shift + T")
 
 print("camera operation using terminal")
@@ -68,63 +118,77 @@ print("sudo /home/pi/Yonsei_deum/camera_MLX90640/MLX90640 0.0625 8888")
 print("or in camera_path")
 print("sudo ./MLX90640 0.0625 8888")
 
-ip = '127.0.0.1'
-port = 8888
+print("try to open cpp file automatically")
+CPPfile = CPP_open()
 
-clientSock = socket(AF_INET, SOCK_STREAM)
-print("connect start")
-clientSock.connect((ip, port))
-print("connect success")
-# temperature_controller = maxheat.TemperatureController(70)
 manual_controller = ManualController()
 print("micro wave controller setup")
 
-print("input_your_time(min is 1s) and power(max is 10)")
-print("only 'int' type will be accepted")
-duration = int(input("enter time (s) ex) 15: "))
-power = int(input("enter power(10-{}): ex) 7 "))
-
-TD = Temp_process.Thermal_Data(200)
-print("thermal_data_set_up")
-
-manual_controller.reset_param(power, duration)
-
-
-lets_stop = 0
-
 while True:
-    bin_data = clientSock.recv(1536)
-    count = int(len(bin_data) / 2)
-    short_arr = struct.unpack('<' + ('h' * count), bin_data)
-    np.asarray(short_arr)
+    
+    ip = '127.0.0.1'
+    port = 8888
+    
+    clientSock = socket(AF_INET, SOCK_STREAM)
+    #print("connect start")
+    clientSock.connect((ip, port))
+    print("connect success")
+    # temperature_controller = maxheat.TemperatureController(70)
+    
+    print("input_your_time(min is 1s) and power(max is 10)")
+    print("only 'int' type will be accepted")
+    duration = int(input("enter time (s) ex) '15' : "))
+    power = int(input("enter power(10-{}): ex) '10' : "))
+    
+    manual_controller.reset_origin()
+    print("reset_the_manual_controller")
 
-    try:
-        short_arr = np.reshape(short_arr, (24, 32))
-        print("shrot_arr asign")
-        img = np.zeros((24, 32, 3), np.uint8)
-        print("img_ assign")
-        Newdata = np.zeros((24,24),np.int16)
-        print("empty _ NEwdata")
-        Newdata = TD.Thermal_data_cut(short_arr)
-        print("cut data finish")
-        Temp_process.absolute_HSV_Control2_cut(Newdata, img)
-        print("imshow finsish")
-        TD.run1(Newdata)
-        print("CSV_file make")
+    TD = Temp_process.Thermal_Data(210)
+    print("thermal_data_set_up")
 
-    except:
-        print("Fail_in_camera")
-
-    try:
-        lets_stop = manual_controller.run()
-
-    except:
-        print("Fail_in_manual_controller")
-
-
-    if lets_stop:
-        print("turn_off_micro_wave")
-        str1 = input("enter_the_object_name(in english): ")
-        TD.csv_write_add(str1)
-        break
-
+    start_time = TD.initial_time
+    
+    manual_controller.reset_param(power, duration)
+    
+    
+    lets_stop = 0
+    
+    while True:
+        bin_data = clientSock.recv(1536)
+        count = int(len(bin_data) / 2)
+        short_arr = struct.unpack('<' + ('h' * count), bin_data)
+        np.asarray(short_arr)
+    
+        try:
+            short_arr = np.reshape(short_arr, (24, 32))
+            img = np.zeros((24, 24, 3), np.uint8)
+            Newdata = np.zeros((24,24),np.int16)
+            Newdata = TD.Thermal_data_cut(short_arr)
+            min_tem = TD.run1(Newdata)
+            Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
+    
+    
+        except:
+            print("Fail_in_camera")
+    
+        try:
+            lets_stop = manual_controller.run(start_time)
+    
+        except:
+            print("Fail_in_manual_controller")
+    
+    
+        if lets_stop:
+            try:
+                del TD #delete class
+                print("turn_off_micro_wave")
+                str1 = input("enter_the_object_name(in english): ")
+                TD.csv_write_add(str1)
+                
+            except:
+                print("some error occured during to finish microwave")
+            break
+    print("try to reset microwave")
+    print("if you want to close program press 'Ctrl + C'")
+    
+    

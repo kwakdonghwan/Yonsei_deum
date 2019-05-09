@@ -450,13 +450,13 @@ void display_Ima()
 {
 
   int    fd, sleeper;
-  std::ostringstream tempfile, bmpFileName; //rawfile,
-  std::string oneHBack = OneHoureBackTime();
-  tempfile << "./img/" << currentDateTime() << ".temp.txt";
-  bmpFileName << "./img/" << currentDateTime() << ".temp.bmp";
+  //std::ostringstream tempfile, bmpFileName; //rawfile,
+  //std::string oneHBack = OneHoureBackTime();
+  //tempfile << "./img/" << currentDateTime() << ".temp.txt";
+  //bmpFileName << "./img/" << currentDateTime() << ".temp.bmp";
   //rawfile << "./img/" << currentDateTime() << ".raw.txt";
 
-  std::ofstream mytempfile (tempfile.str(), std::ios::out | std::ios::app);
+  //std::ofstream mytempfile (tempfile.str(), std::ios::out | std::ios::app);
   //std::ofstream myrawfile (rawfile.str(), std::ios::out | std::ios::app);
 
   /*printf("************RAW DATA************\n\r");
@@ -468,11 +468,11 @@ void display_Ima()
   }
   printf("\n\n\r");*/
 
-  ///std::string out;
-  static array2d *NORMALIZED;
-  pixelArray *COLORIZED;
+  //std::string out;
+  //static array2d *NORMALIZED;
+  //pixelArray *COLORIZED;
   //printf("************NORMALIZED Data***********\n\r");
-  NORMALIZED = NormaliseValue();
+  //NORMALIZED = NormaliseValue();
   //printf("************NORMALIZED Data: %.3f ***********\n\r", *NORMALIZED+6);
 
 	//************************************This saves file to local disk (temp.txt file to img folder) *****************************************************//
@@ -488,70 +488,70 @@ void display_Ima()
         buffer[buffer_index++] = IMA[i][j];
 
         //printf("%5d;", IMA[i][j]);
-        if (mytempfile.is_open())
-        {
-          mytempfile << IMA[i][j] << " ";
-        }
+        //if (mytempfile.is_open())
+        //{
+          //mytempfile << IMA[i][j] << " ";
+        //}
 
       }
-       if (mytempfile.is_open())
-       {
-         mytempfile << "\n\n\r";
-
-       }
-       printf("\n\r");
+       //if (mytempfile.is_open())
+       //{
+       //  mytempfile << "\n\n\r";
+	   //
+       //}
+       //printf("\n\r");
   }
 
   n = write(newsockfd, buffer, SIZE*2);
   if(n < 0) socket_flag = false;
 
 
-  if (mytempfile.is_open())
-    mytempfile.close();
-  printf("\n\r");
+  //if (mytempfile.is_open())
+  //  mytempfile.close();
+  //printf("\n\r");
 	//*****************************************************************************************//
 
-  printf("************COLORIZED Data***********\n\r");
-  printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
-  COLORIZED = Colorise();
+  //printf("************COLORIZED Data***********\n\r");
+  //printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
+  //COLORIZED = Colorise();
 
 
 //********************************************This will remove the data that is 1 h old ***********************************///
 #ifdef REMOVE_1H_OLD_FILES
-  DIR* dp;
-  struct dirent* ep;
-  char* path = "/home/pi/90640-v3-driver/img/";
-  dp = opendir(path);
-  if (dp != NULL)
-  {
-    printf("Dir content:\n");
-    while(ep = readdir(dp))
-    {
-      std::string name(ep->d_name);
-      if((name.substr(name.find_first_of(".") + 1) == "temp.txt")||(name.substr(name.find_first_of(".") + 1) == "raw.txt")||(name.substr(name.find_first_of(".") + 1) == "rgb.txt"))
-      {
-				std::string::size_type sz;   // alias of size_t
-				long long intstamp = std::stoll(name.substr(0,name.find_first_of(".")),&sz);
-				long long onehbacktstamp = std::stoll(oneHBack, &sz);
-				//printf("bla: %5lld \t", onehbacktstamp);
-				if(intstamp < onehbacktstamp)
-				{
-				  char* filename;
-				  filename = (char *)malloc(strlen(path)+strlen(ep->d_name)+1); /* make space for the new string (should check the return value ...) */
-				  strcpy(filename, path); /* copy name into the new var */
-				  strcat(filename, ep->d_name); /* add the extension */
-
-				  printf("removing %s file name was: %s\n",ep->d_name, filename );
-				  if(remove(filename)!=0)
-					printf("file remove error\n");
-				  else
-					printf("file removed\n");
-				}
-	//printf("%5s\t",name);
-      }
-    }
-  }
-  closedir(dp);
+ // DIR* dp;
+ // struct dirent* ep;
+ // char* path = "/home/pi/90640-v3-driver/img/";
+ // dp = opendir(path);
+ // if (dp != NULL)
+ // {
+ //   printf("Dir content:\n");
+ //   while(ep = readdir(dp))
+ //   {
+ //     std::string name(ep->d_name);
+ //     if((name.substr(name.find_first_of(".") + 1) == "temp.txt")||(name.substr(name.find_first_of(".") + 1) == "raw.txt")||(name.substr(name.find_first_of(".") + 1) == "rgb.txt"))
+ //     {
+//				std::string::size_type sz;   // alias of size_t
+//				long long intstamp = std::stoll(name.substr(0,name.find_first_of(".")),&sz);
+//				long long onehbacktstamp = std::stoll(oneHBack, &sz);
+//				//printf("bla: %5lld \t", onehbacktstamp);
+//				if(intstamp < onehbacktstamp)
+//				{
+//				  char* filename;
+//				  filename = (char *)malloc(strlen(path)+strlen(ep->d_name)+1); /* make space for the new string (should check the return value ...) */
+//				  strcpy(filename, path); /* copy name into the new var */
+//				  strcat(filename, ep->d_name); /* add the extension */
+ //
+//				  printf("removing %s file name was: %s\n",ep->d_name, filename );
+//				  if(remove(filename)!=0)
+//					printf("file remove error\n");
+//				  else
+//					printf("file removed\n");
+//				}
+//	//printf("%5s\t",name);
+ //     }
+ //   }
+ // }
+ // closedir(dp);
 #endif
 //*******************************************************************************///
 
