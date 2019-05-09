@@ -244,6 +244,7 @@ class Thermal_Data:
         if self.old_times > 0:
             self.wr.writerow([self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
                               self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
+        return self.min_temp
 
     def csv_write_add(self, str1):
         self.wr.writerow([str1])
@@ -348,6 +349,65 @@ def absolute_HSV_Control2_cut(data, img):
     img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
     img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
     cv2.putText(img, text_for_display, org, font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+    cv2.imshow('frame', img)
+    cv2.waitKey(1)
+    return img
+
+def absolute_HSV_Control3_cut(data, img, min_temp):
+    ##this is for cuted img
+    # display the min_temperature of data in img
+
+    thickness = 2
+    org = (2, 478)
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    fontScale = 1.2
+    print("try to show img")
+    for py in range(24):
+        for px in range(24):
+            value_2 = 255
+            value_3 = 255
+            if 3000 >= data[py][px] > 1200:  # 2000 = 200C  max = 300
+                value_1 = 1
+                value_2 = 255 - ((data[py][px] - 1200) * 254 / 1000)  ## 0 = white
+            elif data[py][px] > 1000:
+                value_1 = 5 - ((data[py][px] - 1000) * 4 / 200)
+            elif data[py][px] > 700:
+                value_1 = 15 - ((data[py][px] - 700) * 10 / 300)
+            elif data[py][px] > 600:
+                value_1 = 30 - ((data[py][px] - 600) * 15 / 100)
+            elif data[py][px] > 500:
+                value_1 = 45 - ((data[py][px] - 500) * 15 / 100)
+            elif data[py][px] > 400:
+                value_1 = 60 - ((data[py][px] - 400) * 15 / 100)
+            elif data[py][px] > 300:
+                value_1 = 75 - ((data[py][px] - 300) * 15 / 100)
+            elif data[py][px] > 200:
+                value_1 = 90 - ((data[py][px] - 200) * 15 / 100)
+            elif data[py][px] > 150:
+                value_1 = 105 - ((data[py][px] - 150) * 15 / 50)
+            elif data[py][px] > -100:
+                value_1 = 115 - ((data[py][px] + 100) * 10 / 250)
+            elif data[py][px] >= -300:
+                value_1 = 120
+                value_3 = ((data[py][px] + 300) * 254 / 200)  ## 0 = black
+
+            img[py][px][0] = int(value_1)  # 0~120
+            img[py][px][1] = int(value_2)
+            img[py][px][2] = int(value_3)
+
+    max_tmp = np.amax(data) / 10
+
+    text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
+    img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+    img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
+    cv2.putText(img, text_for_display, org, font, fontScale, (0, 0, 0), thickness, cv2.LINE_AA)
+    for py in range(24):
+        for px in range(24):
+            if data[py][px] == min_temp:
+                img[py * 15][px * 15][0] = 255
+                img[py * 15][px * 15][1] = 255
+                img[py * 15][px * 15][2] = 255
+
     cv2.imshow('frame', img)
     cv2.waitKey(1)
     return img

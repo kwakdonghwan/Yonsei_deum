@@ -101,17 +101,12 @@ while True:
 
     try:
         short_arr = np.reshape(short_arr, (24, 32))
-        print("shrot_arr asign")
         img = np.zeros((24, 32, 3), np.uint8)
-        print("img_ assign")
         Newdata = np.zeros((24,24),np.int16)
-        print("empty _ NEwdata")
         Newdata = TD.Thermal_data_cut(short_arr)
-        print("cut data finish")
-        Temp_process.absolute_HSV_Control2_cut(Newdata, img)
-        print("imshow finsish")
-        TD.run1(Newdata)
-        print("CSV_file make")
+        min_tem = TD.run1(Newdata)
+        Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
+
 
     except:
         print("Fail_in_camera")
