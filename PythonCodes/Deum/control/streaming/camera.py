@@ -5,21 +5,41 @@ import cv2
 from socket import *
 import struct
 import numpy as np
+import subprocess
+import argparse
+import os
 
 class VideoCamera(object):
     def __init__(self):
         # self.video = cv2.VideoCapture(0)
 
+        
+        self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
+        self.cpp_camera.start()
+
+        sleep(3)
+
         (self.grabbed, self.frame) = self.get_image()
         self.thread = threading.Thread(target=self.update, args=())
         self.thread.start()
-        # self.thread.
+
         self.clientSock = None
         self.record_flag = False
 
 
     # def __del__(self):
     #     self.video.release()
+    def camera_CPP(self):
+        CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
+        operator = "sudo "+ CPP_path + " 0.0625 8880"
+        if not os.path.isfile(CPP_path):
+            print("CPP_file_ doesn`t exixt!!!!! did you make it?")
+            print("please check:",CPP_path)
+        try:
+            subprocess.Popen([operator], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except:
+            print("fail to open MLX90640`s CPP file")
+
 
     def start_record(self):
         self.TD = Temp_process.Thermal_Data()
@@ -45,7 +65,10 @@ class VideoCamera(object):
 
     def update(self):
         while True:
-            (self.grabbed, self.frame) = self.get_image()
+            try:
+                (self.grabbed, self.frame) = self.get_image()
+            except:
+                print("update camera fail")
 
     def get_image(self):
         bin_data = self.clientSock.recv(1536)
