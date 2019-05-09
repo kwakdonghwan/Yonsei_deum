@@ -403,7 +403,7 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
     cv2.putText(img, text_for_display, org, font, fontScale, (0, 0, 0), thickness, cv2.LINE_AA)
     for py in range(24):
         for px in range(24):
-            if data[py][px] == min_temp:
+            if int(min_temp) - 10 <= data[py][px] <= int(min_temp) + 10:
                 img[py * 15][px * 15][0] = 255
                 img[py * 15][px * 15][1] = 255
                 img[py * 15][px * 15][2] = 255
