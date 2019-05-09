@@ -50,3 +50,4 @@ class ManualController:
             GPIO.output(self.magnetron_pin, True)
             GPIO.output(self.fan_pin, True)
             self.stop_flag = True
+

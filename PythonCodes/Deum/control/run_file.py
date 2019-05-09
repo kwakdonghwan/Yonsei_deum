@@ -100,9 +100,9 @@ while True:
     try:
         short_arr = np.reshape(short_arr, (24, 32))
         img = np.zeros((24, 24, 3), np.uint8)
-        Newdata= np.zeros((24,24),np.int8)
-        Newdata =  TD.Thermal_data_cut(short_arr)
-        Temp_process.absolute_HSV_Control2_cut(Newdata,img)
+        Newdata = np.zeros((24,24),np.int8)
+        Newdata = TD.Thermal_data_cut(short_arr)
+        Temp_process.absolute_HSV_Control2_cut(Newdata, img)
         TD.run1(Newdata)
 
     except:

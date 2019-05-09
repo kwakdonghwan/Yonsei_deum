@@ -1,6 +1,6 @@
 import numpy as np
 import struct
-import cv2 as cv
+import cv2
 import subprocess
 import statistics as s
 import time
@@ -202,13 +202,14 @@ class Thermal_Data:
 
         self.claculate_temperature_change()
 
-        ##################################################3
+        ##################################################
         #print it to terminal
 
         #print('time:',self.times,'real_part:',self.Number_of_real_part,'max:',self.max_temp ,'min:',self.min_temp,'average:',self.average_temp)
         #print('RiseMax:',self.max_rise_temp ,'RiseMin:',self.min_rise_temp,'RiseAverage:', self.average_rise_temp )
         
         #write csv file
+
 
 
         if self.old_times > 0 :
@@ -326,4 +327,4 @@ def absolute_HSV_Control2_cut (data, img):
     return img
 
 
-            
+
