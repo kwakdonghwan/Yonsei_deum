@@ -8,11 +8,8 @@ import struct
 import cv2
 import threading
 
-<<<<<<< HEAD
 from .microwave import maxheat
-=======
 
->>>>>>> make_data
 from .microwave import manual
 from .microwave import Temp_process
 from .streaming import camera
@@ -29,21 +26,10 @@ ip = '127.0.0.1'
 port = 8880
 cam = camera.VideoCamera()
 cam.init_socket(ip, port)
-<<<<<<< HEAD
-
-
-# temperature_controller = maxheat.TemperatureController(70)
-manual_controller = manual.ManualController()
-current_max = 0
-TD = Temp_process.Thermal_Data(200)
-=======
-
 
 manual_controller = manual.ManualController()
 current_max = 0
 
-
->>>>>>> make_data
 stop_thread = True
 
 
@@ -55,8 +41,7 @@ def gen(camera):
         # temperature_controller.run(current_max)
         manual_controller.run()
 
-<<<<<<< HEAD
-=======
+
         if manual_controller.stop_flag == True:
             try:
                 cam.close_record()
@@ -67,7 +52,6 @@ def gen(camera):
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
->>>>>>> make_data
 def index(request):
     global stop_thread
     stop_thread = True

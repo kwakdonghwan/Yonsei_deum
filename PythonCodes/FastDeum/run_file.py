@@ -1,5 +1,5 @@
 # import Temp_process2
-from .microwave import Temp_process
+from .control.microwave import Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -10,6 +10,8 @@ import threading
 
 class ManualController:
     def __init__(self):
+
+
 
         self.magnetron_pin = 18
         self.fan_pin = 23
@@ -88,7 +90,6 @@ TD = Temp_process.Thermal_Data(200)
 print("thermal_data_set_up")
 
 manual_controller.reset_param(power, duration)
-
 
 lets_stop = 0
 
