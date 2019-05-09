@@ -1,4 +1,4 @@
-import Temp_process
+import Temp_process2
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -84,7 +84,7 @@ print("only 'int' type will be accepted")
 duration = int(input("enter time (s) ex) 15: "))
 power = int(input("enter power(10-{}): ex) 7 "))
 
-TD = Temp_process.Thermal_Data(200)
+TD = Temp_process2.Thermal_Data(200)
 print("thermal_data_set_up")
 
 manual_controller.reset_param(power, duration)
@@ -107,7 +107,7 @@ while True:
         print("empty _ NEwdata")
         Newdata = TD.Thermal_data_cut(short_arr)
         print("cut data finish")
-        Temp_process.absolute_HSV_Control2_cut(Newdata, img)
+        Temp_process2.absolute_HSV_Control2_cut(Newdata, img)
         print("imshow finsish")
         TD.run1(Newdata)
         print("CSV_file make")
