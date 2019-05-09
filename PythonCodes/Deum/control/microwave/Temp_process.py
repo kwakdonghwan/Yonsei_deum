@@ -361,7 +361,7 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
     org = (2, 478)
     font = cv2.FONT_HERSHEY_SIMPLEX
     fontScale = 1.2
-    print("try to show img")
+    #print("try to show img")
     for py in range(24):
         for px in range(24):
             value_2 = 255
