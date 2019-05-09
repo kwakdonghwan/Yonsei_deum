@@ -244,7 +244,7 @@ class Thermal_Data:
         if self.old_times > 0:
             self.wr.writerow([self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
                               self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
-        return self.min_temp
+        return refference_temp
 
     def csv_write_add(self, str1):
         self.wr.writerow([str1])
