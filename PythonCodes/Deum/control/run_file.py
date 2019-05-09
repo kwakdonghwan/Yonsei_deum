@@ -1,4 +1,5 @@
-import Temp_process2
+# import Temp_process2
+from .microwave import Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -41,7 +42,7 @@ class ManualController:
     def run(self):
 
         if self.stop_flag:
-            return 8888
+            return True
 
         GPIO.output(self.fan_pin, False)
         GPIO.output(self.magnetron_pin, False)
@@ -58,7 +59,7 @@ class ManualController:
             print("micro_wave_is_duen")
 
 
-        return 0
+        return False
 
 
 print("open new terminal key : Ctrl + Shift + T")
@@ -84,7 +85,7 @@ print("only 'int' type will be accepted")
 duration = int(input("enter time (s) ex) 15: "))
 power = int(input("enter power(10-{}): ex) 7 "))
 
-TD = Temp_process2.Thermal_Data(200)
+TD = Temp_process.Thermal_Data(200)
 print("thermal_data_set_up")
 
 manual_controller.reset_param(power, duration)
@@ -107,7 +108,7 @@ while True:
         print("empty _ NEwdata")
         Newdata = TD.Thermal_data_cut(short_arr)
         print("cut data finish")
-        Temp_process2.absolute_HSV_Control2_cut(Newdata, img)
+        Temp_process.absolute_HSV_Control2_cut(Newdata, img)
         print("imshow finsish")
         TD.run1(Newdata)
         print("CSV_file make")
@@ -122,9 +123,9 @@ while True:
         print("Fail_in_manual_controller")
 
 
-    if lets_stop == 8888:
+    if lets_stop:
         print("turn_off_micro_wave")
-        str1 = input("enter_the_object_name(in english):")
+        str1 = input("enter_the_object_name(in english): ")
         TD.csv_write_add(str1)
         break
 

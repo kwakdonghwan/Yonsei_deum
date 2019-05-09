@@ -86,7 +86,7 @@ class Thermal_Data:
         self.Room_temperature_condition = 1
         self.refrigeration_termperagrure_condition = 2
         self.icy_termperagrure_condition = 3
-        self.room_temperature = room_termp 
+        self.room_temperature = 0
         
         self.condition = self.No_condition
         self.old_condition = self.No_condition
@@ -195,7 +195,7 @@ class Thermal_Data:
 
         ################################################making real_temp _list
     
-        if min_T > self.room_temperature :
+        if min_T > self.room_temperature:
             # room temperature condition
             refference_temp = (4 * average_T + min_T) / 5
             condition = self.Room_temperature_condition
