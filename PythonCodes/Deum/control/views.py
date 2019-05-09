@@ -75,6 +75,8 @@ def manual(request):
     manual_controller.reset_param(power, duration)
     print("duration: ", power, duration)
 
+    global stop_thread
+    stop_thread = True
     try:
         return StreamingHttpResponse(gen(camera.VideoCamera()),
                                      content_type="multipart/x-mixed-replace;boundary=frame")

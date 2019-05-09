@@ -10,19 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8a83ed8-3675-477e-9b51-841a7a4df401" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PythonCodes/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/check.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/data_out/23_55_05.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/run_file.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/streaming/camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCodes/.idea/PythonCodes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/.idea/PythonCodes.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCodes/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCodes/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/Temp_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/Temp_process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/manual.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/microwave/manual.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/camera_MLX90640/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/camera_MLX90640/CMakeFiles/CMakeOutput.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,8 +24,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+            <state relative-caret-position="581">
+              <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -143,6 +131,7 @@
       <find>get_image</find>
       <find>clientSock</find>
       <find>gen</find>
+      <find>stop_thread</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -323,7 +312,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2494043" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -671,8 +659,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+        <state relative-caret-position="581">
+          <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
