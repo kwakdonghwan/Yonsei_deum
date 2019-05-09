@@ -407,6 +407,10 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
                 img[py * 15][px * 15][0] = 255
                 img[py * 15][px * 15][1] = 255
                 img[py * 15][px * 15][2] = 255
+            if int(min_temp) + 10 <= data[py][px] :
+                img[py * 15][px * 15][0] = 0
+                img[py * 15][px * 15][1] = 0
+                img[py * 15][px * 15][2] = 0
 
     cv2.imshow('frame', img)
     try:
