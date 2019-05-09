@@ -8,7 +8,7 @@ import struct
 import cv2
 import threading
 
-from .microwave import maxheat
+
 from .microwave import manual
 from .microwave import Temp_process
 from .streaming import camera
@@ -27,10 +27,10 @@ cam = camera.VideoCamera()
 cam.init_socket(ip, port)
 
 
-# temperature_controller = maxheat.TemperatureController(70)
 manual_controller = manual.ManualController()
 current_max = 0
-TD = Temp_process.Thermal_Data(200)
+
+
 stop_thread = True
 
 
@@ -41,6 +41,13 @@ def gen(camera):
         frame = cam.get_frame()
         # temperature_controller.run(current_max)
         manual_controller.run()
+
+        if manual_controller.stop_flag == True:
+            try:
+                cam.close_record()
+            except:
+                print("fali to close record stream")
+
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
@@ -69,11 +76,19 @@ def run(request):
 @gzip.gzip_page
 def manual(request):
     global manual_controller
+    global cam
     power = int(request.POST['power'])
     duration = int(request.POST['duration'])
 
     manual_controller.reset_param(power, duration)
     print("duration: ", power, duration)
+    try:
+        cam.start_record()
+        print("record_data start")
+    except:
+        print("fail to start record")
+
+
 
     try:
         return StreamingHttpResponse(gen(camera.VideoCamera()),

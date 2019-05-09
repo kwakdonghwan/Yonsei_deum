@@ -78,6 +78,42 @@ class Thermal_Data:
         self.wr = csv.writer(self.f)
 
         self.wr.writerow(['time','Number_of_real_part','max_temp','min_temp','average_temp','max_rise_temp','min_rise_temp','average_rise_temp'])
+
+    def __del__(self):
+
+        self.No_condition = 0
+       
+        self.Room_temperature_condition = 1
+        self.refrigeration_termperagrure_condition = 2
+        self.icy_termperagrure_condition = 3
+        self.room_temperature = room_termp 
+        
+        self.condition = self.No_condition
+        self.old_condition = self.No_condition
+    
+        self.old_times = 0   #run time_ unit= sec
+        self.old_Number_of_real_part = 0 
+        self.old_max_temp = 0
+        self.old_max_rise_temp = 0
+        self.old_min_temp = 0
+        self.old_min_rise_temp = 0
+        self.old_average_temp = 0
+        self.old_average_rise_temp = 0
+      
+        self.times = 0   #run time_ unit= sec
+        self.Number_of_real_part = 0 
+        self.max_temp = 0
+        self.max_rise_temp = 0
+        self.min_temp = 0
+        self.min_rise_temp = 0
+        self.average_temp = 0
+        self.average_rise_temp = 0
+
+        self.initial_time = 0
+        time_name = ""
+
+        self.f.close()
+
     
     def New_data_to_old_data(self):
 
@@ -220,7 +256,7 @@ class Thermal_Data:
         print("write '" + str1 + "' on CSV file")
 
 def absolute_HSV_Control2 (data, img):
-    ##this is for cuted img
+    ##this is for uncuted img
 
     thickness = 2
     org = ( 2, 478 )
