@@ -61,6 +61,16 @@ class ManualController:
         self.power = 0
         self.stop_flag = False
 
+    def reset_origin(self):
+
+        GPIO.output(self.magnetron_pin, True)
+        GPIO.output(self.fan_pin, True)
+        self.start_time = time.time()
+        self.duration = 0
+        self.power = 0
+        self.stop_flag = False
+
+
     def reset_param(self, power, duration):
         self.start_time = time.time()
         self.duration = duration
@@ -103,6 +113,9 @@ print("sudo ./MLX90640 0.0625 8888")
 print("try to open cpp file automatically")
 CPPfile = CPP_open()
 
+manual_controller = ManualController()
+print("micro wave controller setup")
+
 while True:
     
     ip = '127.0.0.1'
@@ -113,16 +126,19 @@ while True:
     clientSock.connect((ip, port))
     print("connect success")
     # temperature_controller = maxheat.TemperatureController(70)
-    manual_controller = ManualController()
-    print("micro wave controller setup")
     
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
     duration = int(input("enter time (s) ex) '15' : "))
     power = int(input("enter power(10-{}): ex) '10' : "))
     
+    manual_controller.reset_origin()
+    print("reset_the_manual_controller")
+
     TD = Temp_process.Thermal_Data(210)
     print("thermal_data_set_up")
+
+
     
     manual_controller.reset_param(power, duration)
     
