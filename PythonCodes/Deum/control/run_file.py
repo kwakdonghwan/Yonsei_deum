@@ -111,13 +111,6 @@ class ManualController:
         if self.stop_flag:
             return True
 
-        ## GPIO.output(self.fan_pin, False)
-        ## GPIO.output(self.magnetron_pin, False)
-        ## time.sleep(self.power/(self.max_power*self.control_time))
-        ## GPIO.output(self.magnetron_pin, True)
-        ## time.sleep((self.max_power-self.power)/(self.max_power*self.control_time))
-        ## GPIO.output(self.magnetron_pin, False)
-
         current_time = time.time()
         operation_time = current_time - start_time2
         operation_time2 = int(operation_time)

@@ -169,6 +169,19 @@ class Thermal_Data:
         #                       self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
         self.wr.writerow(str2)
 
+    def edge_temp_claculator(self, data):
+        sem_of_edge = 0
+
+
+        sem_of_edge += data[0][0] + data[0][1] + data[1][1] + data[1][0]
+        sem_of_edge += data[0][23] + data[0][24] + data[1][23] + data[1][24]
+        sem_of_edge += data[23][0] + data[23][1] + data[24][1] + data[24][0]
+        sem_of_edge += data[23][23] + data[23][24] + data[24][23] + data[24][24]
+
+        return sem_of_edge / 16
+
+
+
     def run1(self, data):
         # using statical condition.
 
@@ -264,6 +277,97 @@ class Thermal_Data:
         ################################################making real_temp _list
 
         if min_T > self.room_temperature:
+            # room temperature condition
+            refference_temp = (4 * average_T + max_T) / 5
+            condition = self.Room_temperature_condition
+        elif 30 <= min_T < self.room_temperature:
+            refference_temp = (3 * average_T + min_T) / 4
+            condition = self.refrigeration_termperagrure_condition
+        else:
+            refference_temp = (2 * average_T + min_T) / 3
+            condition = self.icy_termperagrure_condition
+
+        for py in range(data.shape[0]):
+            for px in range(data.shape[1]):
+
+                all_object_temp.append(data[py][px])
+
+                if condition == self.Room_temperature_condition and data[py][px] > refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif condition == self.refrigeration_termperagrure_condition and data[py][px] < refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif condition == self.icy_termperagrure_condition and data[py][px] < refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+
+    #################################### middle temperature collector #################
+        for py in range (10,14):
+            for px in range (10,14):
+                middle_temperature_sum += data[py][px]
+                count_middle += 1
+
+
+    ####################################################################################
+    ######################### store data to real ######################################
+                # before store new data, save it to old data
+        self.New_data_to_old_data()
+
+        self.claculate_temperature_change()
+
+        self.Number_of_real_part = Number_of_real_temp
+        self.condition = condition
+        self.max_temp = max(real_object_temp)
+        self.min_temp = min(real_object_temp)
+        self.average_temp = s.mean(real_object_temp)
+
+        try:
+            self.average_middle = middle_temperature_sum / count_middle
+        except:
+            print("unable to calculate middel termperature")
+
+        self.times = time.time() - self.initial_time  # we need a time difference
+
+    ##################################################################################
+    ############################# write data to csv_ format
+        out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
+                         self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
+        out_put_data.append(all_object_temp)
+        self.csv_wirter(out_put_data)
+
+        out_put_data.clear()
+        all_object_temp.clear()
+        real_object_temp.clear()
+    ###################################################################################
+        return refference_temp
+
+    def run3(self , data):
+
+                #write mideel temp to csv file
+
+        real_object_temp = []
+        all_object_temp = []
+
+        max_T = np.amax(data)
+        min_T = np.amin(data)
+        average_T = np.average(data)
+
+        Total_number_of_data = data.shape[0] * data.shape[1]
+
+        Number_of_real_temp = 0  # it is same with area of food
+        middle_temperature_sum = 0
+        count_middle = 0
+
+        edge_temp = self.edge_temp_claculator(data)
+
+        ################################################making real_temp _list
+        if min_T > 2 * self.room_temperature:
+            # more than 40 degree condition
+            refference_temp = edge_temp
+            condition = self.Room_temperature_condition
+
+        elif min_T > self.room_temperature:
             # room temperature condition
             refference_temp = (4 * average_T + max_T) / 5
             condition = self.Room_temperature_condition
