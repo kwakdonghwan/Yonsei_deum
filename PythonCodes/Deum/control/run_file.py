@@ -50,7 +50,7 @@ class CPP_open(threading.Thread):
                                 shell=True,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
-            print("subprocess_start")    
+            #print("subprocess_start")    
         except:
 
             print("fail to poen CPP_file_ in subprocess level")
@@ -160,7 +160,7 @@ port = 8888
 
 while True:
 
-    #os.system("clear")
+    os.system("clear")
 
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
@@ -198,18 +198,19 @@ while True:
     
         try:
             short_arr = np.reshape(short_arr, (24, 32))
-            img = np.zeros((24, 24, 3), np.uint8)
+            #img = np.zeros((24, 24, 3), np.uint8)
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
             print("datcut complite")
             # min_tem = TD.run1(Newdata)
             min_tem = TD.run3(Newdata)
             print("run3")
-            Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
+            # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
+            Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
     
     
         except:
-            print("Fail_in_camera_Data_control")
+            print("Worning! some error occure in thermal_Data_control")
     
         try:
             lets_stop = manual_controller.run(start_time)
@@ -221,9 +222,18 @@ while True:
         if lets_stop:
             try:
                 cv2.destroyAllWindows() #delete class
+                infomation = []
                 print("turn_off_micro_wave")
                 str1 = input("enter_the_object_name(in english): ")
-                TD.csv_write_add(str1)
+
+                infomation.append("Object Name:")
+                infomation.append(str1)
+                infomation.append("input time:")
+                infomation.append(duration)
+                infomation.append("input power:")
+                infomation.append(power)
+
+                TD.csv_wirter(infomation)
                 del TD
                 
             except:
@@ -235,8 +245,8 @@ while True:
 
     trash = input("did you want run more? : (Y/N)")
 
-    if trash == 'N':
-        #os.system("clear")
+    if trash == 'N' or trash == 'n':
+        os.system("clear")
         print("turn off program")
         print("Good bye")
         break
