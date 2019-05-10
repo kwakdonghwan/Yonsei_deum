@@ -1,5 +1,4 @@
 import numpy as np
-import struct
 import cv2
 import statistics as s
 import time
@@ -362,9 +361,9 @@ class Thermal_Data:
         edge_temp = self.edge_temp_claculator(data)
 
         ################################################making real_temp _list
-        if min_T > 2 * self.room_temperature:
+        if min_T > 1.5 * self.room_temperature:
             # more than 40 degree condition
-            refference_temp = edge_temp
+            refference_temp = (edge_temp + max_T) / 2
             condition = self.Room_temperature_condition
 
         elif min_T > self.room_temperature:
@@ -618,6 +617,9 @@ def what_is_fucking_color:
     checking_img = cv2.cvtColor(checking_img, cv2.COLOR_HSV2RGB)
     cv2.imshow('fucking_color',checking_img)
     cv2.waitKey(1)
+    ss = input("I hate color")
+
+    cv2.destroyAllWindows()
 
 
 

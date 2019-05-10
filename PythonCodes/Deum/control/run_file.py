@@ -131,7 +131,9 @@ class ManualController:
 
         return False
 
-    
+
+Temp_process.what_is_fucking_color()
+
 print("open new terminal key : Ctrl + Shift + T")
 
 print("camera operation using terminal")
@@ -198,7 +200,7 @@ while True:
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
             # min_tem = TD.run1(Newdata)
-            min_tem = TD.run2(Newdata)
+            min_tem = TD.run3(Newdata)
             Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
     
     
