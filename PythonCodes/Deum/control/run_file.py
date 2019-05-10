@@ -1,5 +1,4 @@
-# import Temp_process2
-from .microwave import Temp_process
+import Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -8,9 +7,12 @@ import struct
 import cv2
 import threading
 
+
 import subprocess
 import argparse
 import os
+
+#from .microwave import Temp_process
 
 class CPP_open:
     def __init__(self):
@@ -36,7 +38,8 @@ class CPP_open:
         try:
             subprocess.Popen([operator], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except:
-            print("fail to open MLX90640`s CPP file (in subprocess level)")
+            #print("fail to open MLX90640`s CPP file (in subprocess level)")
+            time.sleep(0.025)
 
 
 class ManualController:
@@ -94,8 +97,9 @@ class ManualController:
 
         current_time = time.time()
         operation_time = current_time - start_time2
-        operation_range = operation_time % 10
-        if operation_range < self.duration:
+        operation_time2 = int(operation_time)
+        operation_range = operation_time2 % 10
+        if operation_range < self.power:
             GPIO.output(self.fan_pin, False)
             GPIO.output(self.magnetron_pin, False)
         else:
@@ -130,21 +134,23 @@ while True:
     ip = '127.0.0.1'
     port = 8888
     
-    clientSock = socket(AF_INET, SOCK_STREAM)
-    #print("connect start")
-    clientSock.connect((ip, port))
-    print("connect success")
-    # temperature_controller = maxheat.TemperatureController(70)
     
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
     duration = int(input("enter time (s) ex) '15' : "))
     power = int(input("enter power(10-{}): ex) '10' : "))
-    
+
+    clientSock = socket(AF_INET, SOCK_STREAM)
+    #print("connect start")
+    clientSock.connect((ip, port))
+    print("connect success")
+    # temperature_controller = maxheat.TemperatureController(70)
+
+
     manual_controller.reset_origin()
     print("reset_the_manual_controller")
 
-    TD = Temp_process.Thermal_Data(210)
+    TD = Temp_process.Thermal_Data(255)
     print("thermal_data_set_up")
 
     start_time = TD.initial_time
@@ -181,10 +187,11 @@ while True:
     
         if lets_stop:
             try:
-                del TD #delete class
+                cv2.destroyAllWindows() #delete class
                 print("turn_off_micro_wave")
                 str1 = input("enter_the_object_name(in english): ")
                 TD.csv_write_add(str1)
+                del TD
                 
             except:
                 print("some error occured during to finish microwave")
