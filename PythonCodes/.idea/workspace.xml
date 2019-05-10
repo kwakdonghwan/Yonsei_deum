@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c918136d-a0b9-4593-bd75-aad96a6cd097" name="Default" comment="" />
+    <list default="true" id="c918136d-a0b9-4593-bd75-aad96a6cd097" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Deum/control/Temp_process_developer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Deum/control/Temp_process_developer.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +19,7 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/Deum/control/microwave/manual.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="725">
+                  <state relative-caret-position="696">
                     <caret line="25" selection-start-line="25" selection-end-line="25" />
                     <folding>
                       <element signature="e#0#23#0" expanded="true" />
@@ -28,13 +31,21 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Deum/control/Temp_process_developer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1187">
-                    <caret line="144" column="21" lean-forward="true" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
+                  <state relative-caret-position="1829">
+                    <caret line="518" lean-forward="true" selection-start-line="518" selection-end-line="518" />
                     <folding>
                       <element signature="e#0#18#0" expanded="true" />
-                      <element signature="e#5634#8890#0" />
-                      <element signature="e#8607#11414#0" />
-                      <element signature="e#8746#10758#0" />
+                      <element signature="e#467#12387#0" />
+                      <element signature="e#507#2464#0" />
+                      <element signature="e#2499#2620#0" />
+                      <element signature="e#2667#3219#0" />
+                      <element signature="e#3273#3936#0" />
+                      <element signature="e#3984#4953#0" />
+                      <element signature="e#5117#5598#0" />
+                      <element signature="e#5637#8884#0" />
+                      <element signature="e#8920#12387#0" />
+                      <element signature="e#12434#14446#0" />
+                      <element signature="e#14495#16523#0" />
                     </folding>
                   </state>
                 </provider>
@@ -50,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Deum/control/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1508">
               <caret line="69" column="11" selection-start-line="69" selection-start-column="11" selection-end-line="69" selection-end-column="11" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
@@ -62,13 +73,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Deum/control/run_file.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="148" column="43" lean-forward="true" selection-start-line="148" selection-start-column="43" selection-end-line="148" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#301#1666#0" />
-                <element signature="e#1227#3478#0" />
-              </folding>
+            <state relative-caret-position="-3563">
+              <caret line="37" column="18" lean-forward="true" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/python3.5/threading.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="668">
+              <caret line="1176" column="8" selection-start-line="1176" selection-start-column="8" selection-end-line="1176" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -96,6 +111,8 @@
     <findStrings>
       <find>manual_controller</find>
       <find>reset_param</find>
+      <find>count_middel</find>
+      <find>value_2</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -120,9 +137,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="1289" />
+    <option name="x" value="65" />
     <option name="y" value="24" />
-    <option name="width" value="1413" />
+    <option name="width" value="1888" />
     <option name="height" value="2136" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -286,10 +303,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Temp_process_developer" />
+      <item itemvalue="Python.run_file" />
       <item itemvalue="Python.socket_client (1)" />
       <item itemvalue="Python.socket_client" />
-      <item itemvalue="Python.run_file" />
-      <item itemvalue="Python.Temp_process_developer" />
     </list>
     <recent_temporary>
       <list>
@@ -320,7 +337,7 @@
     <option name="totallyTimeSpent" value="50000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1289" y="24" width="1413" height="2136" extended-state="4" />
+    <frame x="65" y="24" width="1888" height="2136" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.15982722" />
@@ -417,9 +434,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Deum/control/microwave/Temp_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="182" selection-start-line="182" selection-end-line="182" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Deum/control/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="1508">
           <caret line="69" column="11" selection-start-line="69" selection-start-column="11" selection-end-line="69" selection-end-column="11" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
@@ -436,7 +463,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Deum/control/microwave/manual.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
+        <state relative-caret-position="696">
           <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
@@ -444,37 +471,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Deum/control/microwave/Temp_process.py">
+    <entry file="file:///usr/lib/python3.5/threading.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="182" selection-start-line="182" selection-end-line="182" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="668">
+          <caret line="1176" column="8" selection-start-line="1176" selection-start-column="8" selection-end-line="1176" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Deum/control/run_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="148" column="43" lean-forward="true" selection-start-line="148" selection-start-column="43" selection-end-line="148" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#301#1666#0" />
-            <element signature="e#1227#3478#0" />
-          </folding>
+        <state relative-caret-position="-3563">
+          <caret line="37" column="18" lean-forward="true" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Deum/control/Temp_process_developer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1187">
-          <caret line="144" column="21" lean-forward="true" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
+        <state relative-caret-position="1829">
+          <caret line="518" lean-forward="true" selection-start-line="518" selection-end-line="518" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#5634#8890#0" />
-            <element signature="e#8607#11414#0" />
-            <element signature="e#8746#10758#0" />
+            <element signature="e#467#12387#0" />
+            <element signature="e#507#2464#0" />
+            <element signature="e#2499#2620#0" />
+            <element signature="e#2667#3219#0" />
+            <element signature="e#3273#3936#0" />
+            <element signature="e#3984#4953#0" />
+            <element signature="e#5117#5598#0" />
+            <element signature="e#5637#8884#0" />
+            <element signature="e#8920#12387#0" />
+            <element signature="e#12434#14446#0" />
+            <element signature="e#14495#16523#0" />
           </folding>
         </state>
       </provider>

@@ -169,9 +169,6 @@ class Thermal_Data:
         #                       self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
         self.wr.writerow(str2)
 
-
-
-
     def run1(self, data):
         # using statical condition.
 
@@ -262,7 +259,7 @@ class Thermal_Data:
 
         Number_of_real_temp = 0  # it is same with area of food
         middle_temperature_sum = 0
-        count_middel = 0
+        count_middle = 0
 
         ################################################making real_temp _list
 
@@ -296,7 +293,7 @@ class Thermal_Data:
         for py in range (10,14):
             for px in range (10,14):
                 middle_temperature_sum += data[py][px]
-                count_middel += 1
+                count_middle += 1
 
 
     ####################################################################################
@@ -313,7 +310,7 @@ class Thermal_Data:
         self.average_temp = s.mean(real_object_temp)
 
         try:
-            self.average_middle = middle_temperature_sum / count_middel
+            self.average_middle = middle_temperature_sum / count_middle
         except:
             print("unable to calculate middel termperature")
 
@@ -331,8 +328,6 @@ class Thermal_Data:
         real_object_temp.clear()
     ###################################################################################
         return refference_temp
-
-
 
 
 def absolute_HSV_Control2(data, img):
@@ -491,7 +486,7 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
                 img[py * 15][px * 15][0] = 255
                 img[py * 15][px * 15][1] = 255
                 img[py * 15][px * 15][2] = 255
-            if int(min_temp) + 10 <= data[py][px] :
+            if int(min_temp) <= data[py][px] :
                 img[py * 15][px * 15][0] = 0
                 img[py * 15][px * 15][1] = 0
                 img[py * 15][px * 15][2] = 0
@@ -503,6 +498,23 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
         print("fail_to move window")
     cv2.waitKey(1)
     return img
+
+def what_is_fucking_color:
+    checking_img = np.zeros((10,360,3), np.uint8)
+    # checking HSV img
+
+    print("left is 1, right is 360")
+
+    for x in range(360):
+        for y in range(10):
+            checking_img[y][x][0] = x + 1
+            checking_img[y][x][1] = 255
+            checking_img[y][x][2] = 255
+
+    checking_img = cv2.cvtColor(checking_img, cv2.COLOR_HSV2RGB)
+    cv2.imshow('fucking_color',checking_img)
+    cv2.waitKey(1)
+
 
 
 
