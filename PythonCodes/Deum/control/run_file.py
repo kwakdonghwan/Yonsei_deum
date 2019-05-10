@@ -1,4 +1,7 @@
-import Temp_process
+#new TD.run2 version
+
+
+import Temp_process_developer as Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -14,27 +17,47 @@ import os
 
 #from .microwave import Temp_process
 
-class CPP_open:
+class CPP_open(threading.Thread):
     def __init__(self):
 
+        self.stdout = None
+        self.stderr = None
+        threading.Thread.__init__(self)
+
+    # try:
+    #     self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
+    #     self.cpp_camera.start()
+    #
+    #     sleep(2)
+    #
+    #     print("camera_cpp is started")
+    # except:
+    #     print("fail to open MLX90640 file (in thread level)")
+    #     print("Please open it manualy")
+
+    def run(self):
+
+        CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
+        operator = "sudo "+ CPP_path + " 0.0625 8888"
+
+        if not os.path.isfile(CPP_path):
+            print("CPP_file_ doesn`t exixt!!!!! did you make it?")
+            print("please check:",CPP_path)
+
         try:
-            self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
-            self.cpp_camera.start()
 
-            sleep(2)
-
-            print("camera_cpp is started")
+            p = subprocess.Popen([operator],
+                                shell=True,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
         except:
-            print("fail to open MLX90640 file (in thread level)")
-            print("Please open it manualy")
+
+            print("fail to poen CPP_file_ in subprocess level")
 
 
     def camera_CPP(self):
         CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
         operator = "sudo "+ CPP_path + " 0.0625 8888"  ## if you want use other program need to change
-        if not os.path.isfile(CPP_path):
-            print("CPP_file_ doesn`t exixt!!!!! did you make it?")
-            print("please check:",CPP_path)
         try:
             subprocess.Popen([operator], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except:
@@ -124,21 +147,30 @@ print("or in camera_path")
 print("sudo ./MLX90640 0.0625 8888")
 
 print("try to open cpp file automatically")
-CPPfile = CPP_open()
+try:
+    CPPfile = CPP_open()
+    CPPfile.start()
+except:
+    print("fail to open CPP MLX90640")
 
 manual_controller = ManualController()
 print("micro wave controller setup")
 
+ip = '127.0.0.1'
+port = 8888
+
+
+
 while True:
-    
-    ip = '127.0.0.1'
-    port = 8888
-    
-    
+
+    os.system("clear")
+
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
     duration = int(input("enter time (s) ex) '15' : "))
     power = int(input("enter power(10-{}): ex) '10' : "))
+
+    print("wait for camera connection")
 
     clientSock = socket(AF_INET, SOCK_STREAM)
     #print("connect start")
@@ -156,6 +188,7 @@ while True:
     start_time = TD.initial_time
     
     manual_controller.reset_param(power, duration)
+    print("----------------start_microwave_over--------------")
     
     
     lets_stop = 0
@@ -171,12 +204,13 @@ while True:
             img = np.zeros((24, 24, 3), np.uint8)
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
-            min_tem = TD.run1(Newdata)
+            # min_tem = TD.run1(Newdata)
+            min_tem = TD.run2(Newdata)
             Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
     
     
         except:
-            print("Fail_in_camera")
+            print("Fail_in_camera_Data_control")
     
         try:
             lets_stop = manual_controller.run(start_time)
@@ -196,7 +230,15 @@ while True:
             except:
                 print("some error occured during to finish microwave")
             break
+
     print("try to reset microwave")
-    print("if you want to close program press 'Ctrl + C'")
-    
-    
+    print("if you want to close program enter the (N) ")
+
+    trash = input("did you want run more? : (Y/N)")
+
+    if trash == 'N':
+        os.system("clear")
+        print("turn off program")
+        print("Good bye")
+        break
+
