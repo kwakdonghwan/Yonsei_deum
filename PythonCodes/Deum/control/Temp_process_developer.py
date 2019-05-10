@@ -109,7 +109,10 @@ class Thermal_Data:
     def claculate_temperature_change(self):
         if self.old_times <= 0:
             return
+        
         time_difference = self.times - self.old_times
+        if time_difference == 0:
+            time_difference = 1
         max_temp_difference = self.max_temp - self.old_max_temp
         min_temp_difference = self.min_temp - self.old_min_temp
         average_temp_diffence = self.average_temp - self.old_average_temp
@@ -161,9 +164,9 @@ class Thermal_Data:
 
 
 
-        if self.old_times > 0:
-             str2 = self.times + self.Number_of_real_part + self.max_temp + self.min_temp + self.average_temp + self.max_rise_temp + self.min_rise_temp + self.average_rise_temp
-             self.csv_wirter(str2)
+        #if self.old_times > 0:
+        #     str2 = self.times + self.Number_of_real_part + self.max_temp + self.min_temp + self.average_temp + self.max_rise_temp + self.min_rise_temp + self.average_rise_temp
+        #     self.csv_wirter(str2)
         #     self.wr.writerow([self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
         #                       self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
         self.wr.writerow(str2)
@@ -173,9 +176,9 @@ class Thermal_Data:
 
 
         sem_of_edge += data[0][0] + data[0][1] + data[1][1] + data[1][0]
-        sem_of_edge += data[0][23] + data[0][24] + data[1][23] + data[1][24]
-        sem_of_edge += data[23][0] + data[23][1] + data[24][1] + data[24][0]
-        sem_of_edge += data[23][23] + data[23][24] + data[24][23] + data[24][24]
+        sem_of_edge += data[0][22] + data[0][23] + data[1][22] + data[1][23]
+        sem_of_edge += data[22][0] + data[22][1] + data[23][1] + data[23][0]
+        sem_of_edge += data[22][22] + data[22][23] + data[23][22] + data[23][23]
 
         return sem_of_edge / 16
 
@@ -357,7 +360,7 @@ class Thermal_Data:
         Number_of_real_temp = 0  # it is same with area of food
         middle_temperature_sum = 0
         count_middle = 0
-
+        print("before edge")
         edge_temp = self.edge_temp_claculator(data)
 
         ################################################making real_temp _list
@@ -398,13 +401,13 @@ class Thermal_Data:
                 middle_temperature_sum += data[py][px]
                 count_middle += 1
 
-
+        print("get middle")
     ####################################################################################
     ######################### store data to real ######################################
                 # before store new data, save it to old data
-        self.New_data_to_old_data()
 
-        self.claculate_temperature_change()
+
+       
 
         self.Number_of_real_part = Number_of_real_temp
         self.condition = condition
@@ -418,17 +421,18 @@ class Thermal_Data:
             print("unable to calculate middel termperature")
 
         self.times = time.time() - self.initial_time  # we need a time difference
-
+        self.claculate_temperature_change()
+        self.New_data_to_old_data()    
     ##################################################################################
     ############################# write data to csv_ format
+        print("before instat data")
         out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
                          self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
-        out_put_data.append(all_object_temp)
+        out_put_data.extend(all_object_temp)
+        print("tryto write csv")
         self.csv_wirter(out_put_data)
-
-        out_put_data.clear()
-        all_object_temp.clear()
-        real_object_temp.clear()
+        print("csv_write")
+        
     ###################################################################################
         return refference_temp
 
@@ -602,7 +606,7 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
     cv2.waitKey(1)
     return img
 
-def what_is_fucking_color:
+def what_is_fucking_color():
     checking_img = np.zeros((10,360,3), np.uint8)
     # checking HSV img
 
@@ -617,9 +621,6 @@ def what_is_fucking_color:
     checking_img = cv2.cvtColor(checking_img, cv2.COLOR_HSV2RGB)
     cv2.imshow('fucking_color',checking_img)
     cv2.waitKey(1)
-    ss = input("I hate color")
-
-    cv2.destroyAllWindows()
 
 
 

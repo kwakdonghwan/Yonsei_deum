@@ -23,7 +23,7 @@ class CPP_open(threading.Thread):
         self.stdout = None
         self.stderr = None
         threading.Thread.__init__(self)
-
+        print("camera_threading init")
     # try:
     #     self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
     #     self.cpp_camera.start()
@@ -39,17 +39,18 @@ class CPP_open(threading.Thread):
 
         CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
         operator = "sudo "+ CPP_path + " 0.0625 8888"
-
+        print(operator)
         if not os.path.isfile(CPP_path):
             print("CPP_file_ doesn`t exixt!!!!! did you make it?")
             print("please check:",CPP_path)
 
         try:
 
-            p = subprocess.Popen([operator],
+            self.p = subprocess.Popen([operator],
                                 shell=True,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
+            print("subprocess_start")    
         except:
 
             print("fail to poen CPP_file_ in subprocess level")
@@ -131,8 +132,8 @@ class ManualController:
 
         return False
 
-
-Temp_process.what_is_fucking_color()
+#while True:
+#    Temp_process.what_is_fucking_color()
 
 print("open new terminal key : Ctrl + Shift + T")
 
@@ -145,6 +146,7 @@ print("try to open cpp file automatically")
 try:
     CPPfile = CPP_open()
     CPPfile.start()
+    #CPPfile.run()
 except:
     print("fail to open CPP MLX90640")
 
@@ -158,7 +160,7 @@ port = 8888
 
 while True:
 
-    os.system("clear")
+    #os.system("clear")
 
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
@@ -199,8 +201,10 @@ while True:
             img = np.zeros((24, 24, 3), np.uint8)
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
+            print("datcut complite")
             # min_tem = TD.run1(Newdata)
             min_tem = TD.run3(Newdata)
+            print("run3")
             Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
     
     
@@ -232,7 +236,7 @@ while True:
     trash = input("did you want run more? : (Y/N)")
 
     if trash == 'N':
-        os.system("clear")
+        #os.system("clear")
         print("turn off program")
         print("Good bye")
         break
