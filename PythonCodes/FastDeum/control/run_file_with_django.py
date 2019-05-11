@@ -1,7 +1,7 @@
 #new TD.run2 version
 
-from . import Temp_process_developer as Temp_process
-from .microwave.manual_controller import ManualController
+import Temp_process_developer as Temp_process
+from microwave.manual_controller import ManualController
 # import Temp_process_developer as Temp_process
 from socket import *
 import numpy as np
@@ -74,7 +74,7 @@ while True:
     line = read_status.readline()
     read_status.close()
 
-    split = line.split()
+    split = line.split(" ")
     status = split[0]
 
     if status == "1":

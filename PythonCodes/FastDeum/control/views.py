@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseServerError, StreamingHttpResp
 
 import time #sleep함수를쓰기위해
 
+from django.views.decorators.csrf import csrf_exempt
+
 
 def index(request):
 
@@ -16,6 +18,7 @@ def manual(request):
     return render(request, 'control/manual.html')
 
 
+@csrf_exempt
 def result(request):
     status = open("control/status.txt", "w")
     power = request.POST['power']

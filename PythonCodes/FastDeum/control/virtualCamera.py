@@ -7,6 +7,7 @@ cap = cv2.VideoCapture(0)
 show_flag = False
 cnt = 0
 duration = 0
+
 while True:
     if cnt > duration:
 
@@ -24,15 +25,16 @@ while True:
     line = f.readline()
     f.close()
     status = line.split(" ")[0]
-    duration = int(line.split(" ")[1])
+    duration = int(line.split(" ")[2])
+    print("duration: ", duration)
 
     if status == "1":
         cnt += 1
         print(cnt)
         show_flag = True
+        os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "python" to true' ''')
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         # cv2.startWindowThread()
-        os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "python" to true' ''')
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow("frame", frame)
     else:
