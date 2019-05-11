@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c918136d-a0b9-4593-bd75-aad96a6cd097" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Deum/control/Temp_process_developer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PythonCodes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonCodes.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deum/control/Temp_process2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deum/control/run_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/Deum/control/run_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FastDeum/control/virtualCamera.py" beforeDir="false" afterPath="$PROJECT_DIR$/FastDeum/control/virtualCamera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FastDeum/control/Temp_process_developer.py" beforeDir="false" afterPath="$PROJECT_DIR$/FastDeum/control/Temp_process_developer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,7 +31,7 @@
             <entry file="file://$PROJECT_DIR$/FastDeum/control/microwave/manual_controller.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="532">
-                  <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+                  <caret line="55" selection-start-line="55" selection-end-line="55" />
                   <folding>
                     <element signature="e#0#23#0" expanded="true" />
                   </folding>
@@ -49,8 +42,8 @@
           <file leaf-file-name="run_file_with_django.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/FastDeum/control/run_file_with_django.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="653">
-                  <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+                <state relative-caret-position="352">
+                  <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
                   <folding>
                     <element signature="e#22#74#0" expanded="true" />
                   </folding>
@@ -61,11 +54,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/FastDeum/control/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-                  <folding>
-                    <element signature="e#0#35#0" expanded="true" />
-                  </folding>
+                <state>
+                  <caret column="2" lean-forward="true" selection-start-column="2" selection-end-column="2" />
                 </state>
               </provider>
             </entry>
@@ -99,7 +89,7 @@
             <entry file="file://$PROJECT_DIR$/FastDeum/control/virtualCamera.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="377">
-                  <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+                  <caret line="27" selection-start-line="27" selection-end-line="27" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -110,8 +100,8 @@
           <file leaf-file-name="Temp_process_developer.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/FastDeum/control/Temp_process_developer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+                <state relative-caret-position="981">
+                  <caret line="715" lean-forward="true" selection-start-line="715" selection-end-line="715" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -141,13 +131,15 @@
       <find>absolute_HSV_Control4</find>
       <find>img</find>
       <find>manual_controller</find>
-      <find>imshow</find>
       <find>Thermal</find>
       <find>TD.</find>
       <find>initial_time</find>
       <find>reset_para</find>
       <find>def run</find>
+      <find>run3</find>
       <find>reset_param</find>
+      <find>imshow</find>
+      <find>HSV</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,8 +163,8 @@
         <option value="$PROJECT_DIR$/FastDeum/control/virtualCamera.py" />
         <option value="$PROJECT_DIR$/Deum/control/run_file.py" />
         <option value="$PROJECT_DIR$/FastDeum/control/microwave/manual_controller.py" />
-        <option value="$PROJECT_DIR$/FastDeum/control/Temp_process_developer.py" />
         <option value="$PROJECT_DIR$/FastDeum/control/run_file_with_django.py" />
+        <option value="$PROJECT_DIR$/FastDeum/control/Temp_process_developer.py" />
       </list>
     </option>
   </component>
@@ -474,6 +466,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="29">
           <caret line="182" selection-start-line="182" selection-end-line="182" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -592,6 +587,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="146" column="4" lean-forward="true" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -660,6 +658,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="29">
           <caret line="182" selection-start-line="182" selection-end-line="182" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -703,7 +704,7 @@
     <entry file="file://$PROJECT_DIR$/FastDeum/control/virtualCamera.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -740,23 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FastDeum/control/status.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FastDeum/control/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Deum/control/microwave/manual.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
@@ -767,20 +751,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FastDeum/control/status.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FastDeum/control/microwave/manual_controller.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FastDeum/control/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="2" lean-forward="true" selection-start-column="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FastDeum/control/Temp_process_developer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        <state relative-caret-position="981">
+          <caret line="715" lean-forward="true" selection-start-line="715" selection-end-line="715" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -789,8 +787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FastDeum/control/run_file_with_django.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+        <state relative-caret-position="352">
+          <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
           <folding>
             <element signature="e#22#74#0" expanded="true" />
           </folding>

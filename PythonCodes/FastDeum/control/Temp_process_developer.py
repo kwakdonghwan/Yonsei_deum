@@ -470,12 +470,12 @@ class Thermal_Data:
     ##################################################################################
     ############################# write data to csv_ format
         #print("before instat data")
-        out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
-                         self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
-        out_put_data.extend(all_object_temp)
-        #print("tryto write csv")
-        self.csv_wirter(out_put_data)
-        print("csv_write_one_line")
+        # out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
+        #                  self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
+        # out_put_data.extend(all_object_temp)
+        # #print("tryto write csv")
+        # #self.csv_wirter(out_put_data)
+        # print("csv_write_one_line")
         
     ###################################################################################
         return refference_temp
@@ -714,12 +714,12 @@ def absolute_HSV_Control4(data, min_temp):
                 img[py * 15][px * 15][1] = 0
                 img[py * 15][px * 15][2] = 0
 
-    cv2.imshow('frame', img)
-    try:
-        cv2.moveWindow('frame' , 2, 2)
-    except:
-        print("fail_to move window")
-    cv2.waitKey(1)
+    # cv2.imshow('frame', img)
+    # try:
+    #     cv2.moveWindow('frame' , 2, 2)
+    # except:
+    #     print("fail_to move window")
+    # cv2.waitKey(1)
     return img
 
 
