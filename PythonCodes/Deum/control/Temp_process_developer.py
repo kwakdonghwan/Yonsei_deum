@@ -368,7 +368,7 @@ class Thermal_Data:
         ################################################making real_temp _list
         if min_T > 1.5 * self.room_temperature:
             # more than 40 degree condition
-            refference_temp = (edge_temp + max_T) / 2
+            refference_temp = (2*edge_temp + max_T) / 3
             condition = self.Room_temperature_condition
 
         elif min_T > self.room_temperature:
