@@ -40,6 +40,8 @@ while True:
             cv2.destroyAllWindows()
             cv2.namedWindow("empty")
 
+            cv2.moveWindow("empty", 6000, 6000)
+
             cnt = 0
             duration = 0
             show_flag = False

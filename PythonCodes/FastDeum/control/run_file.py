@@ -1,7 +1,7 @@
 #new TD.run2 version
 
-
-import Temp_process_developer as Temp_process
+from . import Temp_process_developer as Temp_process
+# import Temp_process_developer as Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -156,7 +156,7 @@ ip = '127.0.0.1'
 port = 8888
 
 
-
+max_power = 10
 while True:
 
     os.system("clear")
@@ -164,7 +164,7 @@ while True:
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
     duration = int(input("enter time (s) ex) '15' : "))
-    power = int(input("enter power(10-{}): ex) '10' : "))
+    power = int(input("enter power(0-{}): ex) '10' : ".format(max_power)))
 
     print("wait for camera connection")
 
@@ -200,7 +200,7 @@ while True:
             #img = np.zeros((24, 24, 3), np.uint8)
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
-            print("datcut complite")
+            print("datcut complete")
             # min_tem = TD.run1(Newdata)
             min_tem = TD.run3(Newdata)
             print("run3")
@@ -209,7 +209,7 @@ while True:
     
     
         except:
-            print("Worning! some error occure in thermal_Data_control")
+            print("Warning! some error occur in thermal_Data_control")
     
         try:
             lets_stop = manual_controller.run(start_time)
