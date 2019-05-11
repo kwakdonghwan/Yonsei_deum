@@ -68,7 +68,7 @@ while True:
             check_flag = False
             cv2.destroyAllWindows()
             cv2.waitKey(1)
-            cv2.namedWindow("empty")
+            #cv2.namedWindow("empty")
 
     read_status = open("status.txt", "r")
     line = read_status.readline()
@@ -84,13 +84,15 @@ while True:
             power = int(split[1])
             duration = int(split[2])
             manual_controller.reset_param(power, duration)
+            check_flag = True
             print("----------------restart_microwave_over--------------")
 
-
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "python" to true' ''')
+        #os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "python" to true' ''')
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow("frame", img)
+
+    cv2.waitKey(1)
 
 
 
