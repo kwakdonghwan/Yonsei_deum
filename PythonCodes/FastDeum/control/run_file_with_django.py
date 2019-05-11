@@ -81,8 +81,8 @@ while True:
         if stop_wave:
             # 꺼져있다가 켜짐
             TD.reset_var()
-            power = split[1]
-            duration = split[2]
+            power = int(split[1])
+            duration = int(split[2])
             manual_controller.reset_param(power, duration)
             print("----------------restart_microwave_over--------------")
 
