@@ -185,12 +185,14 @@ while True:
 #initial contion checker
 
     bin_data0 = clientSock.recv(1536)
-    count = int(len(bin_data) / 2)
-    trash_Data = struct.unpack('<' + ('h' * count), bin_data)
+    count = int(len(bin_data0) / 2)
+    trash_Data = struct.unpack('<' + ('h' * count), bin_data0)
 
     bin_data1 = clientSock.recv(1536)
-    count = int(len(bin_data) / 2)
-    inditial_data = struct.unpack('<' + ('h' * count), bin_data)
+    count = int(len(bin_data1) / 2)
+    inditial_data = struct.unpack('<' + ('h' * count), bin_data1)
+    np.asarray(inditial_data)
+    inditial_data = np.reshape(inditial_data, (24, 32))
 
     OPENTHEDOOR = IC8888.run(inditial_data)
     print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
@@ -242,6 +244,7 @@ while True:
             # min_tem = TD.run1(Newdata)
             run_output = TD.run5(Newdata)
             print("run5")
+            TD.absolute_HSV_Control5(Newdata)
             # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
             #Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
     

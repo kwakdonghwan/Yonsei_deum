@@ -69,9 +69,10 @@ class Initial_condition_checker:
                 #    print("x:", px , "y:", py)
                 #
                 ###############################################################################
-                if py == 1 and px == 9:
+                if py == 1 and px == 8:
                     Newdata[py][newpx] = data[py][px - 1]
                 else:
+                    print(data[py][px])
                     Newdata[py][newpx] = data[py][px]
 
                 # if Newdata[py][newpx] == 0:
@@ -122,6 +123,7 @@ class Initial_condition_checker:
 
 
     def run(self,data):
+        print("run_")
         newdata = self.Thermal_data_cut(data)
         self.edge_data = self.edge_temp_claculator(newdata)
 
@@ -822,7 +824,7 @@ class Thermal_Data:
         thickness = 2
         org = (360, 10) # x =360 Y = 10
         font = cv2.FONT_HERSHEY_SIMPLEX
-        fontScale = 1.0
+        fontScale = 0.7
     #print("try to show img")
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
@@ -865,19 +867,19 @@ class Thermal_Data:
         #cv2.putText(img, text_for_display, org, font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
 
         ################# display _data ##############################
-        display_max_temp = "max:" + str(self.max_temp)
-        display_mid_temp = "mid:" + str(self.average_temp)
-        display_min_temp = "min:" + str(self.min_temp)
-        display_average_middle_temp = "A_M:" + str(self.average_middle)
-        display_edge_temp = "edge:" + str(self.edge_temp_claculator(data4))
+        display_max_temp = "max:" + str(self.max_temp/10)
+        display_mid_temp = "mid:" + str(self.average_temp/10)
+        display_min_temp = "min:" + str(self.min_temp/10)
+        display_average_middle_temp = "A_M:" + str(self.average_middle/10)
+        display_edge_temp = "edge:" + str(self.edge_temp_claculator(data4)/10)
         display_logo = "DEUM_yonsei"
 
-        cv2.putText(img, display_max_temp, org, font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (360, 40), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_average_middle_temp, (360, 100), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_edge_temp, (360, 130), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (360, 160), font, fontScale+0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_average_middle_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_edge_temp, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (360, 230), font, fontScale-0.3, (255, 255, 255), thickness, cv2.LINE_AA)
 
 
         #############################################################
