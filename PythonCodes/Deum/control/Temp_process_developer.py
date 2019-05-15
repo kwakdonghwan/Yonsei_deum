@@ -23,15 +23,131 @@ import os
 # the data will display to terminal and save to workingPath/-----.csv
 ###############################
 
+class Initial_condition_checker:
+
+    def __init__(self):
+
+        print("intitial_Checker_setup")
+        self.initial_condition = 0
+
+        self.over_reffernce = 1
+        self.room_condition = 2
+        self.cool_condition = 3
+        self.icy_condtion = 4
+        self.hot_and_cold_condtion = 5
+
+        self.edge_data = 0
+        self.realpart_number = 0
+
+
+    def edge_temp_claculator(self, data):
+        sem_of_edge = 0
+
+
+        sem_of_edge += data[0][0] + data[0][1] + data[1][1] + data[1][0]
+        sem_of_edge += data[0][22] + data[0][23] + data[1][22] + data[1][23]
+        sem_of_edge += data[22][0] + data[22][1] + data[23][1] + data[23][0]
+        sem_of_edge += data[22][22] + data[22][23] + data[23][22] + data[23][23]
+
+        return sem_of_edge / 16
+    def Thermal_data_cut(self, data):
+        # to cut the thermal data set
+        Left_Y = 0
+        Right_Y = 0
+        Left_X = 5
+        Right_X = 3
+
+        Newdata = np.zeros((24, 24), np.int16)  ##need to check
+        # make new data array
+        newpx = 0
+        for py in range(0, 24):
+            newpx = 0
+            for px in range(4, 28):
+
+                ###########################################################################
+                # if data[py][px] == 0:
+                #    print("x:", px , "y:", py)
+                #
+                ###############################################################################
+                if py == 1 and px == 9:
+                    Newdata[py][newpx] = data[py][px - 1]
+                else:
+                    Newdata[py][newpx] = data[py][px]
+
+                # if Newdata[py][newpx] == 0:
+                #     print(newpx, ",", py, "is zero")
+
+                newpx += 1
+
+                # cut data on dish
+
+        return Newdata
+    def data_Condtion_checker(self,data):
+
+        max_T = np.amax(data)
+        min_T = np.amin(data)
+
+        if max_T > self.edge_data * 1.2 and min_T < self.edge_data * 0.8:
+            self.initial_condition = self.hot_and_cold_condtion
+
+        elif max_T > self.edge_data * 1.2:
+            self.initial_condition = self.over_reffernce
+        elif min_T < 700:
+            self.initial_condition = self.cool_condition
+        elif min_T < self.edge_data * 0.8:
+            self.initial_condition = self.icy_condtion
+        else:
+            self.initial_condition = self.room_condition
+    def realpart_finder(self,data):
+        number_of_realpart = 0
+
+        for py in range(data.shape[0]):
+            for px in range(data.shape[1]):
+                if self.initial_condition == self.over_reffernce and data[py][px] > self.edge_data:
+                    number_of_realpart += 1
+                elif self.initial_condition == self.icy_condtion and data[py][px] < 1000:
+                    number_of_realpart += 1
+                elif self.initial_condition == self.cool_condition and data[py][px] < self.edge_data * 0.8:
+                    number_of_realpart += 1
+                elif self.initial_condition == self.hot_and_cold_condtion
+
+                    if data[py][px] > self.edge_data*1.2:
+                        number_of_realpart +=1
+                    elif data[py][px] < self.edge_data * 0.8 :
+                        number_of_realpart += 1
+
+
+
+        return number_of_realpart
+
+
+    def run(self,data):
+        newdata = self.Thermal_data_cut(data)
+        self.edge_data = self.edge_temp_claculator(newdata)
+
+        self.data_Condtion_checker(newdata)
+        self.realpart_number = self.realpart_finder(newdata)
+
+        print("intitial_condition_check_complited")
+
+        return [self.initial_condition, self.realpart_number, self.edge_data]
+
+
+
+
+
 
 class Thermal_Data:
 
     def __init__(self, room_termp):
         self.No_condition = 0
 
-        self.Room_temperature_condition = 1
-        self.refrigeration_termperagrure_condition = 2
-        self.icy_termperagrure_condition = 3
+        self.hot_condtion = 1
+        self.Room_temperature_condition = 2
+        self.refrigeration_termperagrure_condition = 3
+        self.icy_termperagrure_condition = 4
+        self.hot_and_cold_condition = 5
+        self.steam_condition = 6
         self.room_temperature = room_termp
 
         self.condition = self.No_condition
@@ -131,7 +247,7 @@ class Thermal_Data:
         newpx = 0
         for py in range(0, 24):
             newpx = 0
-            for px in range(5, 29):
+            for px in range(4, 28):
 
                 ###########################################################################
                 # if data[py][px] == 0:
@@ -428,7 +544,7 @@ class Thermal_Data:
     ###################################################################################
         return refference_temp
 
-    def run4_assistendt(self,num):
+    def run4_assistant(self,num):
         if num < 100 :
             self.T_below10 += 1
         elif num < 200 :
@@ -499,7 +615,7 @@ class Thermal_Data:
             for px in range(data.shape[1]):
 
                 all_object_temp.append(data[py][px])
-                self.run4_assistendt(data[py][px])
+                self.run4_assistant(data[py][px])
 
                 if condition == self.Room_temperature_condition and data[py][px] > refference_temp:
                     Number_of_real_temp += 1
@@ -553,8 +669,41 @@ class Thermal_Data:
     ###################################################################################
         return refference_temp
 
+    def run5_assistant_condition_check(self,data,edge_temp):
+        max_T = np.amax(data)
+        min_T = np.amin(data)
+
+        refference_temp2 = edge_temp
+
+        if max_T > edge_temp * 1.2 and min_T < edge_temp * 0.8:
+            self.condition = self.hot_and_cold_condition
+            refference_temp1 = (3*edge_temp + max_T) / 4
+            refference_temp2 = edge_temp * 0.8
+
+        elif edge_temp > 750:
+            self.condition = self.steam_condition
+            refference_temp1 = (2*edge_temp + max_T) / 3
+
+        elif max_T > edge_temp * 1.2:
+            self.condition = self.hot_condtion
+            refference_temp1 = (3*edge_temp + max_T) / 4
+
+        elif min_T < 700:
+            self.condition = self.icy_termperagrure_condition
+            refference_temp1 = (3 * edge_temp + min_T) / 4
+
+        elif min_T < edge_temp * 0.8:
+            self.condition = self.refrigeration_termperagrure_condition
+            refference_temp1 = (4 * edge_temp + min_T) / 5
+
+        else:
+            self.condition = self.Room_temperature_condition
+            refference_temp1 = (3 * edge_temp + max_T) / 4
+
+        return [refference_temp1,refference_temp2]
     def run5(self , data):
     #termperaute gradient unit 10 is applised and new analysis
+    # run4_assistant is needed
         real_object_temp = []
         all_object_temp = []
 
@@ -589,40 +738,39 @@ class Thermal_Data:
 
 
         ################################################ condition setting
-        if min_T > 1.5 * self.room_temperature:
-            # more than 40 degree condition
-            refference_temp = (2*edge_temp + max_T) / 3
-            condition = self.Room_temperature_condition
-
-        elif min_T > self.room_temperature:
-            # room temperature condition
-            refference_temp = (4 * average_T + max_T) / 5
-            condition = self.Room_temperature_condition
-        elif 30 <= min_T < self.room_temperature:
-            refference_temp = (3 * average_T + min_T) / 4
-            condition = self.refrigeration_termperagrure_condition
-        else:
-            refference_temp = (2 * average_T + min_T) / 3
-            condition = self.icy_termperagrure_condition
-
-
+        rftp = self.run5_assistant_condition_check(data,edge_temp)
 
         ############################################  real analysis
         for py in range(data.shape[0]):
             for px in range(data.shape[1]):
 
                 all_object_temp.append(data[py][px])
-                self.run4_assistendt(data[py][px])
+                self.run4_assistant(data[py][px])
 
-                if condition == self.Room_temperature_condition and data[py][px] > refference_temp:
+                if self.condition == self.Room_temperature_condition and data[py][px] > rftp[0]:
                     Number_of_real_temp += 1
                     real_object_temp.append(data[py][px])
-                elif condition == self.refrigeration_termperagrure_condition and data[py][px] < refference_temp:
+
+                elif self.condition == self.refrigeration_termperagrure_condition and data[py][px] < rftp[0]:
                     Number_of_real_temp += 1
                     real_object_temp.append(data[py][px])
-                elif condition == self.icy_termperagrure_condition and data[py][px] < refference_temp:
+
+                elif self.condition == self.icy_termperagrure_condition and data[py][px] < rftp[0]:
                     Number_of_real_temp += 1
                     real_object_temp.append(data[py][px])
+                elif self.condition == self.hot_condtion and data[py][px] > rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif self.condition == self.steam_condition and data[py][px] > rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif self.condition == self.hot_and_cold_condition:
+                    if data[py][px] > rftp[0]:
+                        Number_of_real_temp += 1
+                        real_object_temp.append(data[py][px])
+                    elif data[py][px] < rftp[1]:
+                        Number_of_real_temp += 1
+                        real_object_temp.append(data[py][px])
 
 
 
@@ -639,7 +787,6 @@ class Thermal_Data:
 
         number_of_temp_geadient = ["below10:",self.T_below10,"10-20:",self.T_10to20,"20-30:",self.T_20to30,"30-40:",self.T_30to40,"40-50:",self.T_40to50,"50-60:",self.T_50to60,"60-70",self.T_60to70,"70-80",self.T_70to80,"80-90:",self.T_80to90,"90-100",self.T_90to100,"over100",self.T_over100]
         self.Number_of_real_part = Number_of_real_temp
-        self.condition = condition
         self.max_temp = max(real_object_temp)
         self.min_temp = min(real_object_temp)
         self.average_temp = s.mean(real_object_temp)
@@ -664,7 +811,7 @@ class Thermal_Data:
         print("csv_write_one_line")
 
     ###################################################################################
-        return [refference_temp, self.Number_of_real_part]
+        return [rftp[0], self.Number_of_real_part]
 
 
     def absolute_HSV_Control5(self,data4):
@@ -714,7 +861,7 @@ class Thermal_Data:
                 img[py][px][1] = int(value_2)
                 img[py][px][2] = int(value_3)
 
-        max_tmp = np.amax(data4) / 10
+        # max_tmp = np.amax(data4) / 10
 
         #text_for_display = "max_temp: " + str(max_tmp)
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)

@@ -79,6 +79,8 @@ class ManualController:
         GPIO.output(self.magnetron_pin, True)
         GPIO.output(self.fan_pin, True)
 
+        self.refference_time = 10   ## this is roop for magnetron_control
+
 
         # t = int(input("enter time (s): "))
         # power = int(input("enter power(1-{}): ".format(max_power)))
@@ -109,14 +111,15 @@ class ManualController:
 
     def run(self,start_time2):
 
+
         if self.stop_flag:
             return True
 
         current_time = time.time()
         operation_time = current_time - start_time2
         operation_time2 = int(operation_time)
-        operation_range = operation_time2 % 10
-        if operation_range < self.power:
+        operation_range = operation_time2 % self.refference_time
+        if operation_range < self.power * self.refference_time / 10:
             GPIO.output(self.fan_pin, False)
             GPIO.output(self.magnetron_pin, False)
         else:
@@ -175,15 +178,47 @@ while True:
     print("connect success")
     # temperature_controller = maxheat.TemperatureController(70)
 
+    IC8888 = Temp_process.Initial_condition_checker()
+
+
+
+#initial contion checker
+
+    bin_data0 = clientSock.recv(1536)
+    count = int(len(bin_data) / 2)
+    trash_Data = struct.unpack('<' + ('h' * count), bin_data)
+
+    bin_data1 = clientSock.recv(1536)
+    count = int(len(bin_data) / 2)
+    inditial_data = struct.unpack('<' + ('h' * count), bin_data)
+
+    OPENTHEDOOR = IC8888.run(inditial_data)
+    print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
+#
+
+
 
     manual_controller.reset_origin()
     print("reset_the_manual_controller")
 
-    TD = Temp_process.Thermal_Data(255)
+    TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
     print("thermal_data_set_up")
 
     start_time = TD.initial_time
-    
+
+    #######################################################
+        # check this this data stored in OPENTHEDOOR[0]
+        # self.over_reffernce = 1
+        # self.room_condition = 2
+        # self.cool_condition = 3
+        # self.icy_condtion = 4
+        # self.hot_and_cold_condtion = 5
+        # steam condtion will be 6
+
+
+
+
+    #######################################################
     manual_controller.reset_param(power, duration)
     print("----------------start_microwave_over--------------")
     
