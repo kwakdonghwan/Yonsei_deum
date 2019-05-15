@@ -195,18 +195,20 @@ while True:
         count = int(len(bin_data) / 2)
         short_arr = struct.unpack('<' + ('h' * count), bin_data)
         np.asarray(short_arr)
+
+        realzon_flag = 0
     
         try:
             short_arr = np.reshape(short_arr, (24, 32))
             #img = np.zeros((24, 24, 3), np.uint8)
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
-            print("datcut complite")
+            #print("datcut complite")
             # min_tem = TD.run1(Newdata)
-            min_tem = TD.run3(Newdata)
-            print("run3")
+            run_output = TD.run5(Newdata)
+            print("run5")
             # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-            Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
+            #Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
     
     
         except:

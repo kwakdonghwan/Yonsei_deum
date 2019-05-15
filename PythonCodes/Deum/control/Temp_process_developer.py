@@ -80,7 +80,6 @@ class Thermal_Data:
              'average_rise_temp','middle_temp','middle_rise_temp'])
 
         self.wr.writerow(basic_info)
-
     def __del__(self):
 
 
@@ -90,7 +89,6 @@ class Thermal_Data:
             cv2.destroyAllWindows()
         except:
             print("faile to close data")
-
     def New_data_to_old_data(self):
 
         self.old_condition = self.condition
@@ -105,7 +103,6 @@ class Thermal_Data:
         self.old_average_rise_temp = self.average_rise_temp
         self.old_average_middle = self.average_middle
         self.old_average_rise_middle = self.average_rise_middle
-
     def claculate_temperature_change(self):
         if self.old_times <= 0:
             return
@@ -122,7 +119,6 @@ class Thermal_Data:
         self.min_rise_temp = min_temp_difference / time_difference
         self.average_rise_temp = average_temp_diffence / time_difference
         self.average_rise_middle = average_middle_diffence / time_difference
-
     def Thermal_data_cut(self, data):
         # to cut the thermal data set
         Left_Y = 0
@@ -155,11 +151,9 @@ class Thermal_Data:
                 # cut data on dish
 
         return Newdata
-
     def csv_write_add(self, str1):
         self.wr.writerow([str1])
         print("write '" + str1 + "' on CSV file")
-
     def csv_wirter(self, str2):
 
 
@@ -170,7 +164,6 @@ class Thermal_Data:
         #     self.wr.writerow([self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
         #                       self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
         self.wr.writerow(str2)
-
     def edge_temp_claculator(self, data):
         sem_of_edge = 0
 
@@ -181,7 +174,6 @@ class Thermal_Data:
         sem_of_edge += data[22][22] + data[22][23] + data[23][22] + data[23][23]
 
         return sem_of_edge / 16
-
 
 
     def run1(self, data):
@@ -259,7 +251,6 @@ class Thermal_Data:
         #     self.wr.writerow([self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
         #                       self.max_rise_temp, self.min_rise_temp, self.average_rise_temp])
         return refference_temp
-
     def run2(self, data):
 
                 #write mideel temp to csv file
@@ -345,7 +336,6 @@ class Thermal_Data:
         
     ###################################################################################
         return refference_temp
-
     def run3(self , data):
 
                 #write mideel temp to csv file
@@ -438,6 +428,336 @@ class Thermal_Data:
     ###################################################################################
         return refference_temp
 
+    def run4_assistendt(self,num):
+        if num < 100 :
+            self.T_below10 += 1
+        elif num < 200 :
+            self.T_10to20 += 1
+        elif num < 300 :
+            self.T_20to30 += 1
+        elif num < 400 :
+            self.T_30to40 += 1
+        elif num < 500 :
+            self.T_40to50 += 1
+        elif num < 600 :
+            self.T_50to60 += 1
+        elif num < 700 :
+            self.T_60to70 += 1
+        elif num < 800 :
+            self.T_70to80 += 1
+        elif num < 900 :
+            self.T_80to90 += 1
+        elif num < 1000 :
+            self.T_90to100 += 1
+        else:
+            self.T_over100 += 1
+    def run4(self , data):
+    #termperaute gradient unit 10 is applised
+        real_object_temp = []
+        all_object_temp = []
+
+        max_T = np.amax(data)
+        min_T = np.amin(data)
+        average_T = np.average(data)
+
+        self.T_below10 = 0
+        self.T_10to20 = 0
+        self.T_20to30 = 0
+        self.T_30to40 = 0
+        self.T_40to50 = 0
+        self.T_50to60 = 0
+        self.T_60to70 = 0
+        self.T_70to80 = 0
+        self.T_80to90 = 0
+        self.T_90to100 = 0
+        self.T_over100 = 0
+
+        Number_of_real_temp = 0  # it is same with area of food
+        middle_temperature_sum = 0
+        count_middle = 0
+        #print("before edge")
+        edge_temp = self.edge_temp_claculator(data)
+
+        ################################################making real_temp _list
+        if min_T > 1.5 * self.room_temperature:
+            # more than 40 degree condition
+            refference_temp = (2*edge_temp + max_T) / 3
+            condition = self.Room_temperature_condition
+
+        elif min_T > self.room_temperature:
+            # room temperature condition
+            refference_temp = (4 * average_T + max_T) / 5
+            condition = self.Room_temperature_condition
+        elif 30 <= min_T < self.room_temperature:
+            refference_temp = (3 * average_T + min_T) / 4
+            condition = self.refrigeration_termperagrure_condition
+        else:
+            refference_temp = (2 * average_T + min_T) / 3
+            condition = self.icy_termperagrure_condition
+
+        for py in range(data.shape[0]):
+            for px in range(data.shape[1]):
+
+                all_object_temp.append(data[py][px])
+                self.run4_assistendt(data[py][px])
+
+                if condition == self.Room_temperature_condition and data[py][px] > refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif condition == self.refrigeration_termperagrure_condition and data[py][px] < refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif condition == self.icy_termperagrure_condition and data[py][px] < refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+
+    #################################### middle temperature collector #################
+        for py in range (10,14):
+            for px in range (10,14):
+                middle_temperature_sum += data[py][px]
+                count_middle += 1
+
+        #print("get middle")
+    ####################################################################################
+    ######################### store data to real ######################################
+                # before store new data, save it to old data
+
+
+
+        number_of_temp_geadient = ["below10:",self.T_below10,"10-20:",self.T_10to20,"20-30:",self.T_20to30,"30-40:",self.T_30to40,"40-50:",self.T_40to50,"50-60:",self.T_50to60,"60-70",self.T_60to70,"70-80",self.T_70to80,"80-90:",self.T_80to90,"90-100",self.T_90to100,"over100",self.T_over100]
+        self.Number_of_real_part = Number_of_real_temp
+        self.condition = condition
+        self.max_temp = max(real_object_temp)
+        self.min_temp = min(real_object_temp)
+        self.average_temp = s.mean(real_object_temp)
+
+        try:
+            self.average_middle = middle_temperature_sum / count_middle
+        except:
+            print("unable to calculate middel termperature")
+
+        self.times = time.time() - self.initial_time  # we need a time difference
+        self.claculate_temperature_change()
+        self.New_data_to_old_data()
+    ##################################################################################
+    ############################# write data to csv_ format
+        #print("before instat data")
+        out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
+                         self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
+        out_put_data.extend(number_of_temp_geadient)
+        out_put_data.extend(all_object_temp)
+        #print("tryto write csv")
+        self.csv_wirter(out_put_data)
+        print("csv_write_one_line")
+
+    ###################################################################################
+        return refference_temp
+
+    def run5(self , data):
+    #termperaute gradient unit 10 is applised and new analysis
+        real_object_temp = []
+        all_object_temp = []
+
+        max_T = np.amax(data)
+        min_T = np.amin(data)
+        average_T = np.average(data)
+
+        self.T_below10 = 0
+        self.T_10to20 = 0
+        self.T_20to30 = 0
+        self.T_30to40 = 0
+        self.T_40to50 = 0
+        self.T_50to60 = 0
+        self.T_60to70 = 0
+        self.T_70to80 = 0
+        self.T_80to90 = 0
+        self.T_90to100 = 0
+        self.T_over100 = 0
+
+        Number_of_real_temp = 0  # it is same with area of food
+        middle_temperature_sum = 0
+        count_middle = 0
+        #print("before edge")
+        edge_temp = self.edge_temp_claculator(data)
+        #############################################analysis condition
+        analysis_condition_flag = 0
+
+        max_higher_edeg_1_2_and_min_loewr_edge_0_85 = 1
+        max_higeer_edeg_1_2 = 2
+        min_lower_edge_0_85 = 3
+
+
+
+        ################################################ condition setting
+        if min_T > 1.5 * self.room_temperature:
+            # more than 40 degree condition
+            refference_temp = (2*edge_temp + max_T) / 3
+            condition = self.Room_temperature_condition
+
+        elif min_T > self.room_temperature:
+            # room temperature condition
+            refference_temp = (4 * average_T + max_T) / 5
+            condition = self.Room_temperature_condition
+        elif 30 <= min_T < self.room_temperature:
+            refference_temp = (3 * average_T + min_T) / 4
+            condition = self.refrigeration_termperagrure_condition
+        else:
+            refference_temp = (2 * average_T + min_T) / 3
+            condition = self.icy_termperagrure_condition
+
+
+
+        ############################################  real analysis
+        for py in range(data.shape[0]):
+            for px in range(data.shape[1]):
+
+                all_object_temp.append(data[py][px])
+                self.run4_assistendt(data[py][px])
+
+                if condition == self.Room_temperature_condition and data[py][px] > refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif condition == self.refrigeration_termperagrure_condition and data[py][px] < refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif condition == self.icy_termperagrure_condition and data[py][px] < refference_temp:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+
+
+
+    #################################### middle temperature collector #################
+        for py in range (10,14):
+            for px in range (10,14):
+                middle_temperature_sum += data[py][px]
+                count_middle += 1
+
+        #print("get middle")
+    ####################################################################################
+    ######################### store data to real ######################################
+                # before store new data, save it to old data
+
+        number_of_temp_geadient = ["below10:",self.T_below10,"10-20:",self.T_10to20,"20-30:",self.T_20to30,"30-40:",self.T_30to40,"40-50:",self.T_40to50,"50-60:",self.T_50to60,"60-70",self.T_60to70,"70-80",self.T_70to80,"80-90:",self.T_80to90,"90-100",self.T_90to100,"over100",self.T_over100]
+        self.Number_of_real_part = Number_of_real_temp
+        self.condition = condition
+        self.max_temp = max(real_object_temp)
+        self.min_temp = min(real_object_temp)
+        self.average_temp = s.mean(real_object_temp)
+
+        try:
+            self.average_middle = middle_temperature_sum / count_middle
+        except:
+            print("unable to calculate middel termperature")
+
+        self.times = time.time() - self.initial_time  # we need a time difference
+        self.claculate_temperature_change()
+        self.New_data_to_old_data()
+    ##################################################################################
+    ############################# write data to csv_ format
+        #print("before instat data")
+        out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
+                         self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
+        out_put_data.extend(number_of_temp_geadient)
+        out_put_data.extend(all_object_temp)
+        #print("tryto write csv")
+        self.csv_wirter(out_put_data)
+        print("csv_write_one_line")
+
+    ###################################################################################
+        return [refference_temp, self.Number_of_real_part]
+
+
+    def absolute_HSV_Control5(self,data4):
+# cution!!! input data type is changed in this fucntion!!!!
+# regardless of size of input data, it will automatically make img
+
+# img range in hsv => 1 = blue / red >> 360 * 2.5 / 7    ==> 127
+# color of img has been mdifyed
+
+
+        img = np.zeros((24, 32, 3), np.uint8)
+        thickness = 2
+        org = (360, 10) # x =360 Y = 10
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        fontScale = 1.0
+    #print("try to show img")
+        for py in range(data4.shape[0]):
+            for px in range(data4.shape[1]):
+                value_2 = 255
+                value_3 = 255
+                if 3000 >= data4[py][px] > 1200:  # 2000 = 200C  max = 300
+                    value_1 = 1
+                    value_2 = 255 - ((data4[py][px] - 1200) * 254 / 1000)  ## 0 = white
+                elif data4[py][px] > 1000:
+                    value_1 = 5 - ((data4[py][px] - 1000) * 4 / 200)
+                elif data4[py][px] > 700:
+                    value_1 = 15 - ((data4[py][px] - 700) * 10 / 300)
+                elif data4[py][px] > 600:
+                    value_1 = 30 - ((data4[py][px] - 600) * 15 / 100)
+                elif data4[py][px] > 500:
+                    value_1 = 45 - ((data4[py][px] - 500) * 15 / 100)
+                elif data4[py][px] > 400:
+                    value_1 = 60 - ((data4[py][px] - 400) * 15 / 100)
+                elif data4[py][px] > 300:
+                    value_1 = 75 - ((data4[py][px] - 300) * 15 / 100)
+                elif data4[py][px] > 200:
+                    value_1 = 90 - ((data4[py][px] - 200) * 15 / 100)
+                elif data4[py][px] > 150:
+                    value_1 = 105 - ((data4[py][px] - 150) * 15 / 50)
+                elif data4[py][px] > -100:
+                    value_1 = 115 - ((data4[py][px] + 100) * 10 / 250)
+                elif data4[py][px] >= -300:
+                    value_1 = 120
+                    value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
+
+                img[py][px][0] = 125 - int(value_1)  # 0~120
+                img[py][px][1] = int(value_2)
+                img[py][px][2] = int(value_3)
+
+        max_tmp = np.amax(data4) / 10
+
+        #text_for_display = "max_temp: " + str(max_tmp)
+        img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+        img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
+        #cv2.putText(img, text_for_display, org, font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+
+        ################# display _data ##############################
+        display_max_temp = "max:" + str(self.max_temp)
+        display_mid_temp = "mid:" + str(self.average_temp)
+        display_min_temp = "min:" + str(self.min_temp)
+        display_average_middle_temp = "A_M:" + str(self.average_middle)
+        display_edge_temp = "edge:" + str(self.edge_temp_claculator(data4))
+        display_logo = "DEUM_yonsei"
+
+        cv2.putText(img, display_max_temp, org, font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (360, 40), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_average_middle_temp, (360, 100), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_edge_temp, (360, 130), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (360, 160), font, fontScale+0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+
+
+        #############################################################
+
+        for py in range(24):
+            for px in range(24):
+                if int(self.min_temp) - 10 <= data4[py][px] <= int(self.min_temp) + 10:
+                    img[py * 15][px * 15][0] = 255
+                    img[py * 15][px * 15][1] = 255
+                    img[py * 15][px * 15][2] = 255
+                if int(self.min_temp) <= data4[py][px] :
+                    img[py * 15][px * 15][0] = 0
+                    img[py * 15][px * 15][1] = 0
+                    img[py * 15][px * 15][2] = 0
+
+        cv2.imshow('frame', img)
+        try:
+            cv2.moveWindow('frame' , 2, 2)
+        except:
+            print("fail_to move window")
+        cv2.waitKey(1)
+        return img
+
 
 def absolute_HSV_Control2(data, img):
     ##this is for uncuted img
@@ -488,8 +808,6 @@ def absolute_HSV_Control2(data, img):
     # cv2.imshow('frame', img)
     # cv2.waitKey(1)
     return img
-
-
 def absolute_HSV_Control2_cut(data, img):
     ##this is for cuted img
 
@@ -540,7 +858,6 @@ def absolute_HSV_Control2_cut(data, img):
     cv2.imshow('frame', img)
     cv2.waitKey(1)
     return img
-
 def absolute_HSV_Control3_cut(data, img, min_temp):
     ##this is for cuted img
     # display the min_temperature of data in img
@@ -607,7 +924,6 @@ def absolute_HSV_Control3_cut(data, img, min_temp):
         print("fail_to move window")
     cv2.waitKey(1)
     return img
-
 def absolute_HSV_Control4(data, min_temp):
 # cution!!! input data type is changed in this fucntion!!!!
 # regardless of size of input data, it will automatically make img
@@ -679,8 +995,6 @@ def absolute_HSV_Control4(data, min_temp):
         print("fail_to move window")
     cv2.waitKey(1)
     return img
-
-
 def what_is_fucking_color():
     checking_img = np.zeros((10,360,3), np.uint8)
     # checking HSV img
