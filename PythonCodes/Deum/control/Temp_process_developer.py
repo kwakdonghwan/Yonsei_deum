@@ -802,8 +802,9 @@ class Thermal_Data:
         #print("before instat data")
         out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
                          self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
-        out_put_data.extend(number_of_temp_geadient)
         out_put_data.extend(all_object_temp)
+        out_put_data.extend(number_of_temp_geadient)
+        
         #print("tryto write csv")
         self.csv_wirter(out_put_data)
         print("csv_write_one_line")
