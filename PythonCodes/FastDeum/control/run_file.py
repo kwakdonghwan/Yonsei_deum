@@ -1,7 +1,7 @@
 #new TD.run2 version
 
-
-import Temp_process_developer as Temp_process
+from . import Temp_process_developer as Temp_process
+# import Temp_process_developer as Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 from socket import *
@@ -79,8 +79,6 @@ class ManualController:
         GPIO.output(self.magnetron_pin, True)
         GPIO.output(self.fan_pin, True)
 
-        self.refference_time = 10   ## this is roop for magnetron_control
-
 
         # t = int(input("enter time (s): "))
         # power = int(input("enter power(1-{}): ".format(max_power)))
@@ -111,15 +109,14 @@ class ManualController:
 
     def run(self,start_time2):
 
-
         if self.stop_flag:
             return True
 
         current_time = time.time()
         operation_time = current_time - start_time2
         operation_time2 = int(operation_time)
-        operation_range = operation_time2 % self.refference_time
-        if operation_range < self.power * self.refference_time / 10:
+        operation_range = operation_time2 % 10
+        if operation_range < self.power:
             GPIO.output(self.fan_pin, False)
             GPIO.output(self.magnetron_pin, False)
         else:
@@ -159,7 +156,7 @@ ip = '127.0.0.1'
 port = 8888
 
 
-
+max_power = 10
 while True:
 
     os.system("clear")
@@ -167,7 +164,7 @@ while True:
     print("input_your_time(min is 1s) and power(max is 10)")
     print("only 'int' type will be accepted")
     duration = int(input("enter time (s) ex) '15' : "))
-    power = int(input("enter power(10-{}): ex) '10' : "))
+    power = int(input("enter power(0-{}): ex) '10' : ".format(max_power)))
 
     print("wait for camera connection")
 
@@ -177,49 +174,15 @@ while True:
     print("connect success")
     # temperature_controller = maxheat.TemperatureController(70)
 
-    IC8888 = Temp_process.Initial_condition_checker()
-
-
-
-#initial contion checker
-
-    bin_data0 = clientSock.recv(1536)
-    count = int(len(bin_data0) / 2)
-    trash_Data = struct.unpack('<' + ('h' * count), bin_data0)
-
-    bin_data1 = clientSock.recv(1536)
-    count = int(len(bin_data1) / 2)
-    inditial_data = struct.unpack('<' + ('h' * count), bin_data1)
-    np.asarray(inditial_data)
-    inditial_data = np.reshape(inditial_data, (24, 32))
-
-    OPENTHEDOOR = IC8888.run(inditial_data)
-    print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
-#
-
-
 
     manual_controller.reset_origin()
     print("reset_the_manual_controller")
 
-    TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
+    TD = Temp_process.Thermal_Data(255)
     print("thermal_data_set_up")
 
     start_time = TD.initial_time
-
-    #######################################################
-        # check this this data stored in OPENTHEDOOR[0]
-        # self.over_reffernce = 1
-        # self.room_condition = 2
-        # self.cool_condition = 3
-        # self.icy_condtion = 4
-        # self.hot_and_cold_condtion = 5
-        # steam condtion will be 6
-
-
-
-
-    #######################################################
+    
     manual_controller.reset_param(power, duration)
     print("----------------start_microwave_over--------------")
     
@@ -231,25 +194,22 @@ while True:
         count = int(len(bin_data) / 2)
         short_arr = struct.unpack('<' + ('h' * count), bin_data)
         np.asarray(short_arr)
-
-        realzon_flag = 0
     
         try:
             short_arr = np.reshape(short_arr, (24, 32))
             #img = np.zeros((24, 24, 3), np.uint8)
             Newdata = np.zeros((24,24),np.int16)
             Newdata = TD.Thermal_data_cut(short_arr)
-            #print("datcut complite")
+            print("datcut complete")
             # min_tem = TD.run1(Newdata)
-            run_output = TD.run5(Newdata)
-            print("run5")
-            TD.absolute_HSV_Control5(Newdata)
+            min_tem = TD.run3(Newdata)
+            print("run3")
             # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-            #Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
+            Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
     
     
         except:
-            print("Worning! some error occure in thermal_Data_control")
+            print("Warning! some error occur in thermal_Data_control")
     
         try:
             lets_stop = manual_controller.run(start_time)
