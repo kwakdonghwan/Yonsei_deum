@@ -109,7 +109,7 @@ class Initial_condition_checker:
                     number_of_realpart += 1
                 elif self.initial_condition == self.cool_condition and data[py][px] < self.edge_data * 0.8:
                     number_of_realpart += 1
-                elif self.initial_condition == self.hot_and_cold_condtion
+                elif self.initial_condition == self.hot_and_cold_condtion:
 
                     if data[py][px] > self.edge_data*1.2:
                         number_of_realpart +=1
@@ -131,10 +131,6 @@ class Initial_condition_checker:
         print("intitial_condition_check_complited")
 
         return [self.initial_condition, self.realpart_number, self.edge_data]
-
-
-
-
 
 
 class Thermal_Data:
