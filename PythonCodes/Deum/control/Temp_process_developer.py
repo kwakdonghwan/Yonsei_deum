@@ -690,9 +690,9 @@ class Thermal_Data:
             self.condition = self.icy_termperagrure_condition
             refference_temp1 = (3 * edge_temp + min_T) / 4
 
-        elif min_T < edge_temp * 0.8:
+        elif min_T < edge_temp * 0.85:
             self.condition = self.refrigeration_termperagrure_condition
-            refference_temp1 = (4 * edge_temp + min_T) / 5
+            refference_temp1 = (2 * edge_temp + min_T) / 3
 
         else:
             self.condition = self.Room_temperature_condition
