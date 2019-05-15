@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<body>
+
+</body>
+
+
+<script>
+    setInterval(checkStatus, 100);
+    function checkStatus()
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "http://localhost:8000/control/status", false ); // false for synchronous request
+        xmlHttp.send( null );
+        // return xmlHttp.responseText;
+        var status = xmlHttp.responseText;
+
+        if(status=="0") window.history.back();
+
+        
+    }
+
+
+</script>
+</html>

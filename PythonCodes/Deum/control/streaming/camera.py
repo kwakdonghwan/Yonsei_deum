@@ -1,5 +1,5 @@
 from ..microwave import Temp_process
-
+import time
 import threading
 import cv2
 from socket import *
@@ -13,11 +13,10 @@ class VideoCamera(object):
     def __init__(self):
         # self.video = cv2.VideoCapture(0)
 
-        
         self.cpp_camera = threading.Thread(target=self.camera_CPP, args=())
         self.cpp_camera.start()
 
-        sleep(3)
+        time.sleep(3)
 
         (self.grabbed, self.frame) = self.get_image()
         self.thread = threading.Thread(target=self.update, args=())
@@ -29,6 +28,7 @@ class VideoCamera(object):
 
     # def __del__(self):
     #     self.video.release()
+
     def camera_CPP(self):
         CPP_path = "/home/pi/Yonsei_deum/camera_MLX90640/MLX90640"
         operator = "sudo "+ CPP_path + " 0.0625 8880"
@@ -50,7 +50,6 @@ class VideoCamera(object):
         del self.TD
         print("record finish")
 
-
     def init_socket(self, ip, port):
         clientSock = socket(AF_INET, SOCK_STREAM)
         print("connect start")
@@ -65,6 +64,7 @@ class VideoCamera(object):
 
     def update(self):
         while True:
+
             try:
                 (self.grabbed, self.frame) = self.get_image()
             except:
@@ -79,6 +79,7 @@ class VideoCamera(object):
 
         try:
             short_arr = np.reshape(short_arr, (24, 32))
+
             cut_data = np.zeros((24, 24), np.int8)
             cut_data = self.TD.Thermal_data_cut(short_arr)
             img = np.zeros((24, 24, 3), np.uint8)   ##img will be cutted
@@ -140,6 +141,7 @@ class VideoCamera(object):
         current_max = max_tmp
         text_for_display = "max_temp: " + str(max_tmp) + "  [deum_Yonsei]"
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+
         img = cv2.resize(img, None, fx=20, fy=15, interpolation=cv2.INTER_CUBIC)
         cv2.putText(img, text_for_display, org, font , fontScale , (255,255,255) , thickness , cv2.LINE_AA)
         # cv2.imshow('frame', img)
@@ -148,4 +150,6 @@ class VideoCamera(object):
 
 
     def realse(self):
-        threading.Thread(target=self.update, args=()).
+        pass
+        # threading.Thread(target=self.update, args=()).
+

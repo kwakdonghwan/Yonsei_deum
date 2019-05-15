@@ -8,6 +8,7 @@ import struct
 import cv2
 import threading
 
+from .microwave import maxheat
 
 from .microwave import manual
 from .microwave import Temp_process
@@ -26,10 +27,8 @@ port = 8880
 cam = camera.VideoCamera()
 cam.init_socket(ip, port)
 
-
 manual_controller = manual.ManualController()
 current_max = 0
-
 
 stop_thread = True
 
@@ -41,6 +40,7 @@ def gen(camera):
         frame = cam.get_frame()
         # temperature_controller.run(current_max)
         manual_controller.run()
+
 
         if manual_controller.stop_flag == True:
             try:
@@ -90,6 +90,8 @@ def manual(request):
 
 
 
+    global stop_thread
+    stop_thread = True
     try:
         return StreamingHttpResponse(gen(camera.VideoCamera()),
                                      content_type="multipart/x-mixed-replace;boundary=frame")
