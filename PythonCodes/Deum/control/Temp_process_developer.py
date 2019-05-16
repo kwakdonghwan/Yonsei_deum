@@ -826,6 +826,13 @@ class Thermal_Data:
     def run6_get_intitial_temp(self,temp):
         self.seven_sec_intital = temp
 
+    def run6_senven_sec_controler(self):
+
+        if (self.times-self.initial_time) > 7 and self.seven_sec_flag == 0 :
+            self.seven_sec_flag = 1
+            seven_sec_rise = self.max_temp - self.seven_sec_intital
+            self.seven_sec_change = (seven_sec_rise/(self.times-self.initial_time))
+
     def run6(self , data):
     # this fucntion is add 7 sec data. and will show out data.
         real_object_temp = []
@@ -925,10 +932,7 @@ class Thermal_Data:
         self.New_data_to_old_data()
     ###################################################################################
     #########################configure 7sec data $$$$$$$$$$$$$$$$$$$$$$$$run 6
-        if (self.times-self.initial_time) > 7 and self.seven_sec_flag == 0 :
-            self.seven_sec_flag = 1
-            seven_sec_rise = self.max_temp - self.seven_sec_intital
-            self.seven_sec_change = (seven_sec_rise/(self.times-self.initial_time))
+        self.run6_senven_sec_controler()
 
 
     ##################################################################################

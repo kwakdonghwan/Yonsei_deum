@@ -1,6 +1,6 @@
 #new TD.run2 version
 
-
+import auto_contorol as auto_control
 import Temp_process_developer as Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
@@ -155,6 +155,11 @@ except:
 manual_controller = ManualController()
 print("micro wave controller setup")
 
+auto_controler = auto_control.auto_contoroler()
+
+
+
+
 ip = '127.0.0.1'
 port = 8888
 
@@ -201,6 +206,8 @@ while True:
 
     manual_controller.reset_origin()
     print("reset_the_manual_controller")
+
+
 
     TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
     print("thermal_data_set_up")
