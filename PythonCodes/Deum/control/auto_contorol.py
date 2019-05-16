@@ -2,8 +2,6 @@ import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 
 
-
-
 class auto_contoroler:
     def __init__(self):
 
@@ -153,3 +151,16 @@ class auto_contoroler:
             self.run_only_fan()
         else
             self.run_all()
+    def TYPE_B_contorol(self):  #####need to make more
+
+        TYPE_B_refference_1 = 400
+
+    def TYPE_C_contorol(self):  #####need to make more
+
+        TYPE_C_refference_1 = 400
+
+
+    def TYPE_NO_contorol(self):  #####need to make more
+
+        TYPE_NO_refference_1 = 400
+        self.run_all()
