@@ -143,14 +143,14 @@ print("camera operation using terminal")
 print("sudo /home/pi/Yonsei_deum/camera_MLX90640/MLX90640 0.0625 8888")
 print("or in camera_path")
 print("sudo ./MLX90640 0.0625 8888")
-
-print("try to open cpp file automatically")
-try:
-    CPPfile = CPP_open()
-    CPPfile.start()
-    #CPPfile.run()
-except:
-    print("fail to open CPP MLX90640")
+#
+# print("try to open cpp file automatically")
+# try:
+#     CPPfile = CPP_open()
+#     CPPfile.start()
+#     #CPPfile.run()
+# except:
+#     print("fail to open CPP MLX90640")
 
 manual_controller = ManualController()
 print("micro wave controller setup")
@@ -230,10 +230,10 @@ while True:
     #######################################################
     manual_controller.reset_param(power, duration)
     print("----------------start_microwave_over--------------")
-    
-    
+
+
     lets_stop = 0
-    
+
     while True:
         bin_data = clientSock.recv(1536)
         count = int(len(bin_data) / 2)
@@ -241,7 +241,7 @@ while True:
         np.asarray(short_arr)
 
         realzon_flag = 0
-    
+
         try:
             short_arr = np.reshape(short_arr, (24, 32))
             #img = np.zeros((24, 24, 3), np.uint8)
@@ -254,18 +254,18 @@ while True:
             TD.absolute_HSV_Control5(Newdata)
             # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
             #Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
-    
-    
+
+
         except:
             print("Worning! some error occure in thermal_Data_control")
-    
+
         try:
             lets_stop = manual_controller.run(start_time)
-    
+
         except:
             print("Fail_in_manual_controller")
-    
-    
+
+
         if lets_stop:
             try:
                 cv2.destroyAllWindows() #delete class
@@ -282,7 +282,7 @@ while True:
 
                 TD.csv_wirter(infomation)
                 del TD
-                
+
             except:
                 print("some error occured during to finish microwave")
             break
