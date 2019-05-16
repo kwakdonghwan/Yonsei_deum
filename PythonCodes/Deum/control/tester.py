@@ -146,6 +146,7 @@ def auto_run():
         start_time = TD.initial_time
 
         #######################################################
+        auto_controler.run_all()
         print("----------------start_microwave_over--------------")
 
         lets_stop = 0
