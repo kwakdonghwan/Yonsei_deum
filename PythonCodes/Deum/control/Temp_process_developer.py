@@ -38,6 +38,7 @@ class Initial_condition_checker:
 
         self.edge_data = 0
         self.realpart_number = 0
+        self.origin_temp = 0
 
 
     def edge_temp_claculator(self, data):
@@ -72,7 +73,7 @@ class Initial_condition_checker:
                 if py == 1 and px == 8:
                     Newdata[py][newpx] = data[py][px - 1]
                 else:
-                    print(data[py][px])
+                    #print(data[py][px])
                     Newdata[py][newpx] = data[py][px]
 
                 # if Newdata[py][newpx] == 0:
@@ -94,30 +95,36 @@ class Initial_condition_checker:
         elif max_T > self.edge_data * 1.2:
             self.initial_condition = self.over_reffernce
         elif min_T < 700:
-            self.initial_condition = self.cool_condition
-        elif min_T < self.edge_data * 0.8:
             self.initial_condition = self.icy_condtion
+        elif min_T < self.edge_data * 0.7:
+            self.initial_condition = self.cool_condition
         else:
             self.initial_condition = self.room_condition
     def realpart_finder(self,data):
         number_of_realpart = 0
+        real_object_temp = []
 
         for py in range(data.shape[0]):
             for px in range(data.shape[1]):
                 if self.initial_condition == self.over_reffernce and data[py][px] > self.edge_data:
                     number_of_realpart += 1
+                    real_object_temp.append(data[py][px])
                 elif self.initial_condition == self.icy_condtion and data[py][px] < 1000:
                     number_of_realpart += 1
-                elif self.initial_condition == self.cool_condition and data[py][px] < self.edge_data * 0.8:
+                    real_object_temp.append(data[py][px])
+                elif self.initial_condition == self.cool_condition and data[py][px] < self.edge_data * 0.7:
                     number_of_realpart += 1
+                    real_object_temp.append(data[py][px])
                 elif self.initial_condition == self.hot_and_cold_condtion:
 
                     if data[py][px] > self.edge_data*1.2:
                         number_of_realpart +=1
+                        real_object_temp.append(data[py][px])
                     elif data[py][px] < self.edge_data * 0.8 :
                         number_of_realpart += 1
+                        real_object_temp.append(data[py][px])
 
-
+        self.origin_temp = s.mean(real_object_temp)
 
         return number_of_realpart
 
@@ -172,6 +179,13 @@ class Thermal_Data:
         self.average_rise_temp = 0
         self.average_middle = 0
         self.average_rise_middle = 0
+
+
+
+        self.seven_sec_flag = 0    ##use for run6
+        self.seven_sec_change = 0  ##use for run6
+
+
 
         self.initial_time = time.time()
         # current_path = os.getcwd()
@@ -288,7 +302,6 @@ class Thermal_Data:
         sem_of_edge += data[22][22] + data[22][23] + data[23][22] + data[23][23]
 
         return sem_of_edge / 16
-
 
     def run1(self, data):
         # using statical condition.
@@ -541,7 +554,6 @@ class Thermal_Data:
         
     ###################################################################################
         return refference_temp
-
     def run4_assistant(self,num):
         if num < 100 :
             self.T_below10 += 1
@@ -666,7 +678,6 @@ class Thermal_Data:
 
     ###################################################################################
         return refference_temp
-
     def run5_assistant_condition_check(self,data,edge_temp):
         max_T = np.amax(data)
         min_T = np.amin(data)
@@ -812,6 +823,131 @@ class Thermal_Data:
     ###################################################################################
         return [rftp[0], self.Number_of_real_part]
 
+    def run6_get_intitial_temp(self,temp):
+        self.seven_sec_intital = temp
+
+    def run6(self , data):
+    # this fucntion is add 7 sec data. and will show out data.
+        real_object_temp = []
+        all_object_temp = []
+
+        max_T = np.amax(data)
+        min_T = np.amin(data)
+        average_T = np.average(data)
+
+        self.T_below10 = 0
+        self.T_10to20 = 0
+        self.T_20to30 = 0
+        self.T_30to40 = 0
+        self.T_40to50 = 0
+        self.T_50to60 = 0
+        self.T_60to70 = 0
+        self.T_70to80 = 0
+        self.T_80to90 = 0
+        self.T_90to100 = 0
+        self.T_over100 = 0
+
+        Number_of_real_temp = 0  # it is same with area of food
+        middle_temperature_sum = 0
+        count_middle = 0
+        #print("before edge")
+        edge_temp = self.edge_temp_claculator(data)
+        #############################################analysis condition
+        analysis_condition_flag = 0
+
+        max_higher_edeg_1_2_and_min_loewr_edge_0_85 = 1
+        max_higeer_edeg_1_2 = 2
+        min_lower_edge_0_85 = 3
+
+
+
+        ################################################ condition setting
+        rftp = self.run5_assistant_condition_check(data,edge_temp)
+
+        ############################################  real analysis
+        for py in range(data.shape[0]):
+            for px in range(data.shape[1]):
+
+                all_object_temp.append(data[py][px])
+                self.run4_assistant(data[py][px])
+
+                if self.condition == self.Room_temperature_condition and data[py][px] > rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+
+                elif self.condition == self.refrigeration_termperagrure_condition and data[py][px] < rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+
+                elif self.condition == self.icy_termperagrure_condition and data[py][px] < rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif self.condition == self.hot_condtion and data[py][px] > rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif self.condition == self.steam_condition and data[py][px] > rftp[0]:
+                    Number_of_real_temp += 1
+                    real_object_temp.append(data[py][px])
+                elif self.condition == self.hot_and_cold_condition:
+                    if data[py][px] > rftp[0]:
+                        Number_of_real_temp += 1
+                        real_object_temp.append(data[py][px])
+                    elif data[py][px] < rftp[1]:
+                        Number_of_real_temp += 1
+                        real_object_temp.append(data[py][px])
+
+
+
+    #################################### middle temperature collector #################
+        for py in range (10,14):
+            for px in range (10,14):
+                middle_temperature_sum += data[py][px]
+                count_middle += 1
+
+        #print("get middle")
+    ####################################################################################
+    ######################### store data to real ######################################
+                # before store new data, save it to old data
+
+        number_of_temp_geadient = ["below10:",self.T_below10,"10-20:",self.T_10to20,"20-30:",self.T_20to30,"30-40:",self.T_30to40,"40-50:",self.T_40to50,"50-60:",self.T_50to60,"60-70",self.T_60to70,"70-80",self.T_70to80,"80-90:",self.T_80to90,"90-100",self.T_90to100,"over100",self.T_over100]
+        self.Number_of_real_part = Number_of_real_temp
+        self.max_temp = max(real_object_temp)
+        self.min_temp = min(real_object_temp)
+        self.average_temp = s.mean(real_object_temp)
+
+        try:
+            self.average_middle = middle_temperature_sum / count_middle
+        except:
+            print("unable to calculate middel termperature")
+
+        self.times = time.time() - self.initial_time  # we need a time difference
+        self.claculate_temperature_change()
+        self.New_data_to_old_data()
+    ###################################################################################
+    #########################configure 7sec data $$$$$$$$$$$$$$$$$$$$$$$$run 6
+        if (self.times-self.initial_time) > 7 and self.seven_sec_flag == 0 :
+            self.seven_sec_flag = 1
+            seven_sec_rise = self.max_temp - self.seven_sec_intital
+            self.seven_sec_change = (seven_sec_rise/(self.times-self.initial_time))
+
+
+    ##################################################################################
+    ############################# write data to csv_ format
+        #print("before instat data")
+        out_put_data = [ self.times, self.Number_of_real_part, self.max_temp, self.min_temp, self.average_temp,
+                         self.max_rise_temp, self.min_rise_temp, self.average_rise_temp , self.average_middle, self.average_rise_middle]
+        out_put_data.extend(all_object_temp)
+        out_put_data.extend(number_of_temp_geadient)
+        out_put_data.extend([self.seven_sec_change])
+
+        #print("tryto write csv")
+        self.csv_wirter(out_put_data)
+        print("csv_write_one_line")
+
+    ###################################################################################
+        return [rftp[0], self.Number_of_real_part]
+
+
 
     def absolute_HSV_Control5(self,data4):
 # cution!!! input data type is changed in this fucntion!!!!
@@ -880,7 +1016,8 @@ class Thermal_Data:
         cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_average_middle_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_edge_temp, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (360, 230), font, fontScale-0.3, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, self.seven_sec_change, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (360, 270), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
 
         #############################################################
@@ -903,6 +1040,8 @@ class Thermal_Data:
             print("fail_to move window")
         cv2.waitKey(1)
         return img
+
+
 
 
 def absolute_HSV_Control2(data, img):

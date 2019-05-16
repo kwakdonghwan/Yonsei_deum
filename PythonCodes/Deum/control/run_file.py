@@ -205,6 +205,7 @@ while True:
     TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
     print("thermal_data_set_up")
 
+    TD.run6_get_intitial_temp(IC8888.origin_temp)
     start_time = TD.initial_time
 
     #######################################################
