@@ -136,7 +136,7 @@ class auto_contoroler:
 
             return False
 
-        elif self.run_TYPE == self.TYPE
+        elif self.run_TYPE == self.TYPE:
             print("TYPE_C")
 
             return False

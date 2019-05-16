@@ -37,33 +37,33 @@
 #
 # 논리 순서 > 한루프당 하나에만 도달 해야함.
 # if 최종 종료 조건 도달
-# 	self.run_turn_off()
-# 	self.Type_Flag = 10
-# 	reutrn flase
+#   self.run_turn_off()
+#   self.Type_Flag = 10
+#   reutrn flase
 #
 # elif flag == 0 and 최초 스탑 조건
-# 	self.run_only_fan()
-# 	self.Typer_Flag = 1
-# 	return True
+#   self.run_only_fan()
+#   self.Typer_Flag = 1
+#   return True
 #
 # elif flag == 1 and 두번쨰 작동 시작 조건
 #
-# 	self.run_all()
-# 	self.Type_Flag = 2
-# 	retun True
+#   self.run_all()
+#   self.Type_Flag = 2
+#   retun True
 # elif flag == 2 and 두번쨰 스탑 조건
-# 	self,run_only_fan()
-# 	self.flag = 3
-# 	return True
+#   self,run_only_fan()
+#   self.flag = 3
+#   return True
 #
 # elif flag == 3 and 마지막 작동 시작 조건
-# 	self.run_all()
-# 	self.flag = 4
-# 	return Ture
+#   self.run_all()
+#   self.flag = 4
+#   return Ture
 # elif falg == 4 and 마지막 뜸들이기 시작 조건
-# 	self.run_only_fan
-# 	self.flag  = 5
-# 	return True
+#   self.run_only_fan
+#   self.flag  = 5
+#   return True
 #
 #
 #
@@ -242,7 +242,8 @@ def test_run():
         print("reset_the_manual_controller")
         TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
         print("thermal_data_set_up")
-
+        
+        #print("run6_initial_temp",IC8888.origin_temp)
         TD.run6_get_intitial_temp(IC8888.origin_temp)
         start_time = TD.initial_time
 
@@ -313,7 +314,7 @@ def test_run():
 ################################################################################### main_loop
 while True:
     print("please input you operation type")
-    data_input = int(input("1:auto_run 2:manual_run 3:test_run(for experiment) 4:tun_off"))
+    data_input = int(input("1:auto_run 2:manual_run 3:test_run(for experiment) 4:tun_off :"))
     if data_input == 1:
         run_type = auto_run_type
         auto_run()
