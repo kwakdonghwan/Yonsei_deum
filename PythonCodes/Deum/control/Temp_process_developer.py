@@ -682,7 +682,7 @@ class Thermal_Data:
 
     ###################################################################################
         return refference_temp
-    def run5_assistant_condition_check(self,data,edge_temp):
+    def run5_assistant_condition_check(self,data,edge_temp):  ##check condition
         max_T = np.amax(data)
         min_T = np.amin(data)
 
@@ -703,11 +703,11 @@ class Thermal_Data:
 
         elif min_T < 700:
             self.condition = self.icy_termperagrure_condition
-            refference_temp1 = (3 * edge_temp + min_T) / 4
+            refference_temp1 = (2*edge_temp + min_T) / 3
 
         elif min_T < edge_temp * 0.85:
             self.condition = self.refrigeration_termperagrure_condition
-            refference_temp1 = (2 * edge_temp + min_T) / 3
+            refference_temp1 = (edge_temp + min_T) / 2
 
         else:
             self.condition = self.Room_temperature_condition
