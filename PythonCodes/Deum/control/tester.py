@@ -34,6 +34,82 @@ print("micro wave controllers setup")
 def auto_run():
     os.system("clear")
     print("auto run start")
+    while True:
+        auto_control.reset()
+        print("wait for camera connection")
+        clientSock = socket(AF_INET, SOCK_STREAM)
+        clientSock.connect((ip, port))
+        print("connect success")
+
+        IC8888 = Temp_process.Initial_condition_checker()
+
+        #delete trash data
+        bin_data0 = clientSock.recv(1536)
+        count = int(len(bin_data0) / 2)
+        trash_Data = struct.unpack('<' + ('h' * count), bin_data0)
+        #check_intitial_contition
+        bin_data1 = clientSock.recv(1536)
+        count = int(len(bin_data1) / 2)
+        inditial_data = struct.unpack('<' + ('h' * count), bin_data1)
+        np.asarray(inditial_data)
+        inditial_data = np.reshape(inditial_data, (24, 32))
+        OPENTHEDOOR = IC8888.run(inditial_data)
+        print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
+
+
+        auto_controler.reset_origin()
+        print("auto_controler_reset")
+        TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
+        print("thermal_data_set_up")
+
+        TD.run6_get_intitial_temp(IC8888.origin_temp)
+        start_time = TD.initial_time
+
+        #######################################################
+        print("----------------start_microwave_over--------------")
+
+        lets_stop = 0
+
+        while True:
+            bin_data = clientSock.recv(1536)
+            count = int(len(bin_data) / 2)
+            short_arr = struct.unpack('<' + ('h' * count), bin_data)
+            np.asarray(short_arr)
+
+            realzon_flag = 0
+
+            try:  #get data_ form camera
+                short_arr = np.reshape(short_arr, (24, 32))
+                Newdata = TD.Thermal_data_cut(short_arr)
+                run_output = TD.run6(Newdata)
+                print("run6")
+                TD.absolute_HSV_Control5(Newdata)
+
+            except:
+                print("Worning! some error occure in thermal_Data_control")
+
+            try:  #run_microwave_oven_automatically
+                auto_controler.type_checker(TD.seven_sec_change)
+                auto_controler.get_temperature_data_form_TD(TD.max_temp,TD.average_temp,TD.min_temp)
+                lets_stop = auto_controler.run()
+
+            except:
+                print("Fail_in_manual_controller")
+
+
+            if lets_stop:
+                try:
+                    cv2.destroyAllWindows() #delete class
+                    print("turn_off_micro_wave")
+                    del TD
+
+                except:
+                    print("some error occured during to finish microwave")
+                break
+
+        print("turn_off_microwave(auto_mode)")
+
+        break
 
 
 ###################################################################################
