@@ -153,7 +153,7 @@ class auto_contoroler:
         second_max_temp = 600
         Last_max_temp = 800
         if self.temperature_max > Last_max_temp:
-            retun False
+            return False
 
         if self.temperature_max > first_max_temp:  #enter the type flag 1
             self.run_only_fan()
