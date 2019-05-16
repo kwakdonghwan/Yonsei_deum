@@ -1015,6 +1015,7 @@ class Thermal_Data:
         display_min_temp = "min:" + str(self.min_temp/10)
         display_average_middle_temp = "A_M:" + str(self.average_middle/10)
         display_edge_temp = "edge:" + str(self.edge_temp_claculator(data4)/10)
+        display_sec_change = "7SEC:" + str(self.seven_sec_change / 10)
         display_logo = "DEUM_yonsei"
 
         cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
@@ -1022,7 +1023,7 @@ class Thermal_Data:
         cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_average_middle_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_edge_temp, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, self.seven_sec_change, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_sec_change, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (360, 270), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
 

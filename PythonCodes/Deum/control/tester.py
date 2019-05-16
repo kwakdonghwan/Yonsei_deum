@@ -81,7 +81,7 @@ def auto_run():
             try:  #get data_ form camera
                 short_arr = np.reshape(short_arr, (24, 32))
                 Newdata = TD.Thermal_data_cut(short_arr)
-                run_output = TD.run6(Newdata)
+                run_output = TD.autorun1(Newdata)
                 print("run6")
                 TD.absolute_HSV_Control5(Newdata)
 
