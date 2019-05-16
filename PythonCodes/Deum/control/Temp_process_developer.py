@@ -691,7 +691,7 @@ class Thermal_Data:
         if max_T > edge_temp * 1.2 and min_T < edge_temp * 0.8:
             self.condition = self.hot_and_cold_condition
             refference_temp1 = (3*edge_temp + max_T) / 4
-            refference_temp2 = edge_temp * 0.8
+            refference_temp2 = (edge_temp+ 3*min_T ) / 4
 
         elif edge_temp > 750:
             self.condition = self.steam_condition
@@ -701,13 +701,13 @@ class Thermal_Data:
             self.condition = self.hot_condtion
             refference_temp1 = (3*edge_temp + max_T) / 4
 
-        elif min_T < 700:
+        elif min_T < 70:
             self.condition = self.icy_termperagrure_condition
             refference_temp1 = (2*edge_temp + min_T) / 3
 
         elif min_T < edge_temp * 0.85:
             self.condition = self.refrigeration_termperagrure_condition
-            refference_temp1 = (edge_temp + min_T) / 2
+            refference_temp1 = (edge_temp + 4 * min_T) / 5
 
         else:
             self.condition = self.Room_temperature_condition
@@ -833,10 +833,10 @@ class Thermal_Data:
     def run6_senven_sec_controler(self):
         print("runtime:",self.times)
        # print(self.seven_sec_flag,"flag")
-        if (self.times) > 7 and self.seven_sec_flag == 0 :
+        if (self.times) > 10 and self.seven_sec_flag == 0 :
             self.seven_sec_flag = 1
             seven_sec_rise = self.max_temp - self.seven_sec_intital
-            self.seven_sec_change = (seven_sec_rise/(self.times))
+            self.seven_sec_change = (seven_sec_rise)
     def run6(self , data):
     # this fucntion is add 7 sec data. and will show out data.
         real_object_temp = []
