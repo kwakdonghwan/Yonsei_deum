@@ -23,8 +23,6 @@ ip = '127.0.0.1'
 port = 8888
 max_power = 10
 
-
-
 print("wait for camera connection")
 
 clientSock = socket(AF_INET, SOCK_STREAM)
@@ -37,7 +35,6 @@ manual_controller.reset_param(0, 0)
 print("reset_the_manual_controller")
 TD = Temp_process.Thermal_Data(255)
 print("thermal_data_set_up")
-
 
 check_flag = True
 while True:
@@ -78,7 +75,7 @@ while True:
     status = split[0]
 
     if status == "1":
-        if stop_wave:
+         if stop_wave:
             # 꺼져있다가 켜짐
             TD.reset_var()
             power = int(split[1])
@@ -86,13 +83,9 @@ while True:
             manual_controller.reset_param(power, duration)
             check_flag = True
             print("----------------restart_microwave_over--------------")
-
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        #os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "python" to true' ''')
+
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow("frame", img)
 
     cv2.waitKey(1)
-
-
-

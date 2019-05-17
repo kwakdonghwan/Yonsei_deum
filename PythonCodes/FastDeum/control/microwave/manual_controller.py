@@ -15,6 +15,7 @@ class ManualController:
         GPIO.output(self.fan_pin, True)
 
 
+
         # t = int(input("enter time (s): "))
         # power = int(input("enter power(1-{}): ".format(max_power)))
 
