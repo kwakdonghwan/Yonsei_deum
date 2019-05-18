@@ -1,6 +1,6 @@
 #new TD.run2 version
 
-
+import auto_contorol as auto_control
 import Temp_process_developer as Temp_process
 import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
@@ -143,17 +143,22 @@ print("camera operation using terminal")
 print("sudo /home/pi/Yonsei_deum/camera_MLX90640/MLX90640 0.0625 8888")
 print("or in camera_path")
 print("sudo ./MLX90640 0.0625 8888")
-
-print("try to open cpp file automatically")
-try:
-    CPPfile = CPP_open()
-    CPPfile.start()
-    #CPPfile.run()
-except:
-    print("fail to open CPP MLX90640")
+#
+# print("try to open cpp file automatically")
+# try:
+#     CPPfile = CPP_open()
+#     CPPfile.start()
+#     #CPPfile.run()
+# except:
+#     print("fail to open CPP MLX90640")
 
 manual_controller = ManualController()
 print("micro wave controller setup")
+
+auto_controler = auto_control.auto_contoroler()
+
+
+
 
 ip = '127.0.0.1'
 port = 8888
@@ -202,9 +207,12 @@ while True:
     manual_controller.reset_origin()
     print("reset_the_manual_controller")
 
+
+
     TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
     print("thermal_data_set_up")
 
+    TD.run6_get_intitial_temp(IC8888.origin_temp)
     start_time = TD.initial_time
 
     #######################################################
@@ -222,10 +230,10 @@ while True:
     #######################################################
     manual_controller.reset_param(power, duration)
     print("----------------start_microwave_over--------------")
-    
-    
+
+
     lets_stop = 0
-    
+
     while True:
         bin_data = clientSock.recv(1536)
         count = int(len(bin_data) / 2)
@@ -233,7 +241,7 @@ while True:
         np.asarray(short_arr)
 
         realzon_flag = 0
-    
+
         try:
             short_arr = np.reshape(short_arr, (24, 32))
             #img = np.zeros((24, 24, 3), np.uint8)
@@ -241,23 +249,23 @@ while True:
             Newdata = TD.Thermal_data_cut(short_arr)
             #print("datcut complite")
             # min_tem = TD.run1(Newdata)
-            run_output = TD.run5(Newdata)
-            print("run5")
+            run_output = TD.run6(Newdata)
+            print("run6")
             TD.absolute_HSV_Control5(Newdata)
             # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
             #Temp_process.absolute_HSV_Control4(Newdata ,min_tem )
-    
-    
+
+
         except:
             print("Worning! some error occure in thermal_Data_control")
-    
+
         try:
             lets_stop = manual_controller.run(start_time)
-    
+
         except:
             print("Fail_in_manual_controller")
-    
-    
+
+
         if lets_stop:
             try:
                 cv2.destroyAllWindows() #delete class
@@ -274,7 +282,7 @@ while True:
 
                 TD.csv_wirter(infomation)
                 del TD
-                
+
             except:
                 print("some error occured during to finish microwave")
             break
