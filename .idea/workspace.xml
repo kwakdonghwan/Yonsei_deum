@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05711b87-dd35-4902-ba53-bb3ebe1aa5eb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/advenced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/advenced_thermal_control.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,15 +15,44 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/Temp_process_developer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="664">
-                    <caret line="948" column="27" selection-start-line="948" selection-start-column="21" selection-end-line="948" selection-end-column="27" />
+                  <state relative-caret-position="592">
+                    <caret line="1048" column="40" lean-forward="true" selection-start-line="1048" selection-start-column="40" selection-end-line="1048" selection-end-column="40" />
                     <folding>
                       <element signature="e#0#18#0" expanded="true" />
                       <element signature="e#465#4561#0" />
+                      <element signature="e#10510#13757#0" />
+                      <element signature="e#13801#17317#0" />
+                      <element signature="e#17362#21178#0" />
+                      <element signature="e#21221#21819#0" />
+                      <element signature="e#21851#26281#0" />
+                      <element signature="e#27511#32395#0" />
+                      <element signature="e#32448#32511#0" />
+                      <element signature="e#32881#37989#0" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/auto_contorol.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="19">
+                    <caret line="86" selection-start-line="86" selection-end-line="92" selection-end-column="24" />
+                    <folding>
+                      <element signature="e#0#23#0" expanded="true" />
+                      <element signature="e#5086#7109#0" />
                     </folding>
                   </state>
                 </provider>
@@ -35,32 +65,14 @@
     <window id="2">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/tester.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="629">
-                    <caret line="87" column="18" lean-forward="true" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-    <window id="3">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/auto_contorol.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-475">
-                    <caret line="86" selection-start-line="86" selection-end-line="92" selection-end-column="24" />
+                  <state relative-caret-position="-1030">
+                    <caret line="208" column="26" lean-forward="true" selection-start-line="208" selection-start-column="26" selection-end-line="208" selection-end-column="26" />
                     <folding>
-                      <element signature="e#0#23#0" expanded="true" />
-                      <element signature="e#5086#7109#0" />
+                      <element signature="e#1291#1327#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -106,7 +118,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/virtualCamera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
+            <state relative-caret-position="779">
               <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -118,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="152">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -130,24 +142,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/advenced_thermal_control.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="237" column="66" selection-start-line="237" selection-start-column="66" selection-end-line="237" selection-end-column="66" />
+            <state relative-caret-position="370">
+              <caret line="174" column="31" lean-forward="true" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
               <folding>
-                <element signature="e#327#4423#0" />
-                <element signature="e#597#970#0" />
-                <element signature="e#842#1512#0" />
-                <element signature="e#1136#2146#0" />
-                <element signature="e#2198#2741#0" />
-                <element signature="e#2786#4031#0" />
-                <element signature="e#4066#4423#0" />
-                <element signature="e#4637#6216#0" />
-                <element signature="e#4666#5058#0" />
+                <element signature="e#24#42#0" expanded="true" />
+                <element signature="e#455#4474#0" />
+                <element signature="e#596#969#0" />
+                <element signature="e#1707#2076#0" />
+                <element signature="e#2713#4045#0" />
+                <element signature="e#4637#6217#0" />
                 <element signature="e#5095#5172#0" />
                 <element signature="e#5209#5438#0" />
                 <element signature="e#5481#5716#0" />
                 <element signature="e#5748#5969#0" />
-                <element signature="e#6002#6216#0" />
-                <element signature="e#7655#7752#0" />
+                <element signature="e#8172#8269#0" />
+                <element signature="e#8475#12407#0" />
+                <element signature="e#8320#8959#0" />
+                <element signature="e#9030#9384#0" />
+                <element signature="e#9560#11098#0" />
+                <element signature="e#11158#13337#0" />
+                <element signature="e#11222#11453#0" />
+                <element signature="e#8312#8540#0" />
+                <element signature="e#8580#9107#0" />
+                <element signature="e#9148#9737#0" />
               </folding>
             </state>
           </provider>
@@ -324,7 +341,7 @@
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1512118" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1512118" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -569,6 +586,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/status.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -593,23 +624,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/status.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/virtualCamera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
+        <state relative-caret-position="779">
           <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -619,24 +636,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="152">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/tester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="87" column="18" lean-forward="true" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/auto_contorol.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-475">
+        <state relative-caret-position="19">
           <caret line="86" selection-start-line="86" selection-end-line="92" selection-end-column="24" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
@@ -645,37 +655,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/tester.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1030">
+          <caret line="208" column="26" lean-forward="true" selection-start-line="208" selection-start-column="26" selection-end-line="208" selection-end-column="26" />
+          <folding>
+            <element signature="e#1291#1327#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/Temp_process_developer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="664">
-          <caret line="948" column="27" selection-start-line="948" selection-start-column="21" selection-end-line="948" selection-end-column="27" />
+        <state relative-caret-position="592">
+          <caret line="1048" column="40" lean-forward="true" selection-start-line="1048" selection-start-column="40" selection-end-line="1048" selection-end-column="40" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#465#4561#0" />
+            <element signature="e#10510#13757#0" />
+            <element signature="e#13801#17317#0" />
+            <element signature="e#17362#21178#0" />
+            <element signature="e#21221#21819#0" />
+            <element signature="e#21851#26281#0" />
+            <element signature="e#27511#32395#0" />
+            <element signature="e#32448#32511#0" />
+            <element signature="e#32881#37989#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/advenced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="237" column="66" selection-start-line="237" selection-start-column="66" selection-end-line="237" selection-end-column="66" />
+        <state relative-caret-position="370">
+          <caret line="174" column="31" lean-forward="true" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
           <folding>
-            <element signature="e#327#4423#0" />
-            <element signature="e#597#970#0" />
-            <element signature="e#842#1512#0" />
-            <element signature="e#1136#2146#0" />
-            <element signature="e#2198#2741#0" />
-            <element signature="e#2786#4031#0" />
-            <element signature="e#4066#4423#0" />
-            <element signature="e#4637#6216#0" />
-            <element signature="e#4666#5058#0" />
+            <element signature="e#24#42#0" expanded="true" />
+            <element signature="e#455#4474#0" />
+            <element signature="e#596#969#0" />
+            <element signature="e#1707#2076#0" />
+            <element signature="e#2713#4045#0" />
+            <element signature="e#4637#6217#0" />
             <element signature="e#5095#5172#0" />
             <element signature="e#5209#5438#0" />
             <element signature="e#5481#5716#0" />
             <element signature="e#5748#5969#0" />
-            <element signature="e#6002#6216#0" />
-            <element signature="e#7655#7752#0" />
+            <element signature="e#8172#8269#0" />
+            <element signature="e#8475#12407#0" />
+            <element signature="e#8320#8959#0" />
+            <element signature="e#9030#9384#0" />
+            <element signature="e#9560#11098#0" />
+            <element signature="e#11158#13337#0" />
+            <element signature="e#11222#11453#0" />
+            <element signature="e#8312#8540#0" />
+            <element signature="e#8580#9107#0" />
+            <element signature="e#9148#9737#0" />
           </folding>
         </state>
       </provider>
