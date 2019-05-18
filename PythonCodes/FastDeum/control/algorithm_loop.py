@@ -36,26 +36,6 @@ print("reset_the_manual_controller")
 TD = Temp_process.Thermal_Data(255)
 print("thermal_data_set_up")
 
-
-def read_status():
-
-    f = open("status.txt", "r")
-    line = f.readline()
-    f.close()
-    mode = int(line.split(" ")[0])
-    on = int(line.split(" ")[1])
-    duration = int(line.split(" ")[2])
-    power = int(line.split(" ")[3])
-
-    return {"mode": mode, "on": on, "duration": duration, "power": power}
-
-
-def write_status(mode, on, duration, power):
-    f = open("status.txt", "w")
-    f.write("{} {} {} {}".format(mode, on, duration, power))
-    f.close()
-
-
 check_flag = True
 while True:
 
@@ -87,14 +67,19 @@ while True:
             cv2.waitKey(1)
             #cv2.namedWindow("empty")
 
-    status = read_status()
+    read_status = open("status.txt", "r")
+    line = read_status.readline()
+    read_status.close()
 
-    if status["on"] == 1:
+    split = line.split(" ")
+    status = split[0]
+
+    if status == "1":
         if stop_wave:
             # 꺼져있다가 켜짐
             TD.reset_var()
-            power = status["power"]
-            duration = status["duration"]
+            power = int(split[1])
+            duration = int(split[2])
             manual_controller.reset_param(power, duration)
             check_flag = True
             print("----------------restart_microwave_over--------------")

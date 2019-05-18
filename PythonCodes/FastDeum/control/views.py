@@ -5,6 +5,32 @@ import time #sleep함수를쓰기위해
 
 from django.views.decorators.csrf import csrf_exempt
 
+'''
+status: 
+    mode  0: 수동   1: 자동
+    on/off  0: off   1: on
+    duration 초
+    power    
+'''
+
+def read_status():
+
+    f = open("control/status.txt", "r")
+    line = f.readline()
+    f.close()
+    mode = int(line.split(" ")[0])
+    on = int(line.split(" ")[1])
+    duration = int(line.split(" ")[2])
+    power = int(line.split(" ")[3])
+
+    return {"mode": mode, "on": on, "duration": duration, "power": power}
+
+
+def write_status(mode, on, duration, power):
+    f = open("control/status.txt", "w")
+    f.write("{} {} {} {}".format(mode, on, duration, power))
+    f.close()
+
 
 def index(request):
 
@@ -12,26 +38,44 @@ def index(request):
 
 
 def manual(request):
-    status = open("control/status.txt", "w")
-    status.write("0 0 0")
-    status.close()
+    write_status(0, 0, 0, 0)
+
     return render(request, 'control/manual.html')
+
+def auto(request):
+    write_status(0, 0, 0, 0)
+
+    return render(request, 'control/auto.html')
 
 
 @csrf_exempt
 def result(request):
-    status = open("control/status.txt", "w")
+
     power = request.POST['power']
     duration = request.POST['duration']
-    status.write("1 " + power + " " + duration)
-    status.close()
+    mode = request.POST['mode']
+    on = request.POST['on']
+    write_status(mode, on, duration, power)
 
     return render(request, 'control/result.html')
 
 
-def status(requset):
-    f = open("control/status.txt", "r")
-    line = f.readline()
-    runnig_state = line.split(" ")[0]
-    f.close()
-    return HttpResponse(runnig_state)
+def status(request):
+
+    st = read_status()
+
+    return HttpResponse(st["on"])
+
+
+
+
+
+
+
+
+
+
+
+
+
+

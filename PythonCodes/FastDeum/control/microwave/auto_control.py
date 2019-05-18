@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time #sleep함수를쓰기위해
 
 
-class auto_controller:
+class auto_contoroler:
     def __init__(self):
 
         self.run_TYPE = 0
@@ -35,7 +35,7 @@ class auto_controller:
         self.duration = 0
         self.power = 0
         self.stop_flag = False
-
+        
     def reset(self):
         self.run_TYPE = 0
         self.temperature_max = 0

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deum</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="centerHolder">
+        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+
+        <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 200px">
+            <!--{% csrf_token %}-->
+            <input type="hidden" class="center" type="text" id="power" name="power" value="0">
+            <input type="hidden" class="center" type="text" id="duration" name="duration" value="0">
+            <input type="hidden" class="center" type="text" id="mode" name="mode" value="1">
+            <input type="hidden" class="center" type="text" id="on" name="on" value="1">
+
+            <input type="submit" value="자동데우기">
+        </form>
+    </div>
+</body>
+</html>
+
+<style>
+body {
+  background-color: black;
+}
+
+.text {
+  color: white;
+}
+
+.aBtn {
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+  margin: 5px;
+
+}
+
+.button {
+  margin-top: 200px;
+  background-color: gray; /* Green */
+  border: none;
+  color: white;
+  padding: 40px 64px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+
+}
+
+.center {
+  text-align: center;
+}
+
+.centerHolder{ text-align: center; }
+
+</style>
+
+
