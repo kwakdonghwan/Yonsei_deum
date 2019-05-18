@@ -200,7 +200,7 @@ class Advenced_thermal_data_control:
         self.status_target_min = 500
 
         self.time_initial_time = 0   #when micro wave open start set it again
-        self.time_remain_time = 0
+        self.time_remain_operation_time = 0
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
 
@@ -231,11 +231,11 @@ class Advenced_thermal_data_control:
         return temp
     def checker_remain_time(self):
         time_calculate = (self.status_target_min - self.DATA_all[self.DATA_all_index ][4]) / (self.checker_min_rise() * 0.1)
-        if self.time_remain_time > 0 :
-            self.time_remain_time = (self.time_remain_time + time_calculate) /2
-        elif self.time_remain_time == 0:
-            self.time_remain_time = time_calculate
-        print("remain_time:",self.time_remain_time)
+        if self.time_remain_operation_time > 0 :
+            self.time_remain_operation_time = (self.time_remain_operation_time + time_calculate) /2
+        elif self.time_remain_operation_time == 0:
+            self.time_remain_operation_time = time_calculate
+        print("remain_time:",self.time_remain_operation_time * 1.4)
 
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
