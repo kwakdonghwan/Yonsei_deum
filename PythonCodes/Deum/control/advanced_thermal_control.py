@@ -57,10 +57,11 @@ class Initial_condition_checker:
         for py in range(0, 24):
             newpx = 0
             for px in range(4, 28):
-                if py == 1 and px == 8:
+                if (py == 1 and px == 8) or (data[py][px] == 0):
                     Newdata[py][newpx] = data[py][px - 1]
                 else:
                     Newdata[py][newpx] = data[py][px]
+
                 newpx += 1
         return Newdata
     def data_Condtion_checker(self,data):
