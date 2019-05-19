@@ -560,6 +560,7 @@ class Advanced_thermal_data_control:
                     self.status_target_next_max_or_avg_flag = 11
                     self.DATA_operation_flag = False
                     print("target_max_reach")
+        print("status$$$$$$ : ",self.status_target_next_max_or_avg_flag )
                 ## if become 11 it reach the target
     def checker_10sec_even_number(self):
         if self.status_target_next_max_or_avg_flag == 1 :
