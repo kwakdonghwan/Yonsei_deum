@@ -200,7 +200,7 @@ while True:
 
     OPENTHEDOOR = IC8888.run(inditial_data)
     print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
-#
+
 
 
 
@@ -282,7 +282,7 @@ while True:
 
                 TD.csv_wirter(infomation)
                 del TD
-
+                
             except:
                 print("some error occured during to finish microwave")
             break
