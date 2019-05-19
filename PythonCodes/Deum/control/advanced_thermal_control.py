@@ -266,7 +266,7 @@ class Advanced_thermal_data_control:
         for py in range(0, 24):
             newpx = 0
             for px in range(4, 28):
-                if py == 1 and px == 8:
+                if (py == 1 and px == 8) or (data[py][px] == 0):
                     Newdata[py][newpx] = data[py][px - 1]
                 else:
                     Newdata[py][newpx] = data[py][px]
@@ -276,26 +276,26 @@ class Advanced_thermal_data_control:
         max_T = np.amax(data)
         min_T = np.amin(data)
         reference_temp2 = self.status_edge_temp
-        if max_T > self.DATA_all[DATA_all_index][5] * 1.2 and min_T < self.status_edge_temp * 0.8:
+        if max_T > self.status_edge_temp * 1.2 and min_T < self.status_edge_temp * 0.8:
             self.condition_flag = self.condition_hot_and_cold
-            reference_temp1 = (3*edge_temp + max_T) / 4
-            reference_temp2 = (edge_temp+ 3*min_T ) / 4
+            reference_temp1 = (3*self.status_edge_temp + max_T) / 4
+            reference_temp2 = (self.status_edge_temp+ 3*min_T ) / 4
         elif max_T > self.status_edge_temp * 1.2:
             self.condition_flag = self.condition_hot
-            reference_temp1 = (3*edge_temp + max_T) / 4
+            reference_temp1 = (3*self.status_edge_temp + max_T) / 4
         elif min_T < 70:
             self.condition_flag = self.condition_icy
-            reference_temp1 = (2*edge_temp + min_T) / 3
+            reference_temp1 = (2*self.status_edge_temp + min_T) / 3
         elif min_T < self.status_edge_temp * 0.7:
             self.condition_flag = self.condition_cool
-            reference_temp1 = (edge_temp + 4 * min_T) / 5
+            reference_temp1 = (self.status_edge_temp + 4 * min_T) / 5
         else:
             self.condition_flag = self.condition_room
-            reference_temp1 = (3 * edge_temp + max_T) / 4
+            reference_temp1 = (3 * self.status_edge_temp + max_T) / 4
 
         if self.status_edge_temp > 650:
             self.condition_flag = self.condition_steam
-            reference_temp1 = (2*edge_temp + max_T) / 3
+            reference_temp1 = (2*self.status_edge_temp + max_T) / 3
 
         if max_T > 1400:
             self.condition_flag  = self.condition_fire
@@ -589,6 +589,7 @@ class Advanced_thermal_data_control:
 
         #postprocess level (get data and update this class)
         self.PostProcess(data)
+        print("Post_Process_finish")
 
         #analyis and control level
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
