@@ -66,6 +66,7 @@ class Initial_condition_checker:
     def data_Condtion_checker(self,data):
         max_T = np.amax(data)
         min_T = np.amin(data)
+        print("max_T", max_T , "min_T", min_T)
         if max_T > self.edge_data * 1.2 and min_T < self.edge_data * 0.8:
             self.initial_condition = self.hot_and_cold_condtion
         elif max_T > self.edge_data * 1.2:
@@ -76,6 +77,8 @@ class Initial_condition_checker:
             self.initial_condition = self.cool_condition
         else:
             self.initial_condition = self.room_condition
+        if (self.initial_condition == self.icy_condtion):
+            print("initial_condition_is icy")
     def realpart_finder(self,data):
         number_of_realpart = 0
         real_object_temp = []
