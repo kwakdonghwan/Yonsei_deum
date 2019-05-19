@@ -352,10 +352,9 @@ class Advanced_thermal_data_control:
         max_temp = max(real_object_temp)
         min_temp = min(real_object_temp)
         average_temp = s.mean(real_object_temp)
-        self.DATA_all.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
+        self.DATA_all.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
         self.DATA_all_index += 1
 
-        print("flag:" , self.DATA_all[self.DATA_all_index][6])
         if (self.DATA_all[self.DATA_all_index][6] == 4 or self.DATA_all[self.DATA_all_index][6] == 3):
             all_object_temp = all_object_temp[self.DATA_initial_data[1]:]
         else:
