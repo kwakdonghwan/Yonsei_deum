@@ -164,7 +164,7 @@ class Microwave_contol:
         elif flag == 4:
             self.run_trun_off()
 #####################################################################################################################################
-class Advenced_thermal_data_control:
+class Advanced_thermal_data_control:
 
     def __init__(self):
         #represent_current_condition
@@ -182,10 +182,10 @@ class Advenced_thermal_data_control:
         self.DATA_initial_data = []   # [type_flag , number_of_realpart , max_temp , average_temp , min_temp, edge_temp ]
         self.DATA_all = []    # DATA_all[0][0]    ==> ex) [[time, number_of_part, max_temp , average_temp , min_temp , edge_temp ],[time, number_of_part, max_temp , average_temp , min_temp , edge_temp]]
         self.DATA_all_index = -1
-        self.DATA_operation = []  # this one will stored whan magnetron is operation.
+        self.DATA_operation = []  # this one will stored when magnetron is operation.
         self.DATA_operation_index = -1
-        self.DATA_operation_flag = True
 
+        self.DATA_operation_flag = True
         self.operation_flag = 0
         self.operation_all = 1
         self.operation_fan_only = 2
@@ -198,86 +198,27 @@ class Advenced_thermal_data_control:
         self.status_edge_up = [ False , 0 , 0 , 0 , 0 , 0 , 0 , False ]  #[edge_up flag , edge_up_time , number_of_part ,max_temp , average_temp ,  min_temp , edge_temp , vinyl_flag]
         self.status_operation_interval = 10
         self.status_min_rise = 0
+        self.status_10sec_initial_flag = False
+
         self.status_target_max = 800
-        self.status_targer_next_max_or_avg = 400
+        self.status_target_max_flag = 0
+        self.status_target_next_max_or_avg = 500        # initial flag = icy > 1,3,5,7,11 / cool > 3,5,7,11 / hot_and_cold > 7,9,11 /  room > 7,9,11 /
+        self.status_target_next_max_or_avg_flag = 0    # 0 and even # > operation , 1 > enter icy to cool  3>  enter room_temp zone , 5 > enter hot and cool zone 7 > enter first target_max 9> enter second target_max 11> before turn off
         self.status_target_min = 500
+        self.status_target_min_flag = 0
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 0
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
 
-        print("Advenced_thermal_data_control setup")
+        print("Advanced_thermal_data_control setup")
     def __del__(self):
         try:
             cv2.destroyAllWindows()
         except:
             print("faile to close data")
 
-    def absolute_HSV_Control5(self,data4):
-        img = np.zeros((24, 32, 3), np.uint8)
-        thickness = 2
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        fontScale = 0.7
-        for py in range(data4.shape[0]):
-            for px in range(data4.shape[1]):
-                value_1 = 255
-                value_2 = 255
-                value_3 = 255
-                if 3000 >= data4[py][px] > 1200:  # 2000 = 200C  max = 300
-                    value_1 = 1
-                    value_2 = 255 - ((data4[py][px] - 1200) * 254 / 1000)  ## 0 = white
-                elif data4[py][px] > 1000:
-                    value_1 = 5 - ((data4[py][px] - 1000) * 4 / 200)
-                elif data4[py][px] > 700:
-                    value_1 = 15 - ((data4[py][px] - 700) * 10 / 300)
-                elif data4[py][px] > 600:
-                    value_1 = 30 - ((data4[py][px] - 600) * 15 / 100)
-                elif data4[py][px] > 500:
-                    value_1 = 45 - ((data4[py][px] - 500) * 15 / 100)
-                elif data4[py][px] > 400:
-                    value_1 = 60 - ((data4[py][px] - 400) * 15 / 100)
-                elif data4[py][px] > 300:
-                    value_1 = 75 - ((data4[py][px] - 300) * 15 / 100)
-                elif data4[py][px] > 200:
-                    value_1 = 90 - ((data4[py][px] - 200) * 15 / 100)
-                elif data4[py][px] > 150:
-                    value_1 = 105 - ((data4[py][px] - 150) * 15 / 50)
-                elif data4[py][px] > -100:
-                    value_1 = 115 - ((data4[py][px] + 100) * 10 / 250)
-                elif data4[py][px] >= -300:
-                    value_1 = 120
-                    value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
-
-                img[py][px][0] = 125 - int(value_1)  # 0~120
-                img[py][px][1] = int(value_2)
-                img[py][px][2] = int(value_3)
-
-        img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
-        img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
-
-        ################# display _data ##############################
-        display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
-        display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
-        display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
-        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
-        display_time_remain_operation_time = "be over:" + str(int(self.time_remain_operation_time)) +"s"
-        display_logo = "DEUM_yonsei"
-
-        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
-
-        cv2.imshow('frame', img)
-        try:
-            cv2.moveWindow('frame' , 2, 2)
-        except:
-            print("fail_to move window")
-        cv2.waitKey(1)
-        return img
 
     def PostProcess_edge_temp_claculator(self, data):
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
@@ -381,7 +322,7 @@ class Advenced_thermal_data_control:
         self.PostProcess_data_Condtion_checker(newdata)
         self.PostProcess_get_data(newdata)
 
-    def checker_vinyl_flag(self):
+    def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
             if self.DATA_all[self.DATA_all_index][1] > self.DATA_initial_data[1] * 1.05:
                 return True
@@ -400,13 +341,126 @@ class Advenced_thermal_data_control:
         if temp < 1.3:
             temp = 1.3
         return temp
+    def checker_make_target_max_min(self): # self.DATA_all_index % 10 == 0 and self.Data_all_index > 1 >> operation condition
+        min_rise = self.checker_min_rise()
+        if self.status_target_max_flag == 0:
+            if min_rise > 6.0 :
+                target_max = 900 + self.DATA_initial_data[1]
+            elif min_rise  > 3.5 :
+                if (self.DATA_initial_data[1] < 70):
+                    s = 70
+                else:
+                    s = self.DATA_initial_data[1]
+                target_max = 750 + s
+            else:
+                target_max = 750
+            self.status_target_max_flag = 1
+            self.status_target_max = target_max
+        if self.status_target_min_flag == 0:
+            if self.DATA_initial_data[0] == self.condition_icy or self.DATA_initial_data[0] == self.condition_cool or self.DATA_initial_data[0] == self.condition_hot_and_cold :
+                target_min = 500
+            else:
+                target_min = 600
+            self.status_target_min_flag = 1
+            self.status_target_min = target_min
     def checker_remain_time(self):
+        if self.condition_flag == self.condition_steam:
+            return
         time_calculate = (self.status_target_min - self.DATA_all[self.DATA_all_index ][4]) / (self.checker_min_rise() * 0.1)
         if self.time_remain_operation_time > 0 :
             self.time_remain_operation_time = (self.time_remain_operation_time + time_calculate) /2
         elif self.time_remain_operation_time == 0:
             self.time_remain_operation_time = time_calculate
+        else:
+            return
         print("remain_time:",self.time_remain_operation_time * 1.4)
+    def checker_steam_condition(self):
+        if self.condition_flag == self.condition_steam:
+            self.time_remain_operation_time = 10
+            print("steam_condition_detected, prepare to turn off")
+    def checker_next_target(self):
+        if self.status_edge_up[7] == True: # this is for vinyl detected
+            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][3] + self.status_target_max)
+        else:
+            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
+
+    def checker_10sec(self):
+        if self.status_10sec_initial_flag == False:
+            self.checker_make_target_max_min()
+            self.status_10sec_initial_flag = True
+        self.checker_remain_time()
+    def checker(self):
+        self.checker_edge_up()
+        self.checker_steam_condition()
+
+
+
+
+    def absolute_HSV_Control5(self,data4):
+        img = np.zeros((24, 32, 3), np.uint8)
+        thickness = 2
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        fontScale = 0.7
+        for py in range(data4.shape[0]):
+            for px in range(data4.shape[1]):
+                value_1 = 255
+                value_2 = 255
+                value_3 = 255
+                if 3000 >= data4[py][px] > 1200:  # 2000 = 200C  max = 300
+                    value_1 = 1
+                    value_2 = 255 - ((data4[py][px] - 1200) * 254 / 1000)  ## 0 = white
+                elif data4[py][px] > 1000:
+                    value_1 = 5 - ((data4[py][px] - 1000) * 4 / 200)
+                elif data4[py][px] > 700:
+                    value_1 = 15 - ((data4[py][px] - 700) * 10 / 300)
+                elif data4[py][px] > 600:
+                    value_1 = 30 - ((data4[py][px] - 600) * 15 / 100)
+                elif data4[py][px] > 500:
+                    value_1 = 45 - ((data4[py][px] - 500) * 15 / 100)
+                elif data4[py][px] > 400:
+                    value_1 = 60 - ((data4[py][px] - 400) * 15 / 100)
+                elif data4[py][px] > 300:
+                    value_1 = 75 - ((data4[py][px] - 300) * 15 / 100)
+                elif data4[py][px] > 200:
+                    value_1 = 90 - ((data4[py][px] - 200) * 15 / 100)
+                elif data4[py][px] > 150:
+                    value_1 = 105 - ((data4[py][px] - 150) * 15 / 50)
+                elif data4[py][px] > -100:
+                    value_1 = 115 - ((data4[py][px] + 100) * 10 / 250)
+                elif data4[py][px] >= -300:
+                    value_1 = 120
+                    value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
+
+                img[py][px][0] = 125 - int(value_1)  # 0~120
+                img[py][px][1] = int(value_2)
+                img[py][px][2] = int(value_3)
+
+        img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+        img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
+
+        ################# display _data ##############################
+        display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
+        display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
+        display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
+        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
+        display_time_remain_operation_time = "be over:" + str(int(self.time_remain_operation_time)) +"s"
+        display_logo = "DEUM_yonsei"
+
+        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+
+        cv2.imshow('frame', img)
+        try:
+            cv2.moveWindow('frame' , 2, 2)
+        except:
+            print("fail_to move window")
+        cv2.waitKey(1)
+        return img
+
 
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
