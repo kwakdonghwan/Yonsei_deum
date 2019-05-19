@@ -277,7 +277,7 @@ class Advanced_thermal_data_control:
                     New_data[py][newpx] = data[py][px]
                 newpx += 1
         print("PostProcess_Thermal_data_cut")
-        return Newdata
+        return New_data
     def PostProcess_data_Condtion_checker(self,data):
         max_T = np.amax(data)
         min_T = np.amin(data)
