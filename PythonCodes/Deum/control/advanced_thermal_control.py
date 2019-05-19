@@ -247,7 +247,72 @@ class Advanced_thermal_data_control:
             self.wr.writerows(self.DATA_all)
         except:
             print("fail_to_store_in_CSV")
+    def absolute_HSV_Control5(self,data4):
+        img = np.zeros((24, 32, 3), np.uint8)
+        thickness = 2
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        fontScale = 0.7
+        for py in range(data4.shape[0]):
+            for px in range(data4.shape[1]):
+                value_1 = 255
+                value_2 = 255
+                value_3 = 255
+                if 3000 >= data4[py][px] > 1200:  # 2000 = 200C  max = 300
+                    value_1 = 1
+                    value_2 = 255 - ((data4[py][px] - 1200) * 254 / 1000)  ## 0 = white
+                elif data4[py][px] > 1000:
+                    value_1 = 5 - ((data4[py][px] - 1000) * 4 / 200)
+                elif data4[py][px] > 700:
+                    value_1 = 15 - ((data4[py][px] - 700) * 10 / 300)
+                elif data4[py][px] > 600:
+                    value_1 = 30 - ((data4[py][px] - 600) * 15 / 100)
+                elif data4[py][px] > 500:
+                    value_1 = 45 - ((data4[py][px] - 500) * 15 / 100)
+                elif data4[py][px] > 400:
+                    value_1 = 60 - ((data4[py][px] - 400) * 15 / 100)
+                elif data4[py][px] > 300:
+                    value_1 = 75 - ((data4[py][px] - 300) * 15 / 100)
+                elif data4[py][px] > 200:
+                    value_1 = 90 - ((data4[py][px] - 200) * 15 / 100)
+                elif data4[py][px] > 150:
+                    value_1 = 105 - ((data4[py][px] - 150) * 15 / 50)
+                elif data4[py][px] > -100:
+                    value_1 = 115 - ((data4[py][px] + 100) * 10 / 250)
+                elif data4[py][px] >= -300:
+                    value_1 = 120
+                    value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
 
+                img[py][px][0] = 125 - int(value_1)  # 0~120
+                img[py][px][1] = int(value_2)
+                img[py][px][2] = int(value_3)
+
+        img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+        img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
+
+        ################# display _data ##############################
+        display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
+        display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
+        display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
+        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
+        display_time_remain_operation_time = "be over:" + str(int(self.time_remain_operation_time)) +"s"
+        display_logo = "DEUM_yonsei"
+
+        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+
+        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.imshow('frame', img)
+        # try:
+        #     cv2.moveWindow('frame' , 2, 2)
+        # except:
+        #     print("fail_to move window")
+        cv2.waitKey(1)
+        return img
     def PostProcess_edge_temp_claculator(self, data):
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
@@ -366,6 +431,7 @@ class Advanced_thermal_data_control:
         self.status_edge_temp = self.PostProcess_edge_temp_claculator(new_data)
         self.PostProcess_data_Condtion_checker(new_data)
         self.PostProcess_get_data(new_data)
+        self.absolute_HSV_Control5(new_data)
 
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
@@ -515,73 +581,6 @@ class Advanced_thermal_data_control:
         self.checker_edge_up()
         self.checker_steam_condition()
         self.checker_operation_control()  ##########  << real out_put of this black box
-
-    def absolute_HSV_Control5(self,data4):
-        img = np.zeros((24, 32, 3), np.uint8)
-        thickness = 2
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        fontScale = 0.7
-        for py in range(data4.shape[0]):
-            for px in range(data4.shape[1]):
-                value_1 = 255
-                value_2 = 255
-                value_3 = 255
-                if 3000 >= data4[py][px] > 1200:  # 2000 = 200C  max = 300
-                    value_1 = 1
-                    value_2 = 255 - ((data4[py][px] - 1200) * 254 / 1000)  ## 0 = white
-                elif data4[py][px] > 1000:
-                    value_1 = 5 - ((data4[py][px] - 1000) * 4 / 200)
-                elif data4[py][px] > 700:
-                    value_1 = 15 - ((data4[py][px] - 700) * 10 / 300)
-                elif data4[py][px] > 600:
-                    value_1 = 30 - ((data4[py][px] - 600) * 15 / 100)
-                elif data4[py][px] > 500:
-                    value_1 = 45 - ((data4[py][px] - 500) * 15 / 100)
-                elif data4[py][px] > 400:
-                    value_1 = 60 - ((data4[py][px] - 400) * 15 / 100)
-                elif data4[py][px] > 300:
-                    value_1 = 75 - ((data4[py][px] - 300) * 15 / 100)
-                elif data4[py][px] > 200:
-                    value_1 = 90 - ((data4[py][px] - 200) * 15 / 100)
-                elif data4[py][px] > 150:
-                    value_1 = 105 - ((data4[py][px] - 150) * 15 / 50)
-                elif data4[py][px] > -100:
-                    value_1 = 115 - ((data4[py][px] + 100) * 10 / 250)
-                elif data4[py][px] >= -300:
-                    value_1 = 120
-                    value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
-
-                img[py][px][0] = 125 - int(value_1)  # 0~120
-                img[py][px][1] = int(value_2)
-                img[py][px][2] = int(value_3)
-
-        img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
-        img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
-
-        ################# display _data ##############################
-        display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
-        display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
-        display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
-        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
-        display_time_remain_operation_time = "be over:" + str(int(self.time_remain_operation_time)) +"s"
-        display_logo = "DEUM_yonsei"
-
-        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
-
-        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        cv2.imshow('frame', img)
-        # try:
-        #     cv2.moveWindow('frame' , 2, 2)
-        # except:
-        #     print("fail_to move window")
-        cv2.waitKey(1)
-        return img
 
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
