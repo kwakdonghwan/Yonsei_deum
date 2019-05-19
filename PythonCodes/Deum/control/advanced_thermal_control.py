@@ -77,8 +77,7 @@ class Initial_condition_checker:
             self.initial_condition = self.cool_condition
         else:
             self.initial_condition = self.room_condition
-        if (self.initial_condition == self.icy_condtion):
-            print("initial_condition_is icy")
+
     def realpart_finder(self,data):
         number_of_realpart = 0
         real_object_temp = []
