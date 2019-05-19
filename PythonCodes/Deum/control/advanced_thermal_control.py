@@ -180,7 +180,7 @@ class Advanced_thermal_data_control:
         self.condition_fire_count = 0
 
         self.DATA_initial_data = []   # [type_flag , number_of_real_part , max_temp , average_temp , min_temp, edge_temp ]
-        self.DATA_all = []    # DATA_all[0][0]    ==> ex) [[time, number_of_part, max_temp , average_temp , min_temp , edge_temp , status_flag ],[time, number_of_part, max_temp , average_temp , min_temp , edge_temp , status_flag]]
+        self.DATA_all = []    # DATA_all[0][0]    ==> ex) [[time, number_of_part, max_temp , average_temp , min_temp , edge_temp , status_flag ,std_data ],[time, number_of_part, max_temp , average_temp , min_temp , edge_temp , status_flag ,std_data]]
         self.DATA_all_index = -1
         self.DATA_operation = []  # this one will stored when magnetron is operation.
         self.DATA_operation_index = -1
@@ -284,15 +284,13 @@ class Advanced_thermal_data_control:
         else:
             self.condition_fire_count = 0
         self.status_reference_temp = [reference_temp1,reference_temp2]
-    def PostProcess_all_object_temp_with_STDV(self,all_object_temp): #############################
-        return
     def PostProcess_get_data(self,data):
         Number_of_real_temp = 0
         all_object_temp = []
         real_object_temp = []
         for py in range(data.shape[0]):
-            all_object_temp.append(data[py][px])
             for px in range(data.shape[1]):
+                all_object_temp.append(data[py][px])
                 if self.condition_flag == self.condition_room and data[py][px] > self.status_reference_temp[0]:
                     Number_of_real_temp += 1
                     real_object_temp.append(data[py][px])
@@ -315,21 +313,26 @@ class Advanced_thermal_data_control:
                     elif data[py][px] < self.status_reference_temp[1]:
                         Number_of_real_temp += 1
                         real_object_temp.append(data[py][px])
+
+        sorted(all_object_temp)
+        all_object_temp.reverse()
+        if (self.DATA_all[self.DATA_all_index][6] == 4 or self.DATA_all[self.DATA_all_index][6] == 3):
+            all_object_temp = all_object_temp[self.DATA_initial_data[1]:]
+        else:
+            all_object_temp = all_object_temp[:self.DATA_initial_data[1]]
+        std_data=np.std(all_object_temp)
+
         times = time.time() - self.time_initial_time
         max_temp = max(real_object_temp)
         min_temp = min(real_object_temp)
         average_temp = s.mean(real_object_temp)
-        self.DATA_all.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag])
+        self.DATA_all.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,std_data])
         self.DATA_all_index += 1
 
-        sorted(all_object_temp)
-        all_object_temp.reverse()
-        all_object_temp = all_object_temp[:self.DATA_initial_data[1]]
-        self.PostProcess_all_object_temp_with_STDV(all_object_temp)
 
 
         if self.DATA_operation_flag == True:
-            self.DATA_operation.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag])
+            self.DATA_operation.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag ,std_data])
             self.DATA_operation_index += 1
     def PostProcess(self,data):
         newdata = self.PostProcess_Thermal_data_cut(data)
