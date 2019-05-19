@@ -502,7 +502,7 @@ class Advanced_thermal_data_control:
     def checker_10sec(self):
         if self.status_10sec_flag == 0:
             self.checker_make_target_max_min()
-        if (self.DATA_initial_data[0] != self.condition_cool or self.DATA_initial_data[0] != self.condition_icy) and (self.status_10sec_flag >= 1):
+        if (self.DATA_initial_data[0] != self.condition_cool or self.DATA_initial_data[0] != self.condition_icy) and (self.status_10sec_flag >= 2):
             if self.DATA_all[self.DATA_all_index][2] < 400:
                 print("(checker_10sec) no food detected!")
                 self.status_target_next_max_or_avg_flag = 12
