@@ -649,6 +649,7 @@ class Advanced_thermal_data_control:
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
             self.checker_10sec()
+        if self.status_10sec_flag > 0:
             self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
         #real_micorwave_run_code
