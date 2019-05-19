@@ -84,6 +84,7 @@ class Initial_condition_checker:
         real_object_temp = []
         for py in range(data.shape[0]):
             for px in range(data.shape[1]):
+                print(data[py][px])
                 if self.initial_condition == self.over_reffernce and data[py][px] > self.edge_data:
                     number_of_realpart += 1
                     real_object_temp.append(data[py][px])
@@ -113,10 +114,10 @@ class Initial_condition_checker:
         return number_of_realpart
 
     def run(self,data):
-        newdata = self.Thermal_data_cut(data)
-        self.edge_data = self.edge_temp_claculator(newdata)
-        self.data_Condtion_checker(newdata)
-        self.realpart_number = self.realpart_finder(newdata)
+        new_data = self.Thermal_data_cut(data)
+        self.edge_data = self.edge_temp_claculator(new_data)
+        self.data_Condtion_checker(new_data)
+        self.realpart_number = self.realpart_finder(new_data)
         print("(Initial_condition_checker) check is completed ")
         print([self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data])
         return [self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data]
