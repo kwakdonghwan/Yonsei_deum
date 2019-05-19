@@ -618,7 +618,7 @@ class Advanced_thermal_data_control:
         self.status_10sec_flag_pre = self.status_10sec_flag
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
-        print("condition:",self.DATA_operation[self.DATA_operation_flag][6])
+        print("condition:",self.DATA_all[self.DATA_all_index][6])
 
         if self.operation_flag == self.operation_turn_off:
             return True  ##operation finish
