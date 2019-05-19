@@ -301,7 +301,10 @@ class Advanced_thermal_data_control:
         cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        if (self.checker_edge_up(0) == True):
+            cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+        else:
+            cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_condition_flag, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
@@ -477,8 +480,6 @@ class Advanced_thermal_data_control:
             self.status_target_min_flag = 1
             self.status_target_min = target_min
     def checker_remain_time(self):
-        if self.time_remain_operation_time < 9:
-            return
         if self.condition_flag == self.condition_steam:
             return
         time_calculate = (self.status_target_min - self.DATA_all[self.DATA_all_index ][4]) / (self.checker_min_rise() * 0.1)
@@ -604,10 +605,10 @@ class Advanced_thermal_data_control:
         print("(Advenced_thermal_data_control) time_reset")
 
     def run(self,data):
-        print("run_start")
+        #print("run_start")
         #postprocess level (get data and update this class)
         self.PostProcess(data)
-        print("Post_Process_finish")
+        #print("Post_Process_finish")
 
         #analyis and control level
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
@@ -617,6 +618,7 @@ class Advanced_thermal_data_control:
         self.status_10sec_flag_pre = self.status_10sec_flag
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
+        print("condition:",self.DATA_operation[self.DATA_operation_flag][6])
 
         if self.operation_flag == self.operation_turn_off:
             return True  ##operation finish
