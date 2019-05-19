@@ -109,8 +109,8 @@ class Initial_condition_checker:
         self.data_Condtion_checker(newdata)
         self.realpart_number = self.realpart_finder(newdata)
         print("(Initial_condition_checker) check is completed ")
-        print([self.initial_condition, self.realpart_number, self.max_tem , self,average_tem , self.min_tem , self.edge_data])
-        return [self.initial_condition, self.realpart_number, self.max_tem , self,average_tem , self.min_tem , self.edge_data]
+        print([self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data])
+        return [self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data]
 #####################################################################################################################################
 class Microwave_contol:
     def __init__(self):
