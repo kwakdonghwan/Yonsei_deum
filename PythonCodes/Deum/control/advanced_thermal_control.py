@@ -255,7 +255,6 @@ class Advanced_thermal_data_control:
         edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
         max1 = max(edge)
-        print("PostProcess_edge_temp_claculator")
         if edge_1 == edge_2 == edge_3 == edge_4:
             return edge_1
         elif edge_1 < max1:
@@ -276,7 +275,6 @@ class Advanced_thermal_data_control:
                 else:
                     new_data[py][newpx] = data[py][px]
                 newpx += 1
-        print("PostProcess_Thermal_data_cut")
         return new_data
     def PostProcess_data_Condtion_checker(self,data):
         max_T = np.amax(data)
@@ -313,7 +311,6 @@ class Advanced_thermal_data_control:
         else:
             self.condition_fire_count = 0
         self.status_reference_temp = [reference_temp1,reference_temp2]
-        print("PostProcess_data_Condtion_checker")
     def PostProcess_get_data(self,data):
         Number_of_real_temp = 0
         all_object_temp = []
@@ -360,11 +357,8 @@ class Advanced_thermal_data_control:
         else:
             all_object_temp = all_object_temp[:self.DATA_initial_data[1]]
         self.DATA_all[self.DATA_all_index][7]=np.std(all_object_temp)
-        print("PostProcess_get_data")
-
-
         if self.DATA_operation_flag == True:
-            self.DATA_operation.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag ,std_data])
+            self.DATA_operation.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag ,self.DATA_all[self.DATA_all_index][7]])
             self.DATA_operation_index += 1
     def PostProcess(self,data):
         print("post_process_start")
