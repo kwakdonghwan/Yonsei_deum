@@ -70,7 +70,7 @@ class Initial_condition_checker:
             self.initial_condition = self.hot_and_cold_condtion
         elif max_T > self.edge_data * 1.2:
             self.initial_condition = self.over_reffernce
-        elif min_T < 700:
+        elif min_T < 70:
             self.initial_condition = self.icy_condtion
         elif min_T < self.edge_data * 0.7:
             self.initial_condition = self.cool_condition
