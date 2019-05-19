@@ -506,7 +506,7 @@ class Advanced_thermal_data_control:
         if self.time_remain_operation_time < 10:
             self.status_target_next_max_or_avg_flag = 11
             return
-        print("previous_flag:",self.DATA_all[self.DATA_all_index][6])
+        print("@@@@@@previous_flag:",self.DATA_all[self.DATA_all_index-1][6])
         print("target_max:",self.status_target_next_max_or_avg)
         if self.status_target_next_max_or_avg_flag < 1:
             if self.DATA_initial_data[0] == self.condition_icy :
@@ -619,6 +619,7 @@ class Advanced_thermal_data_control:
 
 
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         self.checker_edge_up()
         self.checker_steam_condition()
 
@@ -648,7 +649,7 @@ class Advanced_thermal_data_control:
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
             self.checker_10sec()
-        self.checker()
+            self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
