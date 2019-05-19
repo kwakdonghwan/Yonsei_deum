@@ -219,7 +219,7 @@ class Advanced_thermal_data_control:
         self.status_target_min_flag = 0
 
         self.time_initial_time = 0   #when micro wave open start set it again
-        self.time_remain_operation_time = 0
+        self.time_remain_operation_time = 20
         self.time_break_time_counter = -1
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
@@ -431,7 +431,7 @@ class Advanced_thermal_data_control:
             self.DATA_operation.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag ,self.DATA_all[self.DATA_all_index][7]])
             self.DATA_operation_index += 1
     def PostProcess(self,data):
-        print("post_process_start")
+        #print("post_process_start")
         new_data = self.PostProcess_Thermal_data_cut(data)
         self.status_edge_temp = self.PostProcess_edge_temp_claculator(new_data)
         self.PostProcess_data_Condtion_checker(new_data)
@@ -579,7 +579,7 @@ class Advanced_thermal_data_control:
     def checker_10sec(self):
         if self.status_10sec_flag == 0:
             self.checker_make_target_max_min()
-        if (self.DATA_initial_data[0] != self.condition_cool or self.DATA_initial_data[0] != self.condition_icy) and (self.status_10sec_flag >= 2):
+        if ((self.DATA_initial_data[0] != self.condition_cool) or (self.DATA_initial_data[0] != self.condition_icy)) and (self.status_10sec_flag >= 2):
             if self.DATA_all[self.DATA_all_index][2] < 400:
                 print("(checker_10sec) no food detected!")
                 self.status_target_next_max_or_avg_flag = 12
