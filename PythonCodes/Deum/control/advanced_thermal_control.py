@@ -294,7 +294,8 @@ class Advanced_thermal_data_control:
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
         display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
         display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
-        display_time_remain_operation_time = "be over:" + str(int(self.time_remain_operation_time)) +"s"
+        display_time_remain_operation_time =  str(int(self.time_remain_operation_time)) +"s"
+        display_condition_flag =  "flag:" + str(self.status_target_next_max_or_avg_flag)
         display_logo = "DEUM_yonsei"
 
         cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
@@ -302,15 +303,16 @@ class Advanced_thermal_data_control:
         cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
-        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        # cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        # cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow('frame', img)
-        # try:
-        #     cv2.moveWindow('frame' , 2, 2)
-        # except:
-        #     print("fail_to move window")
+        try:
+            cv2.moveWindow('frame' , 2, 2)
+        except:
+            print("fail_to move window")
         cv2.waitKey(1)
         return img
     def PostProcess_edge_temp_claculator(self, data):
@@ -475,6 +477,8 @@ class Advanced_thermal_data_control:
             self.status_target_min_flag = 1
             self.status_target_min = target_min
     def checker_remain_time(self):
+        if self.time_remain_operation_time < 9:
+            return
         if self.condition_flag == self.condition_steam:
             return
         time_calculate = (self.status_target_min - self.DATA_all[self.DATA_all_index ][4]) / (self.checker_min_rise() * 0.1)
@@ -497,6 +501,9 @@ class Advanced_thermal_data_control:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
     def checker_status_target_next_max_or_avg_flag_controller(self):
         if self.DATA_all_index < 9: # prevent error occur
+            return
+        if self.time_remain_operation_time < 10:
+            self.status_target_next_max_or_avg_flag = 11
             return
 
         if self.status_target_next_max_or_avg_flag < 1:
@@ -562,8 +569,11 @@ class Advanced_thermal_data_control:
             self.operation_flag = self.operation_turn_off
         elif (self.status_target_next_max_or_avg_flag % 2) == 0:
             self.operation_flag = self.operation_all
+            print("operation_all" )
         elif (self.status_target_next_max_or_avg_flag % 2) == 1:
             self.operation_flag = self.operation_fan_only
+            print("operation_fan_only" )
+
 
     def checker_10sec(self):
         if self.status_10sec_flag == 0:
@@ -577,10 +587,15 @@ class Advanced_thermal_data_control:
         self.checker_10sec_even_number()  ##configure run flag
         self.checker_10sec_break_time_update()  ##must be operation last
 
+
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
         self.checker_edge_up()
         self.checker_steam_condition()
         self.checker_operation_control()  ##########  << real out_put of this black box
+        if (self.DATA_operation_flag == True):
+            self.time_remain_operation_time += -1
+
+
 
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
