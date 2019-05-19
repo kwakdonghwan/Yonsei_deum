@@ -531,11 +531,13 @@ class Advanced_thermal_data_control:
         cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
+        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow('frame', img)
-        try:
-            cv2.moveWindow('frame' , 2, 2)
-        except:
-            print("fail_to move window")
+        # try:
+        #     cv2.moveWindow('frame' , 2, 2)
+        # except:
+        #     print("fail_to move window")
         cv2.waitKey(1)
         return img
 
