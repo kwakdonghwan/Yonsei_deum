@@ -593,7 +593,7 @@ class Advanced_thermal_data_control:
         self.checker_edge_up()
         self.checker_steam_condition()
         self.checker_operation_control()  ##########  << real out_put of this black box
-        if (self.DATA_operation_flag == True):
+        if (self.DATA_operation_flag == True) and self.status_10sec_flag >=1:
             self.time_remain_operation_time += -1
 
 
