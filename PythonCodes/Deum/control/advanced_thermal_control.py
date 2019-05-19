@@ -301,7 +301,7 @@ class Advanced_thermal_data_control:
         cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        if (self.checker_edge_up(0) == True):
+        if (self.status_edge_up[0] == True):
             cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
         else:
             cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
