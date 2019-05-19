@@ -365,6 +365,7 @@ class Advanced_thermal_data_control:
             self.DATA_operation.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag ,std_data])
             self.DATA_operation_index += 1
     def PostProcess(self,data):
+        print("post_process_start")
         newdata = self.PostProcess_Thermal_data_cut(data)
         self.status_edge_temp = self.PostProcess_edge_temp_claculator(newdata)
         self.PostProcess_data_Condtion_checker(newdata)
@@ -593,7 +594,7 @@ class Advanced_thermal_data_control:
         print("(Advenced_thermal_data_control) time_reset")
 
     def run(self,data):
-
+        print("run_start")
         #postprocess level (get data and update this class)
         self.PostProcess(data)
         print("Post_Process_finish")
