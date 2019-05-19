@@ -98,9 +98,12 @@ class Initial_condition_checker:
                     elif data[py][px] < self.edge_data * 0.8 :
                         number_of_realpart += 1
                         real_object_temp.append(data[py][px])
-        self.max_tem = max(real_object_temp)
-        self.average_tem = s.mean(real_object_temp)
-        self.min_tem = min(real_object_temp)
+        try:
+            self.max_tem = max(real_object_temp)
+            self.average_tem = s.mean(real_object_temp)
+            self.min_tem = min(real_object_temp)
+        except:
+            print("no_realpart")
         return number_of_realpart
 
     def run(self,data):
