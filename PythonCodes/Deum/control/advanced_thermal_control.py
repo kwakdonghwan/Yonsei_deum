@@ -584,7 +584,7 @@ class Advanced_thermal_data_control:
                 print("(checker_10sec) no food detected!")
                 self.status_target_next_max_or_avg_flag = 12
         self.checker_remain_time()
-        self.checker_status_target_next_max_or_avg_flag_controller()
+
         self.checker_10sec_even_number()  ##configure run flag
         self.checker_10sec_break_time_update()  ##must be operation last
 
@@ -592,9 +592,14 @@ class Advanced_thermal_data_control:
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
         self.checker_edge_up()
         self.checker_steam_condition()
+
+        self.checker_status_target_next_max_or_avg_flag_controller()
+
         self.checker_operation_control()  ##########  << real out_put of this black box
         if (self.DATA_operation_flag == True) and self.status_10sec_flag >=1:
             self.time_remain_operation_time += -1
+        if self.time_remain_operation_time < 0:
+            self.time_remain_operation_time = 0
 
 
 
@@ -619,6 +624,7 @@ class Advanced_thermal_data_control:
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
         print("condition:",self.DATA_all[self.DATA_all_index][6])
+        print("breaktiem:",self.time_break_time_counter)
 
         if self.operation_flag == self.operation_turn_off:
             return True  ##operation finish
