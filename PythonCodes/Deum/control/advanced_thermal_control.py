@@ -346,18 +346,20 @@ class Advanced_thermal_data_control:
 
         sorted(all_object_temp)
         all_object_temp.reverse()
-        if (self.DATA_all[self.DATA_all_index][6] == 4 or self.DATA_all[self.DATA_all_index][6] == 3):
-            all_object_temp = all_object_temp[self.DATA_initial_data[1]:]
-        else:
-            all_object_temp = all_object_temp[:self.DATA_initial_data[1]]
-        std_data=np.std(all_object_temp)
+
 
         times = time.time() - self.time_initial_time
         max_temp = max(real_object_temp)
         min_temp = min(real_object_temp)
         average_temp = s.mean(real_object_temp)
-        self.DATA_all.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,std_data])
+        self.DATA_all.extend([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
         self.DATA_all_index += 1
+
+        if (self.DATA_all[self.DATA_all_index][6] == 4 or self.DATA_all[self.DATA_all_index][6] == 3):
+            all_object_temp = all_object_temp[self.DATA_initial_data[1]:]
+        else:
+            all_object_temp = all_object_temp[:self.DATA_initial_data[1]]
+        self.DATA_all[self.DATA_all_index][7]=np.std(all_object_temp)
         print("PostProcess_get_data")
 
 
