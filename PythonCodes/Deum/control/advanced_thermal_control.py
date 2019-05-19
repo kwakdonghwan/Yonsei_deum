@@ -101,6 +101,9 @@ class Initial_condition_checker:
                     elif data[py][px] < self.edge_data * 0.8 :
                         number_of_realpart += 1
                         real_object_temp.append(data[py][px])
+                elif (self.initial_condition == self.room_condition)  and data[py][px] > self.edge_data:
+                    number_of_realpart += 1
+                    real_object_temp.append(data[py][px])
         try:
             self.max_tem = max(real_object_temp)
             self.average_tem = s.mean(real_object_temp)
