@@ -58,15 +58,7 @@ def auto_run():
         inditial_data = np.reshape(inditial_data, (24, 32))
 
         ATD.run_initialization( ICC.run(inditial_data))
-
-        bin_data1 = clientSock.recv(1536)
-        count = int(len(bin_data1) / 2)
-        inditial_data = struct.unpack('<' + ('h' * count), bin_data1)
-        np.asarray(inditial_data)
-        inditial_data = np.reshape(inditial_data, (24, 32))
-
-        ATD.run_initialization( ICC.run(inditial_data))
-
+        sleep(2)
         bin_data1 = clientSock.recv(1536)
         count = int(len(bin_data1) / 2)
         inditial_data = struct.unpack('<' + ('h' * count), bin_data1)

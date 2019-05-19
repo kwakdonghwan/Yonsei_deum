@@ -282,7 +282,7 @@ while True:
 
                 TD.csv_wirter(infomation)
                 del TD
-                
+
             except:
                 print("some error occured during to finish microwave")
             break
