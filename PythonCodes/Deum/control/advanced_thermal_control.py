@@ -267,14 +267,14 @@ class Advanced_thermal_data_control:
         else:
             return  edge_4
     def PostProcess_Thermal_data_cut(self, data):
-        Newdata = np.zeros((24, 24), np.int16)
+        New_data = np.zeros((24, 24), np.int16)
         for py in range(0, 24):
             newpx = 0
             for px in range(4, 28):
                 if (py == 1 and px == 8) or (data[py][px] == 0):
-                    Newdata[py][newpx] = data[py][px - 1]
+                    New_data[py][newpx] = data[py][px - 1]
                 else:
-                    Newdata[py][newpx] = data[py][px]
+                    New_data[py][newpx] = data[py][px]
                 newpx += 1
         print("PostProcess_Thermal_data_cut")
         return Newdata
@@ -366,10 +366,10 @@ class Advanced_thermal_data_control:
             self.DATA_operation_index += 1
     def PostProcess(self,data):
         print("post_process_start")
-        newdata = self.PostProcess_Thermal_data_cut(data)
-        self.status_edge_temp = self.PostProcess_edge_temp_claculator(newdata)
-        self.PostProcess_data_Condtion_checker(newdata)
-        self.PostProcess_get_data(newdata)
+        new_data = self.PostProcess_Thermal_data_cut(data)
+        self.status_edge_temp = self.PostProcess_edge_temp_claculator(new_data)
+        self.PostProcess_data_Condtion_checker(new_data)
+        self.PostProcess_get_data(new_data)
 
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
