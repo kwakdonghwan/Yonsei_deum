@@ -81,11 +81,11 @@ def auto_run():
             np.asarray(short_arr)
 
 
-            try:  #get data_ form camera
-                lets_stop = ATD.run(short_arr)
+            #try:  #get data_ form camera
+            lets_stop = ATD.run(short_arr)
 
-            except:
-                print("Worning! some error occure in thermal_Data_control")
+            #except:
+                #print("Worning! some error occure in thermal_Data_control")
 
             if lets_stop == True:
                 try:
