@@ -271,7 +271,8 @@ class Advanced_thermal_data_control:
         for py in range(0, 24):
             newpx = 0
             for px in range(4, 28):
-                if (py == 1 and px == 8) or (data[py][px] == 0):
+                temp=data[py][px]
+                if (py == 1 and px == 8) or (temp == 0):
                     new_data[py][newpx] = data[py][px - 1]
                 else:
                     new_data[py][newpx] = data[py][px]
