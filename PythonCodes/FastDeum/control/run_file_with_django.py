@@ -2,6 +2,8 @@
 
 import Temp_process_developer as Temp_process
 from microwave.manual_controller import ManualController
+from .status_io import *
+
 # import Temp_process_developer as Temp_process
 from socket import *
 import numpy as np
@@ -36,24 +38,6 @@ print("reset_the_manual_controller")
 TD = Temp_process.Thermal_Data(255)
 print("thermal_data_set_up")
 
-
-def read_status():
-
-    f = open("status.txt", "r")
-    line = f.readline()
-    f.close()
-    mode = int(line.split(" ")[0])
-    on = int(line.split(" ")[1])
-    duration = int(line.split(" ")[2])
-    power = int(line.split(" ")[3])
-
-    return {"mode": mode, "on": on, "duration": duration, "power": power}
-
-
-def write_status(mode, on, duration, power):
-    f = open("status.txt", "w")
-    f.write("{} {} {} {}".format(mode, on, duration, power))
-    f.close()
 
 
 check_flag = True

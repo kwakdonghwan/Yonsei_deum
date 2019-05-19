@@ -11,6 +11,9 @@ status:
     on/off  0: off   1: on
     duration 초
     power    
+    
+device:
+    0: display   1: phone
 '''
 
 def read_status():
@@ -50,14 +53,18 @@ def auto(request):
 
 @csrf_exempt
 def result(request):
-
-    power = request.POST['power']
-    duration = request.POST['duration']
-    mode = request.POST['mode']
-    on = request.POST['on']
+    device = int(request.POST['device'])
+    power = int(request.POST['power'])
+    duration = int(request.POST['duration'])
+    mode = int(request.POST['mode'])
+    on = int(request.POST['on'])
     write_status(mode, on, duration, power)
 
-    return render(request, 'control/result.html')
+    if device == 0:
+        return render(request, 'control/result.html')
+    else:
+        return HttpResponse(1)
+
 
 
 def status(request):
