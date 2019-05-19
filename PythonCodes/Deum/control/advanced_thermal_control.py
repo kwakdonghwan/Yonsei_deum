@@ -267,17 +267,18 @@ class Advanced_thermal_data_control:
         else:
             return  edge_4
     def PostProcess_Thermal_data_cut(self, data):
-        New_data = np.zeros((24, 24), np.int16)
+        new_data = np.zeros((24, 24), np.int16)
         for py in range(0, 24):
             newpx = 0
             for px in range(4, 28):
                 if (py == 1 and px == 8) or (data[py][px] == 0):
-                    New_data[py][newpx] = data[py][px - 1]
+                    new_data[py][newpx] = data[py][px - 1]
                 else:
-                    New_data[py][newpx] = data[py][px]
+                    new_data[py][newpx] = data[py][px]
                 newpx += 1
+                print(new_data[py][newpx])
         print("PostProcess_Thermal_data_cut")
-        return New_data
+        return new_data
     def PostProcess_data_Condtion_checker(self,data):
         max_T = np.amax(data)
         min_T = np.amin(data)
