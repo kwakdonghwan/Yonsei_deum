@@ -79,6 +79,7 @@ def auto_run():
             count = int(len(bin_data) / 2)
             short_arr = struct.unpack('<' + ('h' * count), bin_data)
             np.asarray(short_arr)
+            short_arr = np.reshape(short_arr, (24, 32))
 
 
             #try:  #get data_ form camera
