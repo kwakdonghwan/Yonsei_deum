@@ -506,7 +506,8 @@ class Advanced_thermal_data_control:
         if self.time_remain_operation_time < 10:
             self.status_target_next_max_or_avg_flag = 11
             return
-
+        print("previous_flag:",self.DATA_all[self.DATA_all_index][6])
+        print("target_max:",self.status_target_next_max_or_avg)
         if self.status_target_next_max_or_avg_flag < 1:
             if self.DATA_initial_data[0] == self.condition_icy :
                 if self.DATA_all[self.DATA_all_index][6] == self.condition_cool:
@@ -562,33 +563,34 @@ class Advanced_thermal_data_control:
                 ## if become 11 it reach the target
     def checker_10sec_even_number(self):
         if self.status_target_next_max_or_avg_flag == 1 :
-            if self.time_break_time_counter >= 0:
+            if self.time_break_time_counter > -1:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 3 :
-            if self.time_break_time_counter >= 0:
+            if self.time_break_time_counter > -1:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 5 :
-            if self.time_break_time_counter >= 0:
+            if self.time_break_time_counter > -1:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 7 :
-            if  self.time_break_time_counter >= 0:
+            if  self.time_break_time_counter > -1:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif  self.status_target_next_max_or_avg_flag == 9 :
-            if self.time_break_time_counter >= 0:
+            if self.time_break_time_counter > -1:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 11 :
-            if self.time_break_time_counter >= 1:
+            if self.time_break_time_counter > 0:
                 self.status_target_next_max_or_avg_flag += 1
+        print("max_or_avg_flag :",self.status_target_next_max_or_avg_flag )
     def checker_10sec_break_time_update(self):
         if (self.status_target_next_max_or_avg_flag % 2):
             self.time_break_time_counter += 1
