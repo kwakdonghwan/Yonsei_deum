@@ -373,12 +373,12 @@ class Advanced_thermal_data_control:
                 return True
         return False
     def checker_edge_up(self):
-        if ((self.condition_initial_flag == self.condition_cool) or (self.condition_initial_flag == self.condition_icy) or (self.condition_initial_flag == self.self.condition_hot_and_cold)) and self.status_edge_up[0] == False:
+        if ((self.condition_initial_flag == self.condition_cool) or (self.condition_initial_flag == self.condition_icy) or (self.condition_initial_flag == self.condition_hot_and_cold)) and self.status_edge_up[0] == False:
             if (self.condition_flag == 1) or (self.condition_flag == 2):
                 self.status_edge_up[0] = True
                 for i in range (1,7):
                     self.status_edge_up[i] = self.DATA_all[self.DATA_all_index][i-1]
-                self.status_edge_up[7] = self.checker_vinyl_flag()
+                self.status_edge_up[7] = self.checker_edge_up_vinyl_flag()
     def checker_min_rise(self):
         min_rise_pre = (self.DATA_operation[self.DATA_operation_index - 1][4] - self.DATA_operation[self.DATA_operation_index - 9][4]) / 8
         min_rise = (self.DATA_operation[self.DATA_operation_index ][4] - self.DATA_operation[self.DATA_operation_index - 8][4]) / 8
