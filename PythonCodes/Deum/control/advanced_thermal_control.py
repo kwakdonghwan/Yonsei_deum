@@ -214,12 +214,29 @@ class Advanced_thermal_data_control:
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
 
+        now = datetime.now()
+        time_name = now.strftime("%Y_%m_%d %H_%M_%S")
+        save_path = "/home/pi/CSV_data"
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        CSV_path = save_path + "/" + time_name + ".csv"
+        self.f = open(CSV_path, 'w+', encoding='utf-8', newline='')
+        self.wr = csv.writer(self.f)
+        basic_info = (['time', 'Number_of_real_part', 'max_temp', 'average_temp', 'min_temp', 'edge_temp', 'status_flag', 'std_data'])
+
+        self.wr.writerow(basic_info)
+
+
         print("Advanced_thermal_data_control setup")
     def __del__(self):
         try:
             cv2.destroyAllWindows()
         except:
             print("faile to close data")
+        try:
+            self.wr.writerows(self.DATA_all)
+        except:
+            print("fail_to_store_in_CSV")
 
     def PostProcess_edge_temp_claculator(self, data):
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
@@ -395,6 +412,7 @@ class Advanced_thermal_data_control:
     def checker_steam_condition(self):
         if self.condition_flag == self.condition_steam:
             self.time_remain_operation_time = 10
+            self.status_target_next_max_or_avg_flag = 11
             print("steam_condition_detected, prepare to turn off")
     def checker_next_target(self):
         if self.status_edge_up[7] == True: # this is for vinyl detected

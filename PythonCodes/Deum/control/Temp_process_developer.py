@@ -188,22 +188,14 @@ class Thermal_Data:
 
 
         self.initial_time = time.time()
-        # current_path = os.getcwd()
         now = datetime.now()
         time_name = now.strftime("%Y_%m_%d %H_%M_%S")
-        # new_time_name = current_path +"/data_out/se" +time_name + '.csv'
-        # directory = current_path +"/data_out"
-        # if not os.path.exists(directory):
-        #    os.makedirs(directory)
-        # self.f = open(new_time_name, 'w+', encoding='utf-8', newline='')
         save_path = "/home/pi/CSV_data"
         if not os.path.exists(save_path):
             os.makedirs(save_path)
         CSV_path = save_path + "/" + time_name + ".csv"
         self.f = open(CSV_path, 'w+', encoding='utf-8', newline='')
-
         self.wr = csv.writer(self.f)
-
         basic_info = (['time', 'Number_of_real_part', 'max_temp', 'min_temp', 'average_temp', 'max_rise_temp', 'min_rise_temp',
              'average_rise_temp','middle_temp','middle_rise_temp'])
 
