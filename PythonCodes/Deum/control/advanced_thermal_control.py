@@ -577,7 +577,7 @@ class Advanced_thermal_data_control:
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 7 :
-                self.time_break_time_counter >= 0:
+            if  self.time_break_time_counter >= 0:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
