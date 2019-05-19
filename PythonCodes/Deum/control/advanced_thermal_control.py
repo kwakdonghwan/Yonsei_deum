@@ -508,39 +508,46 @@ class Advanced_thermal_data_control:
             return
 
         if self.status_target_next_max_or_avg_flag < 1:
-            if self.DATA_initial_data[0] == self.condition_icy and self.DATA_all[self.DATA_all_index][6] == self.condition_cool:
-                self.status_target_next_max_or_avg_flag = 1
-                self.DATA_operation_flag = False
+            if self.DATA_initial_data[0] == self.condition_icy :
+                if self.DATA_all[self.DATA_all_index][6] == self.condition_cool:
+                    self.status_target_next_max_or_avg_flag = 1
+                    self.DATA_operation_flag = False
         elif self.status_target_next_max_or_avg_flag < 3:
-            if (2 < self.DATA_all[self.DATA_all_index-1][6] < 5)  and self.DATA_all[self.DATA_all_index][6] == self.condition_room:
-                self.status_target_next_max_or_avg_flag = 3
-                self.DATA_operation_flag = False
+            if 2 < self.DATA_all[self.DATA_all_index-1][6] :
+                if  self.DATA_all[self.DATA_all_index-1][6] < 5:
+                    if self.DATA_all[self.DATA_all_index][6] == 2:
+                        self.status_target_next_max_or_avg_flag = 3
+                        self.DATA_operation_flag = False
         elif self.status_target_next_max_or_avg_flag < 5:
-            if (1 < self.DATA_all[self.DATA_all_index-1][6] < 5) and self.DATA_all[self.DATA_all_index][6] == self.condition_hot_and_cold:
-                self.status_target_next_max_or_avg_flag = 5
-                self.DATA_operation_flag = False
-        elif self.status_target_next_max_or_avg_flag < 7 and (self.DATA_initial_data[0] <= 2 or self.DATA_initial_data[0] >= 5):
-            if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
-                if (self.status_edge_up[7] == False):
-                    self.status_target_next_max_or_avg_flag = 7
-                    self.DATA_operation_flag = False
-                    self.checker_next_target()
-            elif self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg:
-                if (self.status_edge_up[7] == True):
-                    self.status_target_next_max_or_avg_flag = 7
-                    self.DATA_operation_flag = False
-                    self.checker_next_target()
-        elif self.status_target_next_max_or_avg_flag < 9 and(self.DATA_initial_data[0] <= 2 or self.DATA_initial_data[0] >= 5):
-            if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
-                if (self.status_edge_up[7] == False):
-                    self.status_target_next_max_or_avg_flag = 9
-                    self.DATA_operation_flag = False
-                    self.checker_next_target()
-            elif self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
-                if (self.status_edge_up[7] == True):
-                    self.status_target_next_max_or_avg_flag = 9
-                    self.DATA_operation_flag = False
-                    self.checker_next_target()
+            if 1 < self.DATA_all[self.DATA_all_index-1][6] :
+                if self.DATA_all[self.DATA_all_index-1][6] < 5:
+                    if self.DATA_all[self.DATA_all_index][6] == 5:
+                        self.status_target_next_max_or_avg_flag = 5
+                        self.DATA_operation_flag = False
+        elif self.status_target_next_max_or_avg_flag < 7 :
+            if (self.DATA_initial_data[0] <= 2) or (self.DATA_initial_data[0] >= 5):
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    if (self.status_edge_up[7] == False):
+                        self.status_target_next_max_or_avg_flag = 7
+                        self.DATA_operation_flag = False
+                        self.checker_next_target()
+                elif self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg:
+                    if (self.status_edge_up[7] == True):
+                        self.status_target_next_max_or_avg_flag = 7
+                        self.DATA_operation_flag = False
+                        self.checker_next_target()
+        elif self.status_target_next_max_or_avg_flag < 9:
+            if (self.DATA_initial_data[0] <= 2) or (self.DATA_initial_data[0] >= 5):
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    if (self.status_edge_up[7] == False):
+                        self.status_target_next_max_or_avg_flag = 9
+                        self.DATA_operation_flag = False
+                        self.checker_next_target()
+                elif self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    if (self.status_edge_up[7] == True):
+                        self.status_target_next_max_or_avg_flag = 9
+                        self.DATA_operation_flag = False
+                        self.checker_next_target()
         elif self.status_target_next_max_or_avg_flag < 11:
             if self.DATA_all[self.DATA_all_index][2] > self.status_target_max :
                 if (self.status_edge_up[7] == False):
@@ -554,28 +561,34 @@ class Advanced_thermal_data_control:
                     print("target_max_reach")
                 ## if become 11 it reach the target
     def checker_10sec_even_number(self):
-        if self.status_target_next_max_or_avg_flag == 1  and self.time_break_time_counter >= 0:
-            self.status_target_next_max_or_avg_flag +=1
-            self.time_break_time_counter = -1
-            self.DATA_operation_flag = True
-        elif self.status_target_next_max_or_avg_flag == 3  and self.time_break_time_counter >= 0:
-            self.status_target_next_max_or_avg_flag +=1
-            self.time_break_time_counter = -1
-            self.DATA_operation_flag = True
-        elif self.status_target_next_max_or_avg_flag == 5  and self.time_break_time_counter >= 0:
-            self.status_target_next_max_or_avg_flag +=1
-            self.time_break_time_counter = -1
-            self.DATA_operation_flag = True
-        elif self.status_target_next_max_or_avg_flag == 7  and self.time_break_time_counter >= 0:
-            self.status_target_next_max_or_avg_flag +=1
-            self.time_break_time_counter = -1
-            self.DATA_operation_flag = True
-        elif  self.status_target_next_max_or_avg_flag == 9 and self.time_break_time_counter >= 0:
-            self.status_target_next_max_or_avg_flag +=1
-            self.time_break_time_counter = -1
-            self.DATA_operation_flag = True
-        elif self.status_target_next_max_or_avg_flag == 11 and self.time_break_time_counter >= 1:
-            self.status_target_next_max_or_avg_flag += 1
+        if self.status_target_next_max_or_avg_flag == 1 :
+            if self.time_break_time_counter >= 0:
+                self.status_target_next_max_or_avg_flag += 1
+                self.time_break_time_counter = -1
+                self.DATA_operation_flag = True
+        elif self.status_target_next_max_or_avg_flag == 3 :
+            if self.time_break_time_counter >= 0:
+                self.status_target_next_max_or_avg_flag += 1
+                self.time_break_time_counter = -1
+                self.DATA_operation_flag = True
+        elif self.status_target_next_max_or_avg_flag == 5 :
+            if self.time_break_time_counter >= 0:
+                self.status_target_next_max_or_avg_flag += 1
+                self.time_break_time_counter = -1
+                self.DATA_operation_flag = True
+        elif self.status_target_next_max_or_avg_flag == 7 :
+                self.time_break_time_counter >= 0:
+                self.status_target_next_max_or_avg_flag += 1
+                self.time_break_time_counter = -1
+                self.DATA_operation_flag = True
+        elif  self.status_target_next_max_or_avg_flag == 9 :
+            if self.time_break_time_counter >= 0:
+                self.status_target_next_max_or_avg_flag += 1
+                self.time_break_time_counter = -1
+                self.DATA_operation_flag = True
+        elif self.status_target_next_max_or_avg_flag == 11 :
+            if self.time_break_time_counter >= 1:
+                self.status_target_next_max_or_avg_flag += 1
     def checker_10sec_break_time_update(self):
         if (self.status_target_next_max_or_avg_flag % 2):
             self.time_break_time_counter += 1
