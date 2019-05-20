@@ -78,7 +78,6 @@ class Initial_condition_checker:
             self.initial_condition = self.cool_condition
         else:
             self.initial_condition = self.room_condition
-
     def realpart_finder(self,data):
         number_of_realpart = 0
         real_object_temp = []
@@ -112,7 +111,7 @@ class Initial_condition_checker:
         except:
             print("no_realpart")
         return number_of_realpart
-
+# run initial condition checker
     def run(self,data):
         new_data = self.Thermal_data_cut(data)
         self.edge_data = self.edge_temp_claculator(new_data)
@@ -163,7 +162,7 @@ class Microwave_contol:
         except:
             print("(Microwave_contol)fail to run_all!")
             return False
-
+# just turn on or turn off microwaveoven
     def run(self,flag):
         if flag == 1:
             self.run_all()
@@ -175,7 +174,6 @@ class Microwave_contol:
             self.run_trun_off()
 #####################################################################################################################################
 class Advanced_thermal_data_control:
-
     def __init__(self):
         #represent_current_condition
         self.condition_flag = 0
@@ -250,6 +248,7 @@ class Advanced_thermal_data_control:
             self.wr.writerows(self.DATA_all)
         except:
             print("fail_to_store_in_CSV")
+# img show
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 32, 3), np.uint8)
         thickness = 2
@@ -321,6 +320,7 @@ class Advanced_thermal_data_control:
             print("fail_to move window")
         cv2.waitKey(1)
         return img
+# data analysis and store in this class
     def PostProcess_edge_temp_claculator(self, data):
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
@@ -446,7 +446,7 @@ class Advanced_thermal_data_control:
         self.PostProcess_data_Condtion_checker(new_data)
         self.PostProcess_get_data(new_data)
         self.absolute_HSV_Control5(new_data)
-
+# check operation condition form data functions
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
             if self.DATA_all[self.DATA_all_index][1] > self.DATA_initial_data[1] * 1.05:
@@ -511,6 +511,7 @@ class Advanced_thermal_data_control:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][3] + self.status_target_max)
         else:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
+# control condtion functions
     def checker_status_target_next_max_or_avg_flag_controller(self):
         if self.DATA_all_index < 9: # prevent error occur
             return
@@ -604,7 +605,6 @@ class Advanced_thermal_data_control:
                     self.DATA_operation_flag = False
                     self.checker_next_target()
                     return
-
     def checker_even_number(self):
         if self.status_target_next_max_or_avg_flag == 1 :
             if self.time_break_time_counter > self.time_break_time_default:
@@ -650,8 +650,13 @@ class Advanced_thermal_data_control:
         elif (self.status_target_next_max_or_avg_flag % 2) == 1:
             self.operation_flag = self.operation_fan_only
             print("operation_fan_only" )
-
-
+    def checker_std_data_control(self):
+        refference = 50
+        if self.DATA_all[self.DATA_all_index][7] > refference :
+            print("what to do")
+        elif self.DATA_all[self.DATA_all_index][7] < refference :
+            print("what to do2")
+# real control functions
     def checker_10sec(self):
         if self.status_10sec_flag == 0:
             self.checker_make_target_max_min()
@@ -660,7 +665,6 @@ class Advanced_thermal_data_control:
                 print("(checker_10sec) no food detected!")
                 self.status_target_next_max_or_avg_flag = 14
         self.checker_remain_time()
-
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
         #print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         self.checker_edge_up()
@@ -675,15 +679,13 @@ class Advanced_thermal_data_control:
             self.time_remain_operation_time = 0
         self.checker_even_number()
         self.checker_10sec_break_time_update()
-
-
-
+# run code functions
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
     def run_reset_time(self):
         self.time_initial_time = time.time()
         print("(Advenced_thermal_data_control) time_reset")
-
+# main run of this class ,  if return True => turn off microwave oven
     def run(self,data):
 
         #postprocess level (get data and update this class)
@@ -705,5 +707,4 @@ class Advanced_thermal_data_control:
             return True  ##operation finish
         else:
             return False
-
 #####################################################################################################################################
