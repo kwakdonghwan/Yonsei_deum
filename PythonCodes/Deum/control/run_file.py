@@ -81,7 +81,6 @@ class ManualController:
 
         self.refference_time = 10   ## this is roop for magnetron_control
 
-
         # t = int(input("enter time (s): "))
         # power = int(input("enter power(1-{}): ".format(max_power)))
 

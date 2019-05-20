@@ -90,6 +90,7 @@ def auto_run():
 
             if lets_stop == True:
                 try:
+                    time.sleep(3)
                     del ATD
 
                 except:

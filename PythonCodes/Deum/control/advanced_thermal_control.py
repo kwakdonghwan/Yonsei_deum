@@ -214,13 +214,15 @@ class Advanced_thermal_data_control:
         self.status_target_max = 800
         self.status_target_max_flag = 0
         self.status_target_next_max_or_avg = 500        # initial flag = icy > 1,3,5,7,11 / cool > 3,5,7,11 / hot_and_cold > 7,9,11 /  room > 7,9,11 /
-        self.status_target_next_max_or_avg_flag = 0    # 0 and even # > operation , 1 > enter icy to cool  3>  enter room_temp zone , 5 > enter hot and cool zone 7 > enter first target_max 9> enter second target_max 11> before turn off(20~30sec_rest)  12>turn_off
+        self.status_target_next_max_or_avg_flag = 0    # 0 and even # > operation , 1 > enter icy to cool  3>  enter room_temp zone , 5 > enter hot and cool zone 7 > enter hot zone 9 > enter first target_max 11> enter second target_max 13> before turn off(20~30sec_rest)  14>turn_off
         self.status_target_min = 500
         self.status_target_min_flag = 0
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
         self.time_break_time_counter = -1
+        self.time_break_time_default = 10
+        self.time_reach_below_10 = False  ## make flag to 11 and return True
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
 
@@ -235,6 +237,7 @@ class Advanced_thermal_data_control:
         basic_info = (['time', 'Number_of_real_part', 'max_temp', 'average_temp', 'min_temp', 'edge_temp', 'status_flag', 'std_data'])
 
         self.wr.writerow(basic_info)
+
 
 
         print("Advanced_thermal_data_control setup")
@@ -375,7 +378,7 @@ class Advanced_thermal_data_control:
             self.condition_flag  = self.condition_fire
             if self.condition_fire_count > 2:
                 self.operation_flag = self.operation_turn_off
-                self.status_target_next_max_or_avg_flag = 12
+                self.status_target_next_max_or_avg_flag = 14
             self.condition_fire_count += 1
             print("Caution!!!! fire detected!!!!!")
         else:
@@ -424,6 +427,12 @@ class Advanced_thermal_data_control:
 
         if (self.DATA_all[self.DATA_all_index][6] == 4 or self.DATA_all[self.DATA_all_index][6] == 3):
             all_object_temp = all_object_temp[self.DATA_initial_data[1]:]
+        elif self.DATA_all[self.DATA_all_index][6] == 5 :
+            temp_number_data=int(self.DATA_initial_data[1] / 2)
+            all_object_temp_1 = all_object_temp[temp_number_data:]
+            all_object_temp_2 = all_object_temp[:temp_number_data]
+            all_object_temp_1.extend(all_object_temp_2)
+            all_object_temp = all_object_temp_1
         else:
             all_object_temp = all_object_temp[:self.DATA_initial_data[1]]
         self.DATA_all[self.DATA_all_index][7]=np.std(all_object_temp)
@@ -444,8 +453,8 @@ class Advanced_thermal_data_control:
                 return True
         return False
     def checker_edge_up(self):
-        if ((self.condition_initial_flag == self.condition_cool) or (self.condition_initial_flag == self.condition_icy) or (self.condition_initial_flag == self.condition_hot_and_cold)) and self.status_edge_up[0] == False:
-            if (self.condition_flag == 1) or (self.condition_flag == 2):
+        if self.DATA_initial_data[0] != self.condition_hot and self.status_edge_up[0] == False:
+            if self.condition_flag == self.condition_hot:
                 self.status_edge_up[0] = True
                 for i in range (1,7):
                     self.status_edge_up[i] = self.DATA_all[self.DATA_all_index][i-1]
@@ -472,13 +481,15 @@ class Advanced_thermal_data_control:
                 target_max = 750
             self.status_target_max_flag = 1
             self.status_target_max = target_max
+            print("target_max_set:", target_max ,"min_rise:",min_rise )
         if self.status_target_min_flag == 0:
-            if self.DATA_initial_data[0] == self.condition_icy or self.DATA_initial_data[0] == self.condition_cool or self.DATA_initial_data[0] == self.condition_hot_and_cold :
+            if (self.DATA_initial_data[0] == self.condition_icy) or (self.DATA_initial_data[0] == self.condition_cool) or (self.DATA_initial_data[0] == self.condition_hot_and_cold) :
                 target_min = 500
             else:
                 target_min = 600
             self.status_target_min_flag = 1
             self.status_target_min = target_min
+            print("target_min_set:",target_min)
     def checker_remain_time(self):
         if self.condition_flag == self.condition_steam:
             return
@@ -493,7 +504,7 @@ class Advanced_thermal_data_control:
     def checker_steam_condition(self):
         if self.condition_flag == self.condition_steam:
             self.time_remain_operation_time = 10
-            self.status_target_next_max_or_avg_flag = 11
+            self.status_target_next_max_or_avg_flag = 13
             print("steam_condition_detected, prepare to turn off")
     def checker_next_target(self):
         if self.status_edge_up[7] == True: # this is for vinyl detected
@@ -503,100 +514,135 @@ class Advanced_thermal_data_control:
     def checker_status_target_next_max_or_avg_flag_controller(self):
         if self.DATA_all_index < 9: # prevent error occur
             return
-        if self.time_remain_operation_time < 10:
-            self.status_target_next_max_or_avg_flag = 11
+        if (self.time_remain_operation_time < 10) and (self.time_reach_below_10 ==False) :
+            self.status_target_next_max_or_avg_flag = 13
+            self.time_reach_below_10 = True
             return
-        print("@@@@@@previous_flag:",self.DATA_all[self.DATA_all_index-1][6])
-        print("target_max:",self.status_target_next_max_or_avg)
-        if self.status_target_next_max_or_avg_flag < 1:
-            if self.DATA_initial_data[0] == self.condition_icy :
-                if self.DATA_all[self.DATA_all_index][6] == self.condition_cool:
-                    self.status_target_next_max_or_avg_flag = 1
+        if self.status_target_next_max_or_avg_flag == 0:
+            if self.DATA_all[self.DATA_all_index][6] == self.condition_cool and self.DATA_all[self.DATA_all_index-1][6] != self.condition_cool:
+                self.status_target_next_max_or_avg_flag = 1
+                self.DATA_operation_flag = False
+                return
+            elif self.DATA_all[self.DATA_all_index][6] == self.condition_room and self.DATA_all[self.DATA_all_index-1][6] != self.condition_room:
+                self.status_target_next_max_or_avg_flag = 3
+                self.DATA_operation_flag = False
+                return
+            elif self.DATA_all[self.DATA_all_index][6] == self.condition_hot_and_cold and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot_and_cold:
+                self.status_target_next_max_or_avg_flag = 5
+                self.DATA_operation_flag = False
+                return
+            elif self.DATA_all[self.DATA_all_index][6] == self.condition_hot and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot:
+                self.status_target_next_max_or_avg_flag = 7
+                self.DATA_operation_flag = False
+                return
+
+        elif self.status_target_next_max_or_avg_flag == 2:
+            if self.DATA_all[self.DATA_all_index][6] == self.condition_room and self.DATA_all[self.DATA_all_index-1][6] != self.condition_room:
+                self.status_target_next_max_or_avg_flag = 3
+                self.DATA_operation_flag = False
+                return
+            elif self.DATA_all[self.DATA_all_index][6] == self.condition_hot_and_cold and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot_and_cold:
+                self.status_target_next_max_or_avg_flag = 5
+                self.DATA_operation_flag = False
+                return
+            elif self.DATA_all[self.DATA_all_index][6] == self.condition_hot and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot:
+                self.status_target_next_max_or_avg_flag = 7
+                self.DATA_operation_flag = False
+                return
+
+        elif self.status_target_next_max_or_avg_flag == 4:
+            if self.DATA_all[self.DATA_all_index][6] == self.condition_hot_and_cold and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot_and_cold:
+                self.status_target_next_max_or_avg_flag = 5
+                self.DATA_operation_flag = False
+                return
+            elif self.DATA_all[self.DATA_all_index][6] == self.condition_hot and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot:
+                self.status_target_next_max_or_avg_flag = 7
+                self.DATA_operation_flag = False
+                return
+        elif self.status_target_next_max_or_avg_flag == 6:
+            if self.DATA_all[self.DATA_all_index][6] == self.condition_hot and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot:
+                self.status_target_next_max_or_avg_flag = 7
+                self.DATA_operation_flag = False
+                return
+
+        elif self.status_target_next_max_or_avg_flag == 8:
+            if self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
                     self.DATA_operation_flag = False
-        elif self.status_target_next_max_or_avg_flag < 3:
-            if 2 < self.DATA_all[self.DATA_all_index-1][6] :
-                if  self.DATA_all[self.DATA_all_index-1][6] < 5:
-                    if self.DATA_all[self.DATA_all_index][6] == 2:
-                        self.status_target_next_max_or_avg_flag = 3
-                        self.DATA_operation_flag = False
-        elif self.status_target_next_max_or_avg_flag < 5:
-            if 1 < self.DATA_all[self.DATA_all_index-1][6] :
-                if self.DATA_all[self.DATA_all_index-1][6] < 5:
-                    if self.DATA_all[self.DATA_all_index][6] == 5:
-                        self.status_target_next_max_or_avg_flag = 5
-                        self.DATA_operation_flag = False
-        elif self.status_target_next_max_or_avg_flag < 7 :
-            if (self.DATA_initial_data[0] <= 2) or (self.DATA_initial_data[0] >= 5):
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+        elif self.status_target_next_max_or_avg_flag == 10:
+            if self.status_edge_up[7] == False:
                 if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
-                    if (self.status_edge_up[7] == False):
-                        self.status_target_next_max_or_avg_flag = 7
-                        self.DATA_operation_flag = False
-                        self.checker_next_target()
-                elif self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg:
-                    if (self.status_edge_up[7] == True):
-                        self.status_target_next_max_or_avg_flag = 7
-                        self.DATA_operation_flag = False
-                        self.checker_next_target()
-        elif self.status_target_next_max_or_avg_flag < 9:
-            if (self.DATA_initial_data[0] <= 2) or (self.DATA_initial_data[0] >= 5):
-                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
-                    if (self.status_edge_up[7] == False):
-                        self.status_target_next_max_or_avg_flag = 9
-                        self.DATA_operation_flag = False
-                        self.checker_next_target()
-                elif self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
-                    if (self.status_edge_up[7] == True):
-                        self.status_target_next_max_or_avg_flag = 9
-                        self.DATA_operation_flag = False
-                        self.checker_next_target()
-        elif self.status_target_next_max_or_avg_flag < 11:
-            if self.DATA_all[self.DATA_all_index][2] > self.status_target_max :
-                if (self.status_edge_up[7] == False):
                     self.status_target_next_max_or_avg_flag = 11
                     self.DATA_operation_flag = False
-                    print("target_max_reach")
-            elif self.DATA_all[self.DATA_all_index][3] > self.status_target_max :
-                if (self.status_edge_up[7] == True):
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
                     self.status_target_next_max_or_avg_flag = 11
                     self.DATA_operation_flag = False
-                    print("target_max_reach")
-        print("status$$$$$$ : ",self.status_target_next_max_or_avg_flag )
-                ## if become 11 it reach the target
-    def checker_10sec_even_number(self):
+                    self.checker_next_target()
+                    return
+        elif self.status_target_next_max_or_avg_flag == 12:
+            if self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_max :
+                    self.status_target_next_max_or_avg_flag = 13
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_max :
+                    self.status_target_next_max_or_avg_flag = 13
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+
+    def checker_even_number(self):
         if self.status_target_next_max_or_avg_flag == 1 :
-            if self.time_break_time_counter > -1:
+            if self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 3 :
-            if self.time_break_time_counter > -1:
+            if self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 5 :
-            if self.time_break_time_counter > -1:
+            if self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 7 :
-            if  self.time_break_time_counter > -1:
+            if  self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif  self.status_target_next_max_or_avg_flag == 9 :
-            if self.time_break_time_counter > -1:
+            if self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 11 :
-            if self.time_break_time_counter > 0:
+            if self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
-        print("max_or_avg_flag :",self.status_target_next_max_or_avg_flag )
+        elif self.status_target_next_max_or_avg_flag == 13 :
+            if self.time_break_time_counter > 2 * self.time_break_time_default:
+                self.status_target_next_max_or_avg_flag += 1
+        #print("max_or_avg_flag :",self.status_target_next_max_or_avg_flag )
     def checker_10sec_break_time_update(self):
-        if (self.status_target_next_max_or_avg_flag % 2):
+        if (self.status_target_next_max_or_avg_flag % 2) == 1:
             self.time_break_time_counter += 1
     def checker_operation_control(self):
-        if self.status_target_next_max_or_avg_flag > 11 :
+        if self.status_target_next_max_or_avg_flag > 13 :
             self.operation_flag = self.operation_turn_off
         elif (self.status_target_next_max_or_avg_flag % 2) == 0:
             self.operation_flag = self.operation_all
@@ -612,15 +658,11 @@ class Advanced_thermal_data_control:
         if (self.DATA_initial_data[0] < 3 ) and (self.status_10sec_flag >= 2):
             if self.DATA_all[self.DATA_all_index][2] < 400:
                 print("(checker_10sec) no food detected!")
-                self.status_target_next_max_or_avg_flag = 12
+                self.status_target_next_max_or_avg_flag = 14
         self.checker_remain_time()
 
-        self.checker_10sec_even_number()  ##configure run flag
-        self.checker_10sec_break_time_update()  ##must be operation last
-
-
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        #print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         self.checker_edge_up()
         self.checker_steam_condition()
 
@@ -631,6 +673,8 @@ class Advanced_thermal_data_control:
             self.time_remain_operation_time += -1
         if self.time_remain_operation_time < 0:
             self.time_remain_operation_time = 0
+        self.checker_even_number()
+        self.checker_10sec_break_time_update()
 
 
 
@@ -641,22 +685,21 @@ class Advanced_thermal_data_control:
         print("(Advenced_thermal_data_control) time_reset")
 
     def run(self,data):
-        #print("run_start")
+
         #postprocess level (get data and update this class)
         self.PostProcess(data)
-        #print("Post_Process_finish")
 
-        #analyis and control level
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
             self.checker_10sec()
         if self.status_10sec_flag > 0:
             self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
+
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
-        print("condition:",self.DATA_all[self.DATA_all_index][6])
-        print("breaktiem:",self.time_break_time_counter)
+        # print("condition:",self.DATA_all[self.DATA_all_index][6])
+        # print("breaktime:",self.time_break_time_counter)
 
         if self.operation_flag == self.operation_turn_off:
             return True  ##operation finish
