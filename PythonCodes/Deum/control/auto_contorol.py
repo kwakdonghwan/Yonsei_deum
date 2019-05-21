@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
-import time #sleep함수를쓰기위해
+import time #slee
 
 
 class auto_contoroler:
