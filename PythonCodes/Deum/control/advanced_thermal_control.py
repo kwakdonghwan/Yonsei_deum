@@ -249,10 +249,10 @@ class Advanced_thermal_data_control:
             print("fail_to_store_in_CSV")
 
     def display_time_control(self,input_time_data):
-	display_time = input_time_data
+	    display_time = input_time_data
 
-    if self.status_target_next_max_or_avg_flag == 13:
-        display_time = 2*self.time_break_time_default - self.time_break_time_counter
+        if self.status_target_next_max_or_avg_flag == 13:
+            display_time = 2*self.time_break_time_default - self.time_break_time_counter
 
 	return display_time
 
