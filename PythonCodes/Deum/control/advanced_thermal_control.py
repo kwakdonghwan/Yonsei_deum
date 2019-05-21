@@ -254,7 +254,7 @@ class Advanced_thermal_data_control:
         if self.status_target_next_max_or_avg_flag == 13:
             display_time = 2*self.time_break_time_default - self.time_break_time_counter
 
-	return display_time
+	    return display_time
 
 # img show
     def absolute_HSV_Control5(self,data4):
@@ -329,7 +329,7 @@ class Advanced_thermal_data_control:
         cv2.waitKey(1)
         return img
 # data analysis and store in this class
-    def PostProcess_edge_temp_claculator(self, data):
+    def PostProcess_edge_temp_calculator(self, data):
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
@@ -450,7 +450,7 @@ class Advanced_thermal_data_control:
     def PostProcess(self,data):
         #print("post_process_start")
         new_data = self.PostProcess_Thermal_data_cut(data)
-        self.status_edge_temp = self.PostProcess_edge_temp_claculator(new_data)
+        self.status_edge_temp = self.PostProcess_edge_temp_calculator(new_data)
         self.PostProcess_data_Condtion_checker(new_data)
         self.PostProcess_get_data(new_data)
         self.absolute_HSV_Control5(new_data)
