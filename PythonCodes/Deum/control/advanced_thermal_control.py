@@ -248,6 +248,7 @@ class Advanced_thermal_data_control:
         except:
             print("fail_to_store_in_CSV")
 
+
     def display_time_control(self,input_time_data):
         display_time = input_time_data
 
@@ -256,7 +257,6 @@ class Advanced_thermal_data_control:
             display_time = 2*self.time_break_time_default - self.time_break_time_counter
 
         return display_time
-
 # img show
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 32, 3), np.uint8)
@@ -691,9 +691,19 @@ class Advanced_thermal_data_control:
 # run code functions
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
+        if self.DATA_initial_data[0] == 1:
+            self.status_target_next_max_or_avg_flag = 8
+        elif self.DATA_initial_data[0] == 2:
+            self.status_target_next_max_or_avg_flag = 4
+        elif self.DATA_initial_data[0] == 3:
+            self.status_target_next_max_or_avg_flag = 2
+        elif self.DATA_initial_data[0] == 4:
+            self.status_target_next_max_or_avg_flag = 0
+        elif self.DATA_initial_data[0] == 5:
+            self.status_target_next_max_or_avg_flag = 6
     def run_reset_time(self):
         self.time_initial_time = time.time()
-        print("(Advenced_thermal_data_control) time_reset")
+        print("(Advanced_thermal_data_control) time_reset")
 # main run of this class ,  if return True => turn off microwave oven
     def run(self,data):
 
