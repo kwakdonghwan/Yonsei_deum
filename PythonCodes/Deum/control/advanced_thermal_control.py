@@ -236,10 +236,9 @@ class Advanced_thermal_data_control:
 
         self.wr.writerow(basic_info)
 
-
-
         print("Advanced_thermal_data_control setup")
     def __del__(self):
+        self.f.close()
         try:
             cv2.destroyAllWindows()
         except:
@@ -248,6 +247,15 @@ class Advanced_thermal_data_control:
             self.wr.writerows(self.DATA_all)
         except:
             print("fail_to_store_in_CSV")
+
+    def display_time_control(self,input_time_data):
+	display_time = input_time_data
+
+    if self.status_target_next_max_or_avg_flag == 13:
+        display_time = 2*self.time_break_time_default - self.time_break_time_counter
+
+	return display_time
+
 # img show
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 32, 3), np.uint8)
@@ -290,13 +298,13 @@ class Advanced_thermal_data_control:
 
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
         img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
-
+	    display_time_value = int(display_time_control(self.time_remain_operation_time))
         ################# display _data ##############################
         display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
         display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
         display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
-        display_time_remain_operation_time =  str(int(self.time_remain_operation_time)) +"s"
+        display_time_remain_operation_time =  str(display_time_value) +"s"
         display_condition_flag =  "flag:" + str(self.status_target_next_max_or_avg_flag)
         display_logo = "DEUM_yonsei"
 
