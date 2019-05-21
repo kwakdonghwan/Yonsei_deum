@@ -249,12 +249,13 @@ class Advanced_thermal_data_control:
             print("fail_to_store_in_CSV")
 
     def display_time_control(self,input_time_data):
-	    display_time = input_time_data
+        display_time = input_time_data
 
         if self.status_target_next_max_or_avg_flag == 13:
+            
             display_time = 2*self.time_break_time_default - self.time_break_time_counter
 
-	    return display_time
+        return display_time
 
 # img show
     def absolute_HSV_Control5(self,data4):
@@ -298,7 +299,7 @@ class Advanced_thermal_data_control:
 
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
         img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
-	    display_time_value = int(display_time_control(self.time_remain_operation_time))
+        display_time_value = int(self.display_time_control(self.time_remain_operation_time))
         ################# display _data ##############################
         display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
