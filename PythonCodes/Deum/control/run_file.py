@@ -81,7 +81,6 @@ class ManualController:
 
         self.refference_time = 10   ## this is roop for magnetron_control
 
-
         # t = int(input("enter time (s): "))
         # power = int(input("enter power(1-{}): ".format(max_power)))
 
@@ -200,7 +199,7 @@ while True:
 
     OPENTHEDOOR = IC8888.run(inditial_data)
     print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
-#
+
 
 
 
