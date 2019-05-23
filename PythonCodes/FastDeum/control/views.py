@@ -66,7 +66,7 @@ def result(request):
         return HttpResponse(1)
 
 
-
+@csrf_exempt
 def status(request):
 
     st = read_status()
