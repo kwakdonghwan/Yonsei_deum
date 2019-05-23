@@ -215,11 +215,12 @@ class Advanced_thermal_data_control:
         self.status_target_next_max_or_avg_flag = 0    # 0 and even # > operation , 1 > enter icy to cool  3>  enter room_temp zone , 5 > enter hot and cool zone 7 > enter hot zone 9 > enter first target_max 11> enter second target_max 13> before turn off(20~30sec_rest)  14>turn_off
         self.status_target_min = 500
         self.status_target_min_flag = 0
+        self.status_target_min_can_not_reach_flag = False
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
         self.time_break_time_counter = -1
-        self.time_break_time_default = 10
+        self.time_break_time_default = 5
         self.time_reach_below_10 = False  ## make flag to 11 and return True
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
@@ -251,15 +252,18 @@ class Advanced_thermal_data_control:
 
     def display_time_control(self,input_time_data):
         display_time = input_time_data
+        if input_time_data > 100:
+            display_time = int (input_time_data / 10)
+            return display_time
 
         if self.status_target_next_max_or_avg_flag == 13:
             
-            display_time = 2*self.time_break_time_default - self.time_break_time_counter
+            display_time = 2 + 2 * self.time_break_time_default - self.time_break_time_counter
 
         return display_time
 # img show
     def absolute_HSV_Control5(self,data4):
-        img = np.zeros((24, 32, 3), np.uint8)
+        img = np.zeros((24, 36, 3), np.uint8)
         thickness = 2
         font = cv2.FONT_HERSHEY_SIMPLEX
         fontScale = 0.7
@@ -301,12 +305,13 @@ class Advanced_thermal_data_control:
         img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
         display_time_value = int(self.display_time_control(self.time_remain_operation_time))
         ################# display _data ##############################
-        display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10)
-        display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10)
-        display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10)
-        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10)
-        display_time_remain_operation_time =  str(display_time_value) +"s"
-        display_condition_flag =  "flag:" + str(self.status_target_next_max_or_avg_flag)
+        display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10) + "'C"
+        display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10) + "'C"
+        display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10) + "'C"
+        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10) + "'C"
+        display_time_remain_operation_time =  str(display_time_value) + "s"
+        display_condition_flag = "flag:" + str(self.status_target_next_max_or_avg_flag)
+        display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
         cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
@@ -318,6 +323,7 @@ class Advanced_thermal_data_control:
             cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_condition_flag, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (360, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
         # cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
@@ -424,12 +430,16 @@ class Advanced_thermal_data_control:
                         real_object_temp.append(data[py][px])
 
         sorted(all_object_temp)
-        all_object_temp.reverse()
-
+        try: #this function will reduce the risk of flutuation
+            min_temp = (all_object_temp[0] + all_object_temp[1] + all_object_temp[2]) / 3
+            all_object_temp.reverse()
+            max_temp = (all_object_temp[0] + all_object_tamp[1] + all_object_temp[2]) / 3
+        except:
+            all_object_temp.reverse()
+            max_temp = max(real_object_temp)
+            min_temp = min(real_object_temp)
 
         times = time.time() - self.time_initial_time
-        max_temp = max(real_object_temp)
-        min_temp = min(real_object_temp)
         average_temp = s.mean(real_object_temp)
         self.DATA_all.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
         self.DATA_all_index += 1
@@ -603,16 +613,32 @@ class Advanced_thermal_data_control:
                     return
         elif self.status_target_next_max_or_avg_flag == 12:
             if self.status_edge_up[7] == False:
-                if self.DATA_all[self.DATA_all_index][2] > self.status_target_max :
+                if self.status_target_min_can_not_reach_flag == True:
+                    if self.DATA_all[self.DATA_all_index][4] > self.status_target_min:
+                        self.status_target_next_max_or_avg_flag = 13
+                        self.DATA_operation_flag = False
+                        return
+                    elif self.DATA_all[self.DATA_all_index][2] > self.status_target_max * 1.2 :
+                        self.status_target_next_max_or_avg_flag = 13
+                        self.DATA_operation_flag = False
+                        return
+                elif self.DATA_all[self.DATA_all_index][2] > self.status_target_max :
                     self.status_target_next_max_or_avg_flag = 13
                     self.DATA_operation_flag = False
-                    self.checker_next_target()
                     return
             elif self.status_edge_up[7] == True:
-                if self.DATA_all[self.DATA_all_index][3] > self.status_target_max :
+                if self.status_target_min_can_not_reach_flag == True:
+                    if self.DATA_all[self.DATA_all_index][4] > self.status_target_min:
+                        self.status_target_next_max_or_avg_flag = 13
+                        self.DATA_operation_flag = False
+                        return
+                    elif self.DATA_all[self.DATA_all_index][3] > self.status_target_max * 1.2 :
+                        self.status_target_next_max_or_avg_flag = 13
+                        self.DATA_operation_flag = False
+                        return
+                elif self.DATA_all[self.DATA_all_index][3] > self.status_target_max :
                     self.status_target_next_max_or_avg_flag = 13
                     self.DATA_operation_flag = False
-                    self.checker_next_target()
                     return
     def checker_even_number(self):
         if self.status_target_next_max_or_avg_flag == 1 :
@@ -626,10 +652,16 @@ class Advanced_thermal_data_control:
                 self.time_break_time_counter = -1
                 self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 5 :
-            if self.time_break_time_counter > self.time_break_time_default:
-                self.status_target_next_max_or_avg_flag += 1
-                self.time_break_time_counter = -1
-                self.DATA_operation_flag = True
+            if self.DATA_all[self.DATA_all_index][5] < 30:
+                if self.time_break_time_counter > 4 * self.time_break_time_default:
+                    self.status_target_next_max_or_avg_flag += 1
+                    self.time_break_time_counter = -1
+                    self.DATA_operation_flag = True
+            else:
+                if self.time_break_time_counter > 2 * self.time_break_time_default:
+                    self.status_target_next_max_or_avg_flag += 1
+                    self.time_break_time_counter = -1
+                    self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 7 :
             if  self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
@@ -643,9 +675,21 @@ class Advanced_thermal_data_control:
         elif self.status_target_next_max_or_avg_flag == 11 :
             if self.time_break_time_counter > self.time_break_time_default:
                 self.status_target_next_max_or_avg_flag += 1
+                self.time_break_time_counter = -1
+                self.DATA_operation_flag = True
         elif self.status_target_next_max_or_avg_flag == 13 :
-            if self.time_break_time_counter > 2 * self.time_break_time_default:
-                self.status_target_next_max_or_avg_flag += 1
+            if self.time_break_time_counter > 3 * self.time_break_time_default:
+                if self.DATA_all[self.DATA_all_index][4] > self.status_target_min:  #if target_min is over the refference than turn - off the microwave oven
+                    self.status_target_next_max_or_avg_flag += 1
+                elif self.time_break_time_default < 1: # if there are too many operation! try to stop (this function for prevent infinity operation)
+                    self.status_target_next_max_or_avg_flag += 1
+                else: # if fail to achive the target then run again! but run it less
+                    self.status_target_next_max_or_avg_flag += - 1
+                    self.time_break_time_default = int(self.time_break_time_default / 2)
+                    self.time_break_time_counter = -1
+                    self.status_target_min_can_not_reach_flag = True
+
+
         #print("max_or_avg_flag :",self.status_target_next_max_or_avg_flag )
     def checker_10sec_break_time_update(self):
         if (self.status_target_next_max_or_avg_flag % 2) == 1:
