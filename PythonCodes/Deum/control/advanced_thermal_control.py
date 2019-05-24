@@ -263,8 +263,8 @@ class Advanced_thermal_data_control:
         return display_time
 # img show
     def absolute_HSV_Control5(self,data4):
-        img = np.zeros((24, 36, 3), np.uint8)
-        thickness = 2
+        img = np.zeros((24, 40, 3), np.uint8)
+        thickness = 1
         #font = cv2.FONT_HERSHEY_SIMPLEX
         font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
         fontScale = 0.7
