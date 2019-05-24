@@ -263,9 +263,10 @@ class Advanced_thermal_data_control:
         return display_time
 # img show
     def absolute_HSV_Control5(self,data4):
-        img = np.zeros((24, 36, 3), np.uint8)
-        thickness = 2
-        font = cv2.FONT_HERSHEY_SIMPLEX
+        img = np.zeros((24, 40, 3), np.uint8)
+        thickness = 1
+        #font = cv2.FONT_HERSHEY_SIMPLEX
+        font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
         fontScale = 0.7
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
@@ -314,25 +315,25 @@ class Advanced_thermal_data_control:
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
-        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_max_temp, (380,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (380, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (380, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
-            cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (380, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
         else:
-            cv2.putText(img, display_edge_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_condition_flag, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_prograss, (360, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (380, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (380, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (380, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (380, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (380, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
-        # cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        # cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow('frame', img)
-        try:
-            cv2.moveWindow('frame' , 2, 2)
-        except:
-            print("fail_to move window")
+        #try:
+        #    cv2.moveWindow('frame' , 2, 2)
+        #except:
+        #    print("fail_to move window")
         cv2.waitKey(1)
         return img
 # data analysis and store in this class
