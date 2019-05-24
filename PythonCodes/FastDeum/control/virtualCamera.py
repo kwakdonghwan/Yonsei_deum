@@ -25,9 +25,9 @@ while True:
         print(cnt)
         show_flag = True
         # os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "python" to true' ''')
-        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        # cv2.startWindowThread()
-        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        # cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        # cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        frame = cv2.resize(frame, None, fx=0.2, fy=0.2, interpolation=cv2.INTER_AREA)
         cv2.imshow("frame", frame)
     else:
         if show_flag:
