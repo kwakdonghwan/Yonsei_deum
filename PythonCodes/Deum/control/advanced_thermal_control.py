@@ -265,7 +265,8 @@ class Advanced_thermal_data_control:
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 36, 3), np.uint8)
         thickness = 2
-        font = cv2.FONT_HERSHEY_SIMPLEX
+        #font = cv2.FONT_HERSHEY_SIMPLEX
+        font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
         fontScale = 0.7
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
@@ -326,13 +327,13 @@ class Advanced_thermal_data_control:
         cv2.putText(img, display_prograss, (360, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (360, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
-        # cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
-        # cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow('frame', img)
-        try:
-            cv2.moveWindow('frame' , 2, 2)
-        except:
-            print("fail_to move window")
+        #try:
+        #    cv2.moveWindow('frame' , 2, 2)
+        #except:
+        #    print("fail_to move window")
         cv2.waitKey(1)
         return img
 # data analysis and store in this class
