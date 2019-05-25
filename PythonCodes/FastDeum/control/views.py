@@ -60,9 +60,9 @@ def result(request):
     on = int(request.POST['on'])
     write_status(mode, on, duration, power)
 
-    if device == 0:
+    if device == 0:  # request from display
         return render(request, 'control/result.html')
-    else:
+    else:            # request from app
         return HttpResponse(1)
 
 

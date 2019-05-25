@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9c43bfd0-3c24-4796-abea-d8867d73acac" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/cvWindowTest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/socketServer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Yonsei_deum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Yonsei_deum.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/Temp_process_developer.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/control/Temp_process_developer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/control/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/virtualCamera.py" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="socketServer.cpp" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/socketServer.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-70">
+                  <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/main.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="758">
+                  <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+                  <folding>
+                    <element signature="e#0#24#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Temp_process_developer.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/Temp_process_developer.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="730">
+                  <caret line="1040" column="40" lean-forward="true" selection-start-line="1040" selection-start-column="40" selection-end-line="1040" selection-end-column="40" />
+                  <folding>
+                    <element signature="e#0#18#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="manual_controller.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/microwave/manual_controller.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="690">
+                  <caret line="46" column="50" lean-forward="true" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+                  <folding>
+                    <element signature="e#0#23#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/main.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="60">
+                  <caret line="56" column="51" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="56" />
+                  <folding>
+                    <element signature="e#0#23#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="run_file_with_django.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/run_file_with_django.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="388">
+                  <caret line="56" column="29" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="29" />
+                  <folding>
+                    <element signature="e#22#67#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>write(</find>
+      <find>write</find>
+      <find>SIZE</find>
+      <find>n = write</find>
+      <find>run</find>
+      <find>imshow</find>
+      <find>absolute_HSV_Control5</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/socketServer.cpp" />
+        <option value="$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/cvWindowTest.py" />
+        <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/Temp_process_developer.py" />
+        <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/main.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="x" value="1157" />
+    <option name="width" value="763" />
+    <option name="height" value="1080" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="FastDeum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="FastDeum" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="FastDeum" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+              <item name="microwave" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Yonsei_deum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Yonsei_deum" type="462c0819:PsiDirectoryNode" />
+              <item name="PythonCodes" type="462c0819:PsiDirectoryNode" />
+              <item name="FastDeum" type="462c0819:PsiDirectoryNode" />
+              <item name="Virtual" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="cvWindowTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Yonsei_deum" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PythonCodes/FastDeum/Virtual" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/cvWindowTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.cvWindowTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9c43bfd0-3c24-4796-abea-d8867d73acac" name="Default" comment="" />
+      <created>1558813268312</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1558813268312</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2696156" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32935324" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/cvWindowTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera_MLX90640/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3805">
+          <caret line="328" column="26" lean-forward="true" selection-start-line="328" selection-start-column="26" selection-end-line="328" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/Virtual/socketServer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-70">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/microwave/manual_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="50" lean-forward="true" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/run_file_with_django.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="56" column="29" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="29" />
+          <folding>
+            <element signature="e#22#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/Temp_process_developer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="730">
+          <caret line="1040" column="40" lean-forward="true" selection-start-line="1040" selection-start-column="40" selection-end-line="1040" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="758">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

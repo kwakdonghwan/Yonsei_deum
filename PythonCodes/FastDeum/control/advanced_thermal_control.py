@@ -330,10 +330,10 @@ class Advanced_thermal_data_control:
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow('frame', img)
-        #try:
-        #    cv2.moveWindow('frame' , 2, 2)
-        #except:
-        #    print("fail_to move window")
+        try:
+           cv2.moveWindow('frame' , 2, 2)
+        except:
+           print("fail_to move window")
         cv2.waitKey(1)
         return img
 # data analysis and store in this class
@@ -465,7 +465,9 @@ class Advanced_thermal_data_control:
         self.status_edge_temp = self.PostProcess_edge_temp_calculator(new_data)
         self.PostProcess_data_Condtion_checker(new_data)
         self.PostProcess_get_data(new_data)
-        self.absolute_HSV_Control5(new_data)
+        img = self.absolute_HSV_Control5(new_data)
+        return img
+
 # check operation condition form data functions
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
@@ -753,7 +755,7 @@ class Advanced_thermal_data_control:
     def run(self,data):
 
         #postprocess level (get data and update this class)
-        self.PostProcess(data)
+        img = self.PostProcess(data)
 
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
