@@ -64,10 +64,10 @@ def auto_run():
     print("turn_off_microwave(auto_mode)")
 
 
-def manual_run():
+def manual_run(power, duration):
 
     manual_controller = ManualController()
-    manual_controller.reset_param(0, 0)
+    manual_controller.reset_param(power, duration)
     print("reset_the_manual_controller")
     TD = Temp_process.Thermal_Data(255)
 
@@ -86,7 +86,7 @@ def manual_run():
         min_tem = TD.run3(Newdata)
         print("run3")
         # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-        Temp_process.absolute_HSV_Control5(Newdata, min_tem)
+        TD.absolute_HSV_Control5(Newdata)
 
 
         stop_wave = manual_controller.run()
@@ -103,7 +103,7 @@ while True:
             auto_run()
 
         elif status["mode"] == 0: # 수동모드
-            manual_run()
+            manual_run(status["power"], status["duration"])
 
         write_status(0, 0, 0, 0)
         cv2.destroyAllWindows()
