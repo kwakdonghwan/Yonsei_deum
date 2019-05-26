@@ -45,6 +45,7 @@ def result(request):
     write_status(mode, on, duration, power, device)
 
     print(mode, on, duration, power, device)
+    print("device:", device)
 
     if device == 0:  # request from display
         return render(request, 'control/result.html')
