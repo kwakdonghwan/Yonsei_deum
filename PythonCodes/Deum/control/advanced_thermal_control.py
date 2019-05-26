@@ -547,11 +547,12 @@ class Advanced_thermal_data_control:
         else:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
     def checker_food_exist(self):
-        if self.DATA_all[self.DATA_all_index,2] > 60 and self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index,2]:
-            self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index,2]
-            self.status_target_exist_max_temp_flag = True
+        if self.DATA_all[self.DATA_all_index][2] > 600:
+            if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
+                self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
+                self.status_target_exist_max_temp_flag = True
         if self.status_target_exist_max_temp_flag == True:
-            if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index,2]:
+            if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index][2]:
                 self.operation_flag = self.operation_turn_off
                 print("food_is_out")
 
