@@ -216,12 +216,15 @@ class Advanced_thermal_data_control:
         self.status_target_min = 500
         self.status_target_min_flag = 0
         self.status_target_min_can_not_reach_flag = False
+        self.status_target_exist_max_temp = 0
+        self.status_target_exist_max_temp_flag = False
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
         self.time_break_time_counter = -1
         self.time_break_time_default = 5
         self.time_reach_below_10 = False  ## make flag to 11 and return True
+        self.time_display_time_trash = 0
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
 
@@ -237,6 +240,8 @@ class Advanced_thermal_data_control:
 
         self.wr.writerow(basic_info)
 
+
+
         print("Advanced_thermal_data_control setup")
     def __del__(self):
         self.f.close()
@@ -251,15 +256,23 @@ class Advanced_thermal_data_control:
 
 
     def display_time_control(self,input_time_data):
+        self.time_display_time_trash = self.time_display_time_trash+1
         display_time = input_time_data
         if input_time_data > 100:
             display_time = int (input_time_data / 10)
+
+            display_time = display_time - (self.time_display_time_trash % 10)
+            if display_time < 1 :
+                display_time = 1
             return display_time
 
         if self.status_target_next_max_or_avg_flag == 13:
             
             display_time = 2 + 2 * self.time_break_time_default - self.time_break_time_counter
 
+        display_time = display_time - (self.time_display_time_trash % 10)
+        if display_time < 1:
+            display_time = 1
         return display_time
 # img show
     def absolute_HSV_Control5(self,data4):
@@ -315,17 +328,17 @@ class Advanced_thermal_data_control:
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
-        cv2.putText(img, display_max_temp, (380,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (380, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (380, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
-            cv2.putText(img, display_edge_temp, (380, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
         else:
-            cv2.putText(img, display_edge_temp, (380, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (380, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_condition_flag, (380, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_prograss, (380, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (380, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (385, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (385, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (385, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (385, 300), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
 
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
@@ -430,13 +443,13 @@ class Advanced_thermal_data_control:
                         Number_of_real_temp += 1
                         real_object_temp.append(data[py][px])
 
-        sorted(all_object_temp)
+        real_object_temp = sorted(real_object_temp)
         try: #this function will reduce the risk of flutuation
-            min_temp = (all_object_temp[0] + all_object_temp[1] + all_object_temp[2]) / 3
-            all_object_temp.reverse()
-            max_temp = (all_object_temp[0] + all_object_temp[1] + all_object_temp[2]) / 3
+            min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+            real_object_temp.reverse()
+            max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
         except:
-            all_object_temp.reverse()
+            real_object_temp.reverse()
             max_temp = max(real_object_temp)
             min_temp = min(real_object_temp)
 
@@ -444,6 +457,8 @@ class Advanced_thermal_data_control:
         average_temp = s.mean(real_object_temp)
         self.DATA_all.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
         self.DATA_all_index += 1
+
+        all_object_temp =  sorted(all_object_temp)
 
         if (self.DATA_all[self.DATA_all_index][6] == 4 or self.DATA_all[self.DATA_all_index][6] == 3):
             all_object_temp = all_object_temp[self.DATA_initial_data[1]:]
@@ -490,7 +505,7 @@ class Advanced_thermal_data_control:
         min_rise = self.checker_min_rise()
         if self.status_target_max_flag == 0:
             if min_rise > 6.0 :
-                target_max = 900 + self.DATA_initial_data[1]
+                target_max = 880 + self.DATA_initial_data[1]
             elif min_rise  > 3.5 :
                 if (self.DATA_initial_data[1] < 70):
                     s = 70
@@ -504,7 +519,7 @@ class Advanced_thermal_data_control:
             print("target_max_set:", target_max ,"min_rise:",min_rise )
         if self.status_target_min_flag == 0:
             if (self.DATA_initial_data[0] == self.condition_icy) or (self.DATA_initial_data[0] == self.condition_cool) or (self.DATA_initial_data[0] == self.condition_hot_and_cold) :
-                target_min = 500
+                target_min = 510
             else:
                 target_min = 600
             self.status_target_min_flag = 1
@@ -531,6 +546,17 @@ class Advanced_thermal_data_control:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][3] + self.status_target_max)
         else:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
+    def checker_food_exist(self):
+        if self.DATA_all[self.DATA_all_index][2] > 600:
+            if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
+                self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
+                self.status_target_exist_max_temp_flag = True
+        if self.status_target_exist_max_temp_flag == True:
+            if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index][2]:
+                self.operation_flag = self.operation_turn_off
+                print("food_is_out")
+
+
 # control condtion functions
     def checker_status_target_next_max_or_avg_flag_controller(self):
         if self.DATA_all_index < 9: # prevent error occur
@@ -762,6 +788,7 @@ class Advanced_thermal_data_control:
             self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
 
+        self.checker_food_exist()
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
         # print("condition:",self.DATA_all[self.DATA_all_index][6])
