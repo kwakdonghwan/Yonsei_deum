@@ -4,13 +4,14 @@ import auto_contorol as auto_control
 import Temp_process_developer as Temp_process
 import advanced_thermal_control as atc
 import RPi.GPIO as GPIO
-import time #sleep함수를쓰기위해
+import time  # sleep함수를쓰기위해
 from socket import *
 import numpy as np
 import struct
 import cv2
 import threading
 import os
+
 ################################################################################### intitial_parameter
 run_type = 0
 auto_run_type = 1
@@ -29,8 +30,10 @@ print("or in camera_path")
 print("sudo ./MLX90640 0.0625 8888")
 ################################################################################### intitial_contition
 manual_controller = auto_control.ManualController()
-auto_controler = auto_control.auto_contoroler()
-print("micro wave controllers setup")
+#auto_controler = auto_control.auto_contoroler()
+print("micro wave contrauto_controlerollers setup")
+
+
 ###################################################################################
 def auto_run():
     os.system("clear")
@@ -45,11 +48,11 @@ def auto_run():
         ICC = atc.Initial_condition_checker()
         ATD = atc.Advanced_thermal_data_control()
 
-        #delete trash data
+        # delete trash data
         bin_data0 = clientSock.recv(1536)
         count = int(len(bin_data0) / 2)
         trash_Data = struct.unpack('<' + ('h' * count), bin_data0)
-        #check_intitial_contition
+        # check_intitial_contition
 
         bin_data1 = clientSock.recv(1536)
         count = int(len(bin_data1) / 2)
@@ -57,7 +60,7 @@ def auto_run():
         np.asarray(inditial_data)
         inditial_data = np.reshape(inditial_data, (24, 32))
 
-        ATD.run_initialization( ICC.run(inditial_data))
+        ATD.run_initialization(ICC.run(inditial_data))
         time.sleep(2)
         bin_data1 = clientSock.recv(1536)
         count = int(len(bin_data1) / 2)
@@ -65,7 +68,7 @@ def auto_run():
         np.asarray(inditial_data)
         inditial_data = np.reshape(inditial_data, (24, 32))
 
-        ATD.run_initialization( ICC.run(inditial_data))
+        ATD.run_initialization(ICC.run(inditial_data))
         ATD.run_reset_time()
 
         #######################################################
@@ -81,12 +84,11 @@ def auto_run():
             np.asarray(short_arr)
             short_arr = np.reshape(short_arr, (24, 32))
 
-
-            #try:  #get data_ form camera
+            # try:  #get data_ form camera
             lets_stop = ATD.run(short_arr)
 
-            #except:
-                #print("Worning! some error occure in thermal_Data_control")
+            # except:
+            # print("Worning! some error occure in thermal_Data_control")
 
             if lets_stop == True:
                 try:
@@ -107,6 +109,7 @@ def manual_run():
     os.system("clear")
     print("manual run start")
 
+
 ###################################################################################
 def test_run():
     os.system("clear")
@@ -125,14 +128,14 @@ def test_run():
         print("wait for camera connection")
 
         clientSock = socket(AF_INET, SOCK_STREAM)
-        #print("connect start")
+        # print("connect start")
         clientSock.connect((ip, port))
         print("connect success")
         # temperature_controller = maxheat.TemperatureController(70)
 
         IC8888 = Temp_process.Initial_condition_checker()
 
-        #initial contion checker
+        # initial contion checker
 
         bin_data0 = clientSock.recv(1536)
         count = int(len(bin_data0) / 2)
@@ -145,14 +148,14 @@ def test_run():
         inditial_data = np.reshape(inditial_data, (24, 32))
 
         OPENTHEDOOR = IC8888.run(inditial_data)
-        print("number_of_realpart:",OPENTHEDOOR[1],"edge_temp:",OPENTHEDOOR[2])
+        print("number_of_realpart:", OPENTHEDOOR[1], "edge_temp:", OPENTHEDOOR[2])
 
         manual_controller.reset_origin()
         print("reset_the_manual_controller")
         TD = Temp_process.Thermal_Data(OPENTHEDOOR[2])
         print("thermal_data_set_up")
-        
-        #print("run6_initial_temp",IC8888.origin_temp)
+
+        # print("run6_initial_temp",IC8888.origin_temp)
         TD.run6_get_intitial_temp(IC8888.origin_temp)
         start_time = TD.initial_time
 
@@ -188,10 +191,9 @@ def test_run():
             except:
                 print("Fail_in_manual_controller")
 
-
             if lets_stop:
                 try:
-                    cv2.destroyAllWindows() #delete class
+                    cv2.destroyAllWindows()  # delete class
                     infomation = []
                     print("turn_off_micro_wave")
                     str1 = input("enter_the_object_name(in english): ")
@@ -220,6 +222,7 @@ def test_run():
             print("turn off test_mode")
             break
 
+
 ################################################################################### main_loop
 while True:
     print("please input you operation type")
@@ -233,7 +236,7 @@ while True:
     elif data_input == 3:
         run_type = test_run_type
         test_run()
-    elif data_input == 4 :
+    elif data_input == 4:
         os.system("clear")
         print("tun_off")
         print("Good bye!")

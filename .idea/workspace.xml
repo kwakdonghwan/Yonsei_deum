@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05711b87-dd35-4902-ba53-bb3ebe1aa5eb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/Deum/control/tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/Deum/control/tester.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/run_file.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
+            <state relative-caret-position="1311">
               <caret line="82" selection-start-line="82" selection-end-line="82" />
             </state>
           </provider>
@@ -78,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/Temp_process_developer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+            <state relative-caret-position="228">
+              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#465#4561#0" />
@@ -115,46 +117,46 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="758">
-              <caret line="657" column="30" selection-start-line="657" selection-start-column="30" selection-end-line="657" selection-end-column="30" />
+            <state relative-caret-position="563">
+              <caret line="447" column="49" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
               <folding>
                 <element signature="e#24#42#0" expanded="true" />
+                <element signature="e#429#5002#0" />
                 <element signature="e#570#943#0" />
                 <element signature="e#994#1637#0" />
                 <element signature="e#1685#2080#0" />
                 <element signature="e#2131#2718#0" />
-                <element signature="e#2764#4413#0" />
-                <element signature="e#4447#4972#0" />
-                <element signature="e#5164#5556#0" />
-                <element signature="e#5593#5670#0" />
-                <element signature="e#5707#5936#0" />
-                <element signature="e#5979#6214#0" />
-                <element signature="e#6246#6467#0" />
-                <element signature="e#6501#6715#0" />
-                <element signature="e#10108#10321#0" />
-                <element signature="e#10373#14276#0" />
-                <element signature="e#14339#14982#0" />
-                <element signature="e#15041#15422#0" />
-                <element signature="e#15485#17135#0" />
-                <element signature="e#17185#20303#0" />
-                <element signature="e#19588#19877#0" />
-                <element signature="e#20344#20657#0" />
-                <element signature="e#20709#20937#0" />
-                <element signature="e#20977#21366#0" />
-                <element signature="e#21407#21780#0" />
-                <element signature="e#21915#22978#0" />
-                <element signature="e#23022#23575#0" />
-                <element signature="e#23623#23843#0" />
-                <element signature="e#23887#24192#0" />
-                <element signature="e#24270#29770#0" />
-                <element signature="e#29815#31758#0" />
-                <element signature="e#31814#31914#0" />
-                <element signature="e#31964#32389#0" />
-                <element signature="e#32429#32801#0" />
-                <element signature="e#32891#33465#0" />
-                <element signature="e#33520#33559#0" />
-                <element signature="e#33598#33694#0" />
-                <element signature="e#33729#34462#0" />
+                <element signature="e#2763#4412#0" />
+                <element signature="e#4477#5002#0" />
+                <element signature="e#5165#6785#0" />
+                <element signature="e#6989#10200#0" />
+                <element signature="e#10232#10468#0" />
+                <element signature="e#10531#10877#0" />
+                <element signature="e#10940#15214#0" />
+                <element signature="e#21630#21943#0" />
+                <element signature="e#22042#22270#0" />
+                <element signature="e#22310#22699#0" />
+                <element signature="e#22740#23113#0" />
+                <element signature="e#23248#24311#0" />
+                <element signature="e#24355#24908#0" />
+                <element signature="e#24956#25176#0" />
+                <element signature="e#25220#25525#0" />
+                <element signature="e#32220#35354#0" />
+                <element signature="e#36034#36244#0" />
+                <element signature="e#36307#36679#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/tester.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-102">
+              <caret line="28" column="26" lean-forward="true" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+              <folding>
+                <element signature="e#25#61#0" expanded="true" />
+                <element signature="e#3408#3456#0" />
               </folding>
             </state>
           </provider>
@@ -176,6 +178,7 @@
       <find>run1</find>
       <find>checker_steam_condition</find>
       <find>11</find>
+      <find>manual_controller</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -204,29 +207,22 @@
         <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/virtualCamera.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/control/advenced_thermal_control.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/control/Temp_process_developer.py" />
-        <option value="$PROJECT_DIR$/PythonCodes/Deum/control/tester.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/control/run_file.py" />
+        <option value="$PROJECT_DIR$/PythonCodes/Deum/control/tester.py" />
         <option value="$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="739" />
-    <option name="y" value="175" />
-    <option name="width" value="802" />
-    <option name="height" value="777" />
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -264,7 +260,6 @@
         </subPane>
       </pane>
       <pane id="Course" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -305,6 +300,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonCodes/FastDeum/control/virtualCamera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -327,17 +323,19 @@
       <updated>1556611777543</updated>
       <workItem from="1556611778986" duration="3078000" />
       <workItem from="1557487982846" duration="4694000" />
+      <workItem from="1558792404119" duration="681000" />
+      <workItem from="1558866057995" duration="1442000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4694000" />
+    <option name="totallyTimeSpent" value="6817000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1512118" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15591398" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -358,6 +356,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="SciView" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -646,25 +645,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/run_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
+        <state relative-caret-position="1311">
           <caret line="82" selection-start-line="82" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/tester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="90" column="33" lean-forward="true" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
-          <folding>
-            <element signature="e#25#61#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/Temp_process_developer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+        <state relative-caret-position="228">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#465#4561#0" />
@@ -696,48 +685,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/tester.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="28" column="26" lean-forward="true" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+          <folding>
+            <element signature="e#25#61#0" expanded="true" />
+            <element signature="e#3408#3456#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/Deum/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="758">
-          <caret line="657" column="30" selection-start-line="657" selection-start-column="30" selection-end-line="657" selection-end-column="30" />
+        <state relative-caret-position="563">
+          <caret line="447" column="49" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
           <folding>
             <element signature="e#24#42#0" expanded="true" />
+            <element signature="e#429#5002#0" />
             <element signature="e#570#943#0" />
             <element signature="e#994#1637#0" />
             <element signature="e#1685#2080#0" />
             <element signature="e#2131#2718#0" />
-            <element signature="e#2764#4413#0" />
-            <element signature="e#4447#4972#0" />
-            <element signature="e#5164#5556#0" />
-            <element signature="e#5593#5670#0" />
-            <element signature="e#5707#5936#0" />
-            <element signature="e#5979#6214#0" />
-            <element signature="e#6246#6467#0" />
-            <element signature="e#6501#6715#0" />
-            <element signature="e#10108#10321#0" />
-            <element signature="e#10373#14276#0" />
-            <element signature="e#14339#14982#0" />
-            <element signature="e#15041#15422#0" />
-            <element signature="e#15485#17135#0" />
-            <element signature="e#17185#20303#0" />
-            <element signature="e#19588#19877#0" />
-            <element signature="e#20344#20657#0" />
-            <element signature="e#20709#20937#0" />
-            <element signature="e#20977#21366#0" />
-            <element signature="e#21407#21780#0" />
-            <element signature="e#21915#22978#0" />
-            <element signature="e#23022#23575#0" />
-            <element signature="e#23623#23843#0" />
-            <element signature="e#23887#24192#0" />
-            <element signature="e#24270#29770#0" />
-            <element signature="e#29815#31758#0" />
-            <element signature="e#31814#31914#0" />
-            <element signature="e#31964#32389#0" />
-            <element signature="e#32429#32801#0" />
-            <element signature="e#32891#33465#0" />
-            <element signature="e#33520#33559#0" />
-            <element signature="e#33598#33694#0" />
-            <element signature="e#33729#34462#0" />
+            <element signature="e#2763#4412#0" />
+            <element signature="e#4477#5002#0" />
+            <element signature="e#5165#6785#0" />
+            <element signature="e#6989#10200#0" />
+            <element signature="e#10232#10468#0" />
+            <element signature="e#10531#10877#0" />
+            <element signature="e#10940#15214#0" />
+            <element signature="e#21630#21943#0" />
+            <element signature="e#22042#22270#0" />
+            <element signature="e#22310#22699#0" />
+            <element signature="e#22740#23113#0" />
+            <element signature="e#23248#24311#0" />
+            <element signature="e#24355#24908#0" />
+            <element signature="e#24956#25176#0" />
+            <element signature="e#25220#25525#0" />
+            <element signature="e#32220#35354#0" />
+            <element signature="e#36034#36244#0" />
+            <element signature="e#36307#36679#0" />
           </folding>
         </state>
       </provider>
