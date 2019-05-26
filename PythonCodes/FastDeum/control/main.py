@@ -105,7 +105,7 @@ while True:
         elif status["mode"] == 0: # 수동모드
             manual_run(status["power"], status["duration"])
 
-        write_status(0, 0, 0, 0)
+        write_status(0, 0, 0, 0, 0)
         cv2.destroyAllWindows()
 
     # 소켓 버퍼 비우기

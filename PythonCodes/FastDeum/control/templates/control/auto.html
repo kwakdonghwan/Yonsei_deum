@@ -11,11 +11,12 @@
 
         <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 200px">
             <!--{% csrf_token %}-->
-            <input type="hidden" class="center" type="text" id="power" name="power" value="0">
-            <input type="hidden" class="center" type="text" id="duration" name="duration" value="0">
+
             <input type="hidden" class="center" type="text" id="mode" name="mode" value="1">
             <input type="hidden" class="center" type="text" id="on" name="on" value="1">
-
+            <input type="hidden" class="center" type="text" id="duration" name="duration" value="0">
+            <input type="hidden" class="center" type="text" id="power" name="power" value="0">
+            <input type="hidden" class="center" type="text" id="device" name="device" value="0">
             <input type="submit" value="자동데우기">
         </form>
     </div>

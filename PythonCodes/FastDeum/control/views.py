@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseServerError, StreamingHttpResponse
+from .status_io import *
 
 import time #sleep함수를쓰기위해
 
@@ -16,23 +17,6 @@ device:
     0: display   1: phone
 '''
 
-def read_status():
-
-    f = open("control/status.txt", "r")
-    line = f.readline()
-    f.close()
-    mode = int(line.split(" ")[0])
-    on = int(line.split(" ")[1])
-    duration = int(line.split(" ")[2])
-    power = int(line.split(" ")[3])
-
-    return {"mode": mode, "on": on, "duration": duration, "power": power}
-
-
-def write_status(mode, on, duration, power):
-    f = open("control/status.txt", "w")
-    f.write("{} {} {} {}".format(mode, on, duration, power))
-    f.close()
 
 
 def index(request):
@@ -41,12 +25,12 @@ def index(request):
 
 
 def manual(request):
-    write_status(0, 0, 0, 0)
+    write_status(0, 0, 0, 0, 0)
 
     return render(request, 'control/manual.html')
 
 def auto(request):
-    write_status(0, 0, 0, 0)
+    write_status(0, 0, 0, 0, 0)
 
     return render(request, 'control/auto.html')
 
@@ -58,7 +42,9 @@ def result(request):
     duration = int(request.POST['duration'])
     mode = int(request.POST['mode'])
     on = int(request.POST['on'])
-    write_status(mode, on, duration, power)
+    write_status(mode, on, duration, power, device)
+
+    print(mode, on, duration, power, device)
 
     if device == 0:  # request from display
         return render(request, 'control/result.html')
