@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c43bfd0-3c24-4796-abea-d8867d73acac" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/manual.html" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/manual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/control/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/auto.html" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/auto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/result.html" beforeDir="false" afterPath="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/result.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auto.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="auto.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/auto.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="60">
+              <caret line="34" selection-start-line="34" selection-end-line="95" />
               <folding>
                 <element signature="n#style#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -93,15 +94,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="running.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/running.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="status_io.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/status_io.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -111,14 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="result.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="result.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/result.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="120">
+              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -150,6 +139,7 @@
       <find>MEDIA</find>
       <find>txt</find>
       <find>center</find>
+      <find>button_trans</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -172,6 +162,7 @@
         <option value="$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/settings.py" />
         <option value="$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/urls.py" />
         <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/models.py" />
+        <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/static/control/style.css" />
         <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/auto.html" />
         <option value="$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/result.html" />
       </list>
@@ -308,10 +299,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="6" />
+    <frame x="512" y="0" width="768" height="800" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12152502" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20481928" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32935324" />
@@ -341,16 +332,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="37" column="12" lean-forward="true" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -382,9 +363,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -430,9 +408,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -629,13 +604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/running.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -688,6 +656,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/running.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -698,17 +680,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/FastDeum/settings.py">
+    <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/static/control/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
+        <state relative-caret-position="30">
+          <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/auto.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="60">
+          <caret line="34" selection-start-line="34" selection-end-line="95" />
           <folding>
             <element signature="n#style#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -718,11 +700,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PythonCodes/FastDeum/control/templates/control/result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="120">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
         </state>
       </provider>
     </entry>
