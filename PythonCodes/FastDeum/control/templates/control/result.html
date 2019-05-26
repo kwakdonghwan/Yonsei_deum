@@ -7,22 +7,27 @@
 </head>
 <body>
     <div class="centerHolder" style="margin-top: 200px">
-        <p class="text">running..</p>
+        <p id="tt" class="text">running..</p>
     </div>
 </body>
 
 
 <script>
     setInterval(checkStatus, 100);
+    var count = 0;
     function checkStatus()
-    {
+    {   count++;
+        if(count > 100) document.getElementById("tt").innerHTML = "Finished";
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open( "GET", "http://localhost:8000/control/status", false ); // false for synchronous request
         xmlHttp.send( null );
         // return xmlHttp.responseText;
         var status = xmlHttp.responseText;
+        if(status=="0") {
+            document.getElementById("tt").innerHTML = "Finished"
+            setTimeout(function() { window.history.back(); }, 5000)
 
-        if(status=="0") window.history.back();
+         }
         
     }
 
