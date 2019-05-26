@@ -4,30 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Deum</title>
+    {% load static %}
+    <link href="{% static 'control/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="centerHolder">
-        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
 
-        <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 200px">
+        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+        <!--<img style="width: 300px" src="{% static 'control/images/logo2.png' %}" alt="">-->
+        <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 60px">
             <!--{% csrf_token %}-->
 
-
-            <input type="hidden" class="center" type="text" id="mode" name="mode" value="1">
-            <input type="hidden" class="center" type="text" id="on" name="on" value="1">
-            <input type="hidden" class="center" type="text" id="duration" name="duration" value="0">
-            <input type="hidden" class="center" type="text" id="power" name="power" value="0">
-            <input type="hidden" class="center" type="text" id="device" name="device" value="0">
+            <input type="hidden" class="center" type="text" name="mode" value="1">
+            <input type="hidden" class="center" type="text" name="on" value="1">
+            <input type="hidden" class="center" type="text" name="duration" value="0">
+            <input type="hidden" class="center" type="text" name="power" value="0">
+            <input type="hidden" class="center" type="text" name="device" value="0">
             <!--{% load staticfiles %}-->
-            <button class="button_trans" id="btn" type="submit" style="width:120px" >Auto</button>
 
 
-
+            <!--<button style="width: 400px" class="button_trans" type="submit"><img style="width: 100%" src="{% static 'control/images/btn_main.png' %}" alt=""></button>-->
+            <button style="width: 400px" class="button_trans" type="submit"><img style="width: 100%" src="{% static 'control/images/btn_main.png' %}" alt=""></button>
 
             <!--<input type="submit" value="자동데우기">-->
         </form>
     </div>
+
+
+
+ <section id="contact">
+    <div class="centerHolder" style="margin-top:1000px">
+        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+
+        <form action="http://localhost:8000/control/manual/" method="post">
+            {% csrf_token %}
+            <input type="hidden" class="center" type="text" id="power" name="power" value="7">
+            <!--<label class="text" for="duration">&nbsp&nbsp&nbsp</label>-->
+            <!--<a class="aBtn" href="#" id="power_plus">+</a>-->
+            <!--<a class="aBtn" href="#"id="power_minus">-</a><br>-->
+            <p class="stdfont" style="font-size: 40px">TIME</p>
+            <div>
+                <a class="aBtn" href="#" id="duration_minus">-</a>
+                <input class="center transinput" type="text" id="duration" name="duration" value="20">
+                <!--<label class="text" for="duration">초</label>-->
+                <a class="aBtn" href="#" id="duration_plus">+</a>
+            </div>
+            <button class="button_trans" id="btn" type="submit" style="width:120px" >GO</button>
+        </form>
+    </div>
+ </section>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 

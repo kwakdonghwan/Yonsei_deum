@@ -5,46 +5,59 @@
     <title>Deum</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
-<body>
+<body style="margin-top: 200px">
+    <img src="" alt="">
+
     <div class="centerHolder">
         <!--<a href="/control/run" class="button center">Deum</a><br>-->
 
-        <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 200px">
-            <!--{% csrf_token %}-->
-            <input class="center" type="text" id="power" name="power" value="10">
-            <label class="text" for="duration">&nbsp&nbsp&nbsp</label>
-            <a class="aBtn" href="#" id="power_plus">+</a>
-            <a class="aBtn" href="#"id="power_minus">-</a><br>
-
-            <input class="center" type="text" id="duration" name="duration" value="20">
-            <label class="text" for="duration">초</label>
-            <input type="hidden" class="center" type="text" id="mode" name="mode" value="0">
-            <input type="hidden" class="center" type="text" id="on" name="on" value="1">
-            <input type="hidden" class="center" type="text" id="device" name="device" value="0">
-            <a class="aBtn" href="#" id="duration_plus">+</a>
-            <a class="aBtn" href="#" id="duration_minus">-</a><br>
-            <input type="submit" value="돌리기">
+        <form action="http://localhost:8000/control/manual/" method="post">
+            {% csrf_token %}
+            <input type="hidden" class="center" type="text" id="power" name="power" value="7">
+            <!--<label class="text" for="duration">&nbsp&nbsp&nbsp</label>-->
+            <!--<a class="aBtn" href="#" id="power_plus">+</a>-->
+            <!--<a class="aBtn" href="#"id="power_minus">-</a><br>-->
+            <p class="stdfont" style="font-size: 40px">TIME(s)</p>
+            <div>
+                <a class="aBtn" href="##" id="duration_minus">-</a>
+                <input class="center transinput" type="text" id="duration" name="duration" value="20">
+                <!--<label class="text" for="duration">초</label>-->
+                <a class="aBtn" href="##" id="duration_plus">+</a>
+            </div>
+            <button class="button_trans" id="btn" type="submit" style="width:120px" >GO</button>
         </form>
     </div>
 </body>
 </html>
 
+
 <style>
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+
 body {
   background-color: black;
 }
 
 .text {
-  color: white;
+    color: white;
+    font-size: 50px;
+    font-family: 'Noto Sans CJK', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: semi-condensed;
 }
 
 .aBtn {
-  font-size: 30px;
+  font-size: 50px;
   color: white;
   text-decoration: none;
-  margin: 5px;
-}
+  margin: 20px;
+  margin-top: 60px;
+  border-top: 60px;
 
+
+}
 
 .button {
   margin-top: 200px;
@@ -58,8 +71,50 @@ body {
   font-size: 32px;
 }
 
+
+.button_trans {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    color: white;
+    font-size: 50px;
+    font-family: 'Noto Sans CJK', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: semi-condensed;
+}
+
+.stdfont {
+    color: white;
+    font-size: 50px;
+    font-family: 'Noto Sans CJK', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0px;
+    font-stretch: semi-condensed;
+}
+
+
 .center {
   text-align: center;
+}
+
+.transinput {
+    margin: 30px;
+    border: 10px;
+    outline:none;
+    font-size: 40px;
+    background-color: #292929;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    color: white;
+    width: 200px;
+    height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
 }
 
 .centerHolder{ text-align: center; }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://localhost:8000/control/auto/#contact -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Deum</title>
+    
+    <link href="./Deum_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="./Deum_files/jquery.min.js"></script>
+</head>
+<body>
+    <div class="centerHolder">
+        <a class="nav-link js-scroll-trigger" href="http://localhost:8000/control/auto/#contact">Contact</a>
+
+        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+        <!--<img style="width: 300px" src="/static/control/images/logo2.png" alt="">-->
+        <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 60px">
+            <!--<input type="hidden" name="csrfmiddlewaretoken" value="Y5jQ24ln6Ku1koOCQWPhlvh5H5VpdpmGkTymc23Xof83sfoYgmymT8363Hdn091M">-->
+
+            <input type="hidden" class="center" name="mode" value="1">
+            <input type="hidden" class="center" name="on" value="1">
+            <input type="hidden" class="center" name="duration" value="0">
+            <input type="hidden" class="center" name="power" value="0">
+            <input type="hidden" class="center" name="device" value="0">
+            <!---->
+
+
+            <!--<button style="width: 400px" class="button_trans" type="submit"><img style="width: 100%" src="/static/control/images/btn_main.png" alt=""></button>-->
+            <button style="width: 400px" class="button_trans" type="submit"><img style="width: 100%" src="./Deum_files/btn_main.png" alt=""></button>
+
+            <!--<input type="submit" value="자동데우기">-->
+        </form>
+    </div>
+
+
+
+ <section id="contact">
+    <div class="centerHolder" style="margin-top:1000px">
+        <!--<a href="/control/run" class="button center">Deum</a><br>-->
+
+        <form action="http://localhost:8000/control/manual/" method="post">
+            <input type="hidden" name="csrfmiddlewaretoken" value="Y5jQ24ln6Ku1koOCQWPhlvh5H5VpdpmGkTymc23Xof83sfoYgmymT8363Hdn091M">
+            <input type="hidden" class="center" id="power" name="power" value="7">
+            <!--<label class="text" for="duration">&nbsp&nbsp&nbsp</label>-->
+            <!--<a class="aBtn" href="#" id="power_plus">+</a>-->
+            <!--<a class="aBtn" href="#"id="power_minus">-</a><br>-->
+            <p class="stdfont" style="font-size: 40px">TIME</p>
+            <div>
+                <a class="aBtn" href="http://localhost:8000/control/auto/#" id="duration_minus">-</a>
+                <input class="center transinput" type="text" id="duration" name="duration" value="20">
+                <!--<label class="text" for="duration">초</label>-->
+                <a class="aBtn" href="http://localhost:8000/control/auto/#" id="duration_plus">+</a>
+            </div>
+            <button class="button_trans" id="btn" type="submit" style="width:120px">GO</button>
+        </form>
+    </div>
+ </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+
+body {
+  background-color: black;
+}
+
+.text {
+    color: white;
+    font-size: 50px;
+    font-family: 'Noto Sans CJK', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: semi-condensed;
+}
+
+.aBtn {
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+  margin: 5px;
+
+}
+
+.button {
+  margin-top: 200px;
+  background-color: gray; /* Green */
+  border: none;
+  color: white;
+  padding: 40px 64px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+}
+
+
+.button_trans {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    color: white;
+    font-size: 50px;
+    font-family: 'Noto Sans CJK', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: semi-condensed;
+
+}
+
+
+
+.center {
+  text-align: center;
+}
+
+.centerHolder{ text-align: center; }
+
+
+
+</style>
+
+
+</body></html>
