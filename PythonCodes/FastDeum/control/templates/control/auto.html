@@ -12,12 +12,19 @@
         <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 200px">
             <!--{% csrf_token %}-->
 
+
             <input type="hidden" class="center" type="text" id="mode" name="mode" value="1">
             <input type="hidden" class="center" type="text" id="on" name="on" value="1">
             <input type="hidden" class="center" type="text" id="duration" name="duration" value="0">
             <input type="hidden" class="center" type="text" id="power" name="power" value="0">
             <input type="hidden" class="center" type="text" id="device" name="device" value="0">
-            <input type="submit" value="자동데우기">
+            <!--{% load staticfiles %}-->
+            <button class="button_trans" id="btn" type="submit" style="width:100px"><img width="100%" src="https://postfiles.pstatic.net/MjAxOTA1MjZfMTk3/MDAxNTU4ODc1NTQ2MjE0.n2qdBjjizURCOClm0O3A2vfeq0FueELkidsVzky_qmIg.z-f-f7N2kars3oldYcdBFUaRLZuEADVYqyKJm-hrC7Ig.PNG.hellokiii/btn_auto.png?type=w773" alt="Auto"></button>
+
+
+
+
+            <!--<input type="submit" value="자동데우기">-->
         </form>
     </div>
 </body>
@@ -52,6 +59,16 @@ body {
   font-size: 32px;
 
 }
+
+
+.button_trans {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+}
+
 
 .center {
   text-align: center;
