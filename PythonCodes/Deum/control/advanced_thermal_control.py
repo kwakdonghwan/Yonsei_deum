@@ -224,6 +224,7 @@ class Advanced_thermal_data_control:
         self.time_break_time_counter = -1
         self.time_break_time_default = 5
         self.time_reach_below_10 = False  ## make flag to 11 and return True
+        self.time_display_time_trash = 0
 
         self.MWC = Microwave_contol()   ## use "self.MWC(self.operation_flag)"
 
@@ -239,6 +240,8 @@ class Advanced_thermal_data_control:
 
         self.wr.writerow(basic_info)
 
+
+
         print("Advanced_thermal_data_control setup")
     def __del__(self):
         self.f.close()
@@ -253,15 +256,23 @@ class Advanced_thermal_data_control:
 
 
     def display_time_control(self,input_time_data):
+        self.time_display_time_trash = self.time_display_time_trash+1
         display_time = input_time_data
         if input_time_data > 100:
             display_time = int (input_time_data / 10)
+
+            display_time = display_time - (self.time_display_time_trash % 10)
+            if display_time < 1 :
+                display_time = 1
             return display_time
 
         if self.status_target_next_max_or_avg_flag == 13:
             
             display_time = 2 + 2 * self.time_break_time_default - self.time_break_time_counter
 
+        display_time = display_time - (self.time_display_time_trash % 10)
+        if display_time < 1:
+            display_time = 1
         return display_time
 # img show
     def absolute_HSV_Control5(self,data4):
@@ -317,17 +328,17 @@ class Advanced_thermal_data_control:
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
-        cv2.putText(img, display_max_temp, (380,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (380, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (380, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
-            cv2.putText(img, display_edge_temp, (380, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
         else:
-            cv2.putText(img, display_edge_temp, (380, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (380, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_condition_flag, (380, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_prograss, (380, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (380, 300), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (385, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (385, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (385, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (385, 300), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
 
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
