@@ -22,6 +22,7 @@ clientSock.connect((ip, port))
 print("connect success")
 
 
+
 def auto_run():
 
 
@@ -61,6 +62,10 @@ def auto_run():
         if lets_stop:
             break
 
+        status = read_status()
+        if status["on"] == 0:
+            break
+
     print("turn_off_microwave(auto_mode)")
 
 
@@ -92,6 +97,10 @@ def manual_run(power, duration):
         stop_wave = manual_controller.run()
 
         if stop_wave:
+            break
+
+        status = read_status()
+        if status["on"] == 0:
             break
 
 
