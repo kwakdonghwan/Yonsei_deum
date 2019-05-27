@@ -351,7 +351,7 @@ class Advanced_thermal_data_control:
         display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10) + "'C"
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10) + "'C"
         display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10) + "'C"
-        display_edge_temp = "air:" + str(self.DATA_all[self.DATA_all_index][5]/10 - 3) + "'C"
+        display_edge_temp = "air:" + str(self.DATA_all[self.DATA_all_index][5]/10 - 1) + "'C"
         display_time_remain_operation_time = str(display_time_value) + "s"
         display_condition_flag = "phase:" + str(self.status_target_next_max_or_avg_flag)
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
@@ -394,23 +394,16 @@ class Advanced_thermal_data_control:
         return img
 # data analysis and store in this class
     def PostProcess_edge_temp_calculator(self, data):
-        max = np.amax(data)
-        min = np.amin(data)
-        average = np.mean(data)
-
-        if max > 700:
-            return max - 300
-        elif 700 >= max > 300:
-            return (max + min) / 2
-        else:
-            return 280
-
-
-
+        #
+        #
+        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
+        # edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
+        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
+        # edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
-        edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
+        edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
-        edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+        edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
         max1 = max(edge)
         if edge_1 == edge_2 == edge_3 == edge_4:
@@ -622,9 +615,9 @@ class Advanced_thermal_data_control:
             print("steam_condition_detected, prepare to turn off")
     def checker_next_target(self):
         if self.status_edge_up[7] == True: # this is for vinyl detected
-            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][3] + self.status_target_max)
+            self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][3] + self.status_target_max))/2
         else:
-            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
+            self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][2] + self.status_target_max))/2
     def checker_food_exist(self):
         if self.DATA_all[self.DATA_all_index][2] > 550:
             if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:

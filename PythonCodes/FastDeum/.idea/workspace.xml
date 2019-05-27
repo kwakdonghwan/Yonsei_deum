@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f529b1a4-b350-4542-8426-fefa6f142c8b" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../Deum/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Deum/control/advanced_thermal_control.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/advanced_thermal_control.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,28 +52,34 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="706">
-              <caret line="338" column="46" selection-start-line="338" selection-start-column="46" selection-end-line="338" selection-end-column="46" />
+            <state relative-caret-position="363">
+              <caret line="353" column="85" selection-start-line="353" selection-start-column="85" selection-end-line="353" selection-end-column="85" />
               <folding>
                 <element signature="e#2790#4439#0" />
                 <element signature="e#5192#6812#0" />
                 <element signature="e#10517#10753#0" />
-                <element signature="e#10815#11263#0" />
-                <element signature="e#11326#12020#0" />
-                <element signature="e#17058#17944#0" />
-                <element signature="e#17788#18169#0" />
-                <element signature="e#18470#20145#0" />
                 <element signature="e#19782#23298#0" />
                 <element signature="e#23480#23961#0" />
                 <element signature="e#23751#23979#0" />
-                <element signature="e#24449#24822#0" />
                 <element signature="e#26064#26617#0" />
-                <element signature="e#37706#37806#0" />
                 <element signature="e#38459#38669#0" />
                 <element signature="e#38732#39104#0" />
                 <element signature="e#39821#40757#0" />
                 <element signature="e#40809#41351#0" />
                 <element signature="e#41390#41486#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Deum/control/advanced_thermal_control.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7254">
+              <caret line="590" lean-forward="true" selection-start-line="590" selection-end-line="590" />
+              <folding>
+                <element signature="e#456#5029#0" />
+                <element signature="e#5192#6812#0" />
               </folding>
             </state>
           </provider>
@@ -100,6 +107,9 @@
     <findStrings>
       <find>status</find>
       <find>absolute_HSV_Control5</find>
+      <find>checker_make_target_max_min</find>
+      <find>checker_status_target_next_max_or_avg_flag_controller</find>
+      <find>status_target_next_max_or_avg</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -113,13 +123,14 @@
         <option value="$PROJECT_DIR$/control/sound_tester.py" />
         <option value="$PROJECT_DIR$/control/status_io.py" />
         <option value="$PROJECT_DIR$/control/main.py" />
+        <option value="$PROJECT_DIR$/../Deum/control/advanced_thermal_control.py" />
         <option value="$PROJECT_DIR$/control/advanced_thermal_control.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="757" />
-    <option name="y" value="-24" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -192,18 +203,18 @@
       <workItem from="1558955639434" duration="902000" />
       <workItem from="1558958517960" duration="1110000" />
       <workItem from="1558965908489" duration="83000" />
-      <workItem from="1558966153655" duration="4237000" />
+      <workItem from="1558966153655" duration="5649000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12089000" />
+    <option name="totallyTimeSpent" value="13501000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.65536106" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.6551173" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -282,25 +293,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Deum/control/advanced_thermal_control.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7254">
+          <caret line="590" lean-forward="true" selection-start-line="590" selection-end-line="590" />
+          <folding>
+            <element signature="e#456#5029#0" />
+            <element signature="e#5192#6812#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="338" column="46" selection-start-line="338" selection-start-column="46" selection-end-line="338" selection-end-column="46" />
+        <state relative-caret-position="363">
+          <caret line="353" column="85" selection-start-line="353" selection-start-column="85" selection-end-line="353" selection-end-column="85" />
           <folding>
             <element signature="e#2790#4439#0" />
             <element signature="e#5192#6812#0" />
             <element signature="e#10517#10753#0" />
-            <element signature="e#10815#11263#0" />
-            <element signature="e#11326#12020#0" />
-            <element signature="e#17058#17944#0" />
-            <element signature="e#17788#18169#0" />
-            <element signature="e#18470#20145#0" />
             <element signature="e#19782#23298#0" />
             <element signature="e#23480#23961#0" />
             <element signature="e#23751#23979#0" />
-            <element signature="e#24449#24822#0" />
             <element signature="e#26064#26617#0" />
-            <element signature="e#37706#37806#0" />
             <element signature="e#38459#38669#0" />
             <element signature="e#38732#39104#0" />
             <element signature="e#39821#40757#0" />

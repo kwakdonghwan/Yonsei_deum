@@ -575,16 +575,16 @@ class Advanced_thermal_data_control:
             print("steam_condition_detected, prepare to turn off")
     def checker_next_target(self):
         if self.status_edge_up[7] == True: # this is for vinyl detected
-            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][3] + self.status_target_max)
+            self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][3] + self.status_target_max))/2
         else:
-            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
+            self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][2] + self.status_target_max))/2
     def checker_food_exist(self):
         if self.DATA_all[self.DATA_all_index][2] > 550:
             if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
                 self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
                 self.status_target_exist_max_temp_flag = True
         if self.status_target_exist_max_temp_flag == True:
-            if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index][2]:
+            if self.status_target_exist_max_temp * 0.7 > self.DATA_all[self.DATA_all_index][2]:
                 self.operation_flag = self.operation_turn_off
                 print("food_is_out")
 
