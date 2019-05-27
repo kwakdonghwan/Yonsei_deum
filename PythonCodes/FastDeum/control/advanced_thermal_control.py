@@ -113,7 +113,7 @@ class Initial_condition_checker:
 # run initial condition checker
     def run(self,data):
         new_data = self.Thermal_data_cut(data)
-        self.edge_data = self.edge_temp_claculator(new_data)
+        self.edge_data = self.edge_temp_claculator(data)
         # self.data_Condtion_checker(new_data)
         self.data_Condtion_checker(data)
         # self.realpart_number = self.realpart_finder(new_data)
