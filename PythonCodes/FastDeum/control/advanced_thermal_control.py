@@ -480,19 +480,31 @@ class Advanced_thermal_data_control:
                         Number_of_real_temp += 1
                         real_object_temp.append(data[py][px])
 
-
-        real_object_temp = sorted(real_object_temp)
-        try: #this function will reduce the risk of flutuation
-            min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
-            real_object_temp.reverse()
-            max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+        try:
+            real_object_temp = sorted(real_object_temp)
+            try: #this function will reduce the risk of flutuation
+                min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+                real_object_temp.reverse()
+                max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+            except:
+                real_object_temp.reverse()
+                max_temp = max(real_object_temp)
+                min_temp = min(real_object_temp)
+            average_temp = s.mean(real_object_temp)
         except:
-            real_object_temp.reverse()
-            max_temp = max(real_object_temp)
-            min_temp = min(real_object_temp)
+            real_object_temp = sorted(all_object_temp)
+            try: #this function will reduce the risk of flutuation
+                min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+                real_object_temp.reverse()
+                max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+            except:
+                real_object_temp.reverse()
+                max_temp = max(real_object_temp)
+                min_temp = min(real_object_temp)
+            average_temp = s.mean(real_object_temp)
+
 
         times = time.time() - self.time_initial_time
-        average_temp = s.mean(real_object_temp)
         self.DATA_all.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
         self.DATA_all_index += 1
 
