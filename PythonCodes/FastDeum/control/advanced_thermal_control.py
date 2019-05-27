@@ -263,12 +263,13 @@ class Advanced_thermal_data_control:
         print("stop button pressed")
 
         if event == cv2.EVENT_LBUTTONUP:
-            if 385 < x < 580:
-                if 320 < y < 350:
-                    print("forced stop mode on")
-                    self.status_target_exist_max_temp_flag = 14
-                    self.operation_flag = self.operation_turn_off
-                    self.status_forced_stop_flag = True
+            if self.status_forced_stop_flag == False:
+                if 385 < x < 580:
+                    if 320 < y < 350:
+                        print("forced stop mode on")
+                        self.status_target_next_max_or_avg_flag = 14
+                        self.operation_flag = self.operation_turn_off
+                        self.status_forced_stop_flag = True
 
 
     def display_time_control(self,input_time_data):
@@ -360,7 +361,7 @@ class Advanced_thermal_data_control:
 
         #############################stop button#################################
         cv2.rectangle(img,(385,320),(580,350),(150,150,150),-1)
-        cv2.putText(img, "STOP", (420, 330), font, fontScale * 1.2, (0, 0, 255), thickness+1, cv2.LINE_AA)
+        cv2.putText(img, "STOP", (450, 340), font, fontScale * 1.2, (0, 0, 255), thickness+1, cv2.LINE_AA)
 
 
 
@@ -795,23 +796,23 @@ class Advanced_thermal_data_control:
         self.checker_10sec_break_time_update()
 # run code functions
     def run_sound_out_finish(self):
-        if self.status_target_exist_max_temp_flag > 13:
+        if self.status_target_next_max_or_avg_flag > 13:
             if self.condition_fire_count > 2:
                 try:
                     print("fire sound_will paly")
-                    os.system('omxplayser --vol 5000 /fire_sound.mp3')
+                    os.system('omxplayer --vol 5000 /fire_sound.mp3')
                 except:
                     print("failto play sound _ fire!!!! hehehehe")
             elif self.status_forced_stop_flag == True:
                 try:
                     print("forced_stop_sound_will paly")
-                    os.system('omxplayser --vol 5000 /forced_stop_sound.mp3')
+                    os.system('omxplayer --vol 5000 /forced_stop_sound.mp3')
                 except:
                     print("fail to paly sound _ forced _stop case")
             else :
                 try:
                     print("normal_turn_off_sounr will paly")
-                    os.system('omxplayser --vol 5000 /normal_turn_off_sound.mp3')
+                    os.system('omxplayer --vol 5000 /normal_turn_off_sound.mp3')
                 except:
                     print("fail to play souend_ normal_ case")
     def run_initialization(self,icc_data):
