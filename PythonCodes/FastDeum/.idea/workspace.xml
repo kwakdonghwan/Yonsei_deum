@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f529b1a4-b350-4542-8426-fefa6f142c8b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/advanced_thermal_control.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/control/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +38,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="901">
-                    <caret line="813" column="79" selection-start-line="813" selection-start-column="79" selection-end-line="813" selection-end-column="79" />
+                  <state relative-caret-position="818">
+                    <caret line="554" column="32" selection-start-line="554" selection-start-column="32" selection-end-line="554" selection-end-column="32" />
                     <folding>
                       <element signature="e#24#42#0" expanded="true" />
                       <element signature="e#429#5002#0" />
@@ -68,7 +67,6 @@
                       <element signature="e#22620#22848#0" />
                       <element signature="e#22888#23277#0" />
                       <element signature="e#23318#23691#0" />
-                      <element signature="e#23826#24889#0" />
                       <element signature="e#24933#25486#0" />
                       <element signature="e#25534#25754#0" />
                       <element signature="e#25798#26103#0" />
@@ -212,12 +210,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558410228778</updated>
-      <workItem from="1558945114359" duration="4827000" />
+      <workItem from="1558945114359" duration="5028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4827000" />
+    <option name="totallyTimeSpent" value="5028000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-928" y="-2160" width="1293" height="1407" extended-state="0" />
@@ -280,10 +278,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/control/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="32" column="51" lean-forward="true" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="813" column="79" selection-start-line="813" selection-start-column="79" selection-end-line="813" selection-end-column="79" />
+        <state relative-caret-position="818">
+          <caret line="554" column="32" selection-start-line="554" selection-start-column="32" selection-end-line="554" selection-end-column="32" />
           <folding>
             <element signature="e#24#42#0" expanded="true" />
             <element signature="e#429#5002#0" />
@@ -311,7 +319,6 @@
             <element signature="e#22620#22848#0" />
             <element signature="e#22888#23277#0" />
             <element signature="e#23318#23691#0" />
-            <element signature="e#23826#24889#0" />
             <element signature="e#24933#25486#0" />
             <element signature="e#25534#25754#0" />
             <element signature="e#25798#26103#0" />
@@ -325,16 +332,6 @@
             <element signature="e#37933#38507#0" />
             <element signature="e#38580#39122#0" />
             <element signature="e#39161#39257#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="32" column="51" lean-forward="true" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
