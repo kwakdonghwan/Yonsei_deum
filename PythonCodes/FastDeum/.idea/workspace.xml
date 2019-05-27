@@ -2,32 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f529b1a4-b350-4542-8426-fefa6f142c8b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/advanced_thermal_control.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DockManager">
-    <window id="2">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/control/main.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="535">
-                    <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -70,13 +51,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="67" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="635">
+              <caret line="522" column="8" lean-forward="true" selection-start-line="522" selection-start-column="8" selection-end-line="522" selection-end-column="8" />
               <folding>
-                <element signature="e#597#970#0" />
-                <element signature="e#1021#1664#0" />
-                <element signature="e#1712#2107#0" />
-                <element signature="e#2158#2745#0" />
                 <element signature="e#2790#4439#0" />
                 <element signature="e#5192#6812#0" />
                 <element signature="e#7016#10485#0" />
@@ -84,11 +61,9 @@
                 <element signature="e#10815#11263#0" />
                 <element signature="e#11326#12020#0" />
                 <element signature="e#12083#16833#0" />
-                <element signature="e#16936#17579#0" />
                 <element signature="e#17638#18019#0" />
                 <element signature="e#18082#19732#0" />
                 <element signature="e#19782#23298#0" />
-                <element signature="e#23339#23652#0" />
                 <element signature="e#23751#23979#0" />
                 <element signature="e#24019#24408#0" />
                 <element signature="e#24449#24822#0" />
@@ -116,7 +91,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/control/run_file_with_django.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="728">
+            <state relative-caret-position="924">
               <caret line="66" column="37" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
             </state>
           </provider>
@@ -226,11 +201,12 @@
       <workItem from="1558955639434" duration="902000" />
       <workItem from="1558958517960" duration="1110000" />
       <workItem from="1558965908489" duration="83000" />
+      <workItem from="1558966153655" duration="272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7852000" />
+    <option name="totallyTimeSpent" value="8124000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -303,27 +279,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/control/run_file_with_django.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
+        <state relative-caret-position="924">
           <caret line="66" column="37" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/control/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
+        <state relative-caret-position="798">
           <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="635">
+          <caret line="522" column="8" lean-forward="true" selection-start-line="522" selection-start-column="8" selection-end-line="522" selection-end-column="8" />
           <folding>
-            <element signature="e#597#970#0" />
-            <element signature="e#1021#1664#0" />
-            <element signature="e#1712#2107#0" />
-            <element signature="e#2158#2745#0" />
             <element signature="e#2790#4439#0" />
             <element signature="e#5192#6812#0" />
             <element signature="e#7016#10485#0" />
@@ -331,11 +303,9 @@
             <element signature="e#10815#11263#0" />
             <element signature="e#11326#12020#0" />
             <element signature="e#12083#16833#0" />
-            <element signature="e#16936#17579#0" />
             <element signature="e#17638#18019#0" />
             <element signature="e#18082#19732#0" />
             <element signature="e#19782#23298#0" />
-            <element signature="e#23339#23652#0" />
             <element signature="e#23751#23979#0" />
             <element signature="e#24019#24408#0" />
             <element signature="e#24449#24822#0" />

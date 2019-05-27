@@ -36,6 +36,7 @@ class Initial_condition_checker:
         self.min_tem = 0
         print("intitial_Checker_setup")
     def edge_temp_claculator(self, data):
+        return 280
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
@@ -116,8 +117,10 @@ class Initial_condition_checker:
     def run(self,data):
         new_data = self.Thermal_data_cut(data)
         self.edge_data = self.edge_temp_claculator(new_data)
-        self.data_Condtion_checker(new_data)
-        self.realpart_number = self.realpart_finder(new_data)
+        # self.data_Condtion_checker(new_data)
+        self.data_Condtion_checker(data)
+        # self.realpart_number = self.realpart_finder(new_data)
+        self.realpart_number = self.realpart_finder(data)
         print("(Initial_condition_checker) check is completed ")
         print([self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data])
         return [self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data]
@@ -383,6 +386,7 @@ class Advanced_thermal_data_control:
         return img
 # data analysis and store in this class
     def PostProcess_edge_temp_calculator(self, data):
+        return 280
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
@@ -509,10 +513,16 @@ class Advanced_thermal_data_control:
     def PostProcess(self,data):
         #print("post_process_start")
         new_data = self.PostProcess_Thermal_data_cut(data)
+
         self.status_edge_temp = self.PostProcess_edge_temp_calculator(new_data)
-        self.PostProcess_data_Condtion_checker(new_data)
-        self.PostProcess_get_data(new_data)
-        self.absolute_HSV_Control5(new_data)
+        #self.PostProcess_data_Condtion_checker(new_data)
+        self.PostProcess_data_Condtion_checker(data)
+
+        #self.PostProcess_get_data(new_data)
+        self.PostProcess_get_data(data)
+        
+        #self.absolute_HSV_Control5(new_data)
+        self.absolute_HSV_Control5(data)
 # check operation condition form data functions
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
