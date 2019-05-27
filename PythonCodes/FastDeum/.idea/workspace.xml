@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f529b1a4-b350-4542-8426-fefa6f142c8b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/control/sound_tester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/status_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/status_io.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,8 +38,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="551">
-                    <caret line="799" selection-start-line="799" selection-end-line="803" selection-end-column="66" />
+                  <state relative-caret-position="3298">
+                    <caret line="848" column="37" selection-start-line="848" selection-start-column="37" selection-end-line="848" selection-end-column="37" />
                     <folding>
                       <element signature="e#24#42#0" expanded="true" />
                       <element signature="e#429#5002#0" />
@@ -112,11 +112,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/control/sound_tester.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="84">
               <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/control/status_io.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
@@ -156,6 +165,7 @@
         <option value="$PROJECT_DIR$/control/advanced_thermal_control.py" />
         <option value="$PROJECT_DIR$/control/templates/sound_tester.py" />
         <option value="$PROJECT_DIR$/control/sound_tester.py" />
+        <option value="$PROJECT_DIR$/control/status_io.py" />
       </list>
     </option>
   </component>
@@ -188,6 +198,13 @@
               <item name="FastDeum" type="462c0819:PsiDirectoryNode" />
               <item name="control" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FastDeum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FastDeum" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -223,12 +240,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558410228778</updated>
-      <workItem from="1558945114359" duration="5331000" />
+      <workItem from="1558945114359" duration="5516000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5331000" />
+    <option name="totallyTimeSpent" value="5516000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-928" y="-2160" width="1293" height="1407" extended-state="0" />
@@ -306,8 +323,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="799" selection-start-line="799" selection-end-line="803" selection-end-column="66" />
+        <state relative-caret-position="3298">
+          <caret line="848" column="37" selection-start-line="848" selection-start-column="37" selection-end-line="848" selection-end-column="37" />
           <folding>
             <element signature="e#24#42#0" expanded="true" />
             <element signature="e#429#5002#0" />
@@ -358,6 +375,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control/status_io.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
