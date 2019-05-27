@@ -348,7 +348,7 @@ class Advanced_thermal_data_control:
 
         cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         #cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (385, 700), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
             cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
         else:
@@ -361,7 +361,7 @@ class Advanced_thermal_data_control:
 
         #############################stop button#################################
         cv2.rectangle(img,(385,320),(580,350),(150,150,150),-1)
-        cv2.putText(img, "STOP", (450, 340), font, fontScale * 1.2, (0, 0, 255), thickness+1, cv2.LINE_AA)
+        cv2.putText(img, "STOP", (450, 343), font, fontScale *1.1 , (0, 0, 255), thickness+1, cv2.LINE_AA)
 
 
 
