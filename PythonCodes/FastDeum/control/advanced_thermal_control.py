@@ -36,23 +36,20 @@ class Initial_condition_checker:
         self.min_tem = 0
         print("intitial_Checker_setup")
     def edge_temp_claculator(self, data):
-        return 280
+        #
+        #
+        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
+        # edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
+        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
+        # edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
-        edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
+        edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
-        edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+        edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
-        max1 = max(edge)
-        if edge_1 == edge_2 == edge_3 == edge_4:
-            return edge_1
-        elif edge_1 < max1:
-            return edge_1
-        elif edge_2 < max1:
-            return edge_2
-        elif edge_3 < max1:
-            return edge_3
-        else:
-            return  edge_4
+        edge = sorted(edge)
+        edge.reverse()
+        return edge[2]
     def Thermal_data_cut(self, data):
 
         Newdata = np.zeros((24, 24), np.int16)  ##need to check
@@ -405,17 +402,9 @@ class Advanced_thermal_data_control:
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
         edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
-        max1 = max(edge)
-        if edge_1 == edge_2 == edge_3 == edge_4:
-            return edge_1
-        elif edge_1 < max1:
-            return edge_1
-        elif edge_2 < max1:
-            return edge_2
-        elif edge_3 < max1:
-            return edge_3
-        else:
-            return  edge_4
+        edge = sorted(edge)
+        edge.reverse()
+        return edge[2]
     def PostProcess_Thermal_data_cut(self, data):
         return data
         new_data = np.zeros((24, 24), np.int16)
