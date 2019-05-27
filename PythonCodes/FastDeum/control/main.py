@@ -28,7 +28,7 @@ print("connect success")
 def auto_run():
     try:
         print("start sound_")
-        os.system('omxplayer --vol 5000 /pi/home/Desktop/sound/start_1.mp3')
+        os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_1.mp3')
     except:
         print("fail to paly sound!! heheheehe start")
 
@@ -55,7 +55,7 @@ def auto_run():
     #######################################################
     try:
         print("start sound_2")
-        os.system('omxplayer --vol 5000 /pi/home/Desktop/sound/start_2.mp3')
+        os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_2.mp3')
     except:
         print("fail to paly sound!! heheheehe start_2")
 
