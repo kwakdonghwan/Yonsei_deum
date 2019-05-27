@@ -6,7 +6,7 @@ import statistics as s
 import time
 from datetime import datetime
 import csv
-import os
+import os, sys
 import RPi.GPIO as GPIO
 from socket import *
 import struct
@@ -209,6 +209,7 @@ class Advanced_thermal_data_control:
         self.status_min_rise = 0
         self.status_10sec_flag = 0
         self.status_10sec_flag_pre = 0
+        self.status_forced_stop_flag = False
 
         self.status_target_max = 800
         self.status_target_max_flag = 0
@@ -219,6 +220,7 @@ class Advanced_thermal_data_control:
         self.status_target_min_can_not_reach_flag = False
         self.status_target_exist_max_temp = 0
         self.status_target_exist_max_temp_flag = False
+
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
@@ -240,6 +242,8 @@ class Advanced_thermal_data_control:
         basic_info = (['time', 'Number_of_real_part', 'max_temp', 'average_temp', 'min_temp', 'edge_temp', 'status_flag', 'std_data'])
 
         self.wr.writerow(basic_info)
+
+        ####################### auto mode sound out ##############
 
 
 
@@ -264,6 +268,7 @@ class Advanced_thermal_data_control:
                     print("forced stop mode on")
                     self.status_target_exist_max_temp_flag = 14
                     self.operation_flag = self.operation_turn_off
+                    self.status_forced_stop_flag = True
 
 
     def display_time_control(self,input_time_data):
@@ -789,6 +794,26 @@ class Advanced_thermal_data_control:
         self.checker_even_number()
         self.checker_10sec_break_time_update()
 # run code functions
+    def run_sound_out_finish(self):
+        if self.status_target_exist_max_temp_flag > 13:
+            if self.condition_fire_count > 2:
+                try:
+                    print("fire sound_will paly")
+                    os.system('omxplayser --vol 5000 /fire_sound.mp3')
+                except:
+                    print("failto play sound _ fire!!!! hehehehe")
+            elif self.status_forced_stop_flag == True:
+                try:
+                    print("forced_stop_sound_will paly")
+                    os.system('omxplayser --vol 5000 /forced_stop_sound.mp3')
+                except:
+                    print("fail to paly sound _ forced _stop case")
+            else :
+                try:
+                    print("normal_turn_off_sounr will paly")
+                    os.system('omxplayser --vol 5000 /normal_turn_off_sound.mp3')
+                except:
+                    print("fail to play souend_ normal_ case")
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
         if self.DATA_initial_data[0] == 1:
@@ -824,7 +849,7 @@ class Advanced_thermal_data_control:
         self.MWC.run(self.operation_flag)
         # print("condition:",self.DATA_all[self.DATA_all_index][6])
         # print("breaktime:",self.time_break_time_counter)
-
+        self.run_sound_out_finish()
         if self.operation_flag == self.operation_turn_off:
             return True  ##operation finish
         else:

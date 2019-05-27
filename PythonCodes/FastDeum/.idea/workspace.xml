@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f529b1a4-b350-4542-8426-fefa6f142c8b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/FastDeum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FastDeum.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control/advanced_thermal_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/advanced_thermal_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +19,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/control/main.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="636">
-                    <caret line="43" column="26" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="26" />
+                  <state relative-caret-position="400">
+                    <caret line="32" column="51" lean-forward="true" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
                     <folding>
                       <element signature="e#0#24#0" expanded="true" />
                     </folding>
@@ -41,8 +39,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="2397">
-                    <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+                  <state relative-caret-position="901">
+                    <caret line="813" column="79" selection-start-line="813" selection-start-column="79" selection-end-line="813" selection-end-column="79" />
                     <folding>
                       <element signature="e#24#42#0" expanded="true" />
                       <element signature="e#429#5002#0" />
@@ -60,10 +58,13 @@
                       <element signature="e#6276#6497#0" />
                       <element signature="e#6571#6785#0" />
                       <element signature="e#10675#11369#0" />
+                      <element signature="e#11454#15734#0" />
                       <element signature="e#11657#13296#0" />
                       <element signature="e#15805#16448#0" />
                       <element signature="e#16507#16888#0" />
+                      <element signature="e#16951#18601#0" />
                       <element signature="e#18651#22167#0" />
+                      <element signature="e#22208#22521#0" />
                       <element signature="e#22620#22848#0" />
                       <element signature="e#22888#23277#0" />
                       <element signature="e#23318#23691#0" />
@@ -74,8 +75,11 @@
                       <element signature="e#26146#26688#0" />
                       <element signature="e#26797#33341#0" />
                       <element signature="e#33385#36519#0" />
+                      <element signature="e#36575#36675#0" />
+                      <element signature="e#36747#37199#0" />
                       <element signature="e#37199#37409#0" />
                       <element signature="e#37472#37844#0" />
+                      <element signature="e#37933#38507#0" />
                       <element signature="e#38580#39122#0" />
                       <element signature="e#39161#39257#0" />
                     </folding>
@@ -102,7 +106,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/control/templates/control/result.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
+            <state relative-caret-position="252">
               <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
             </state>
           </provider>
@@ -132,6 +136,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/control/views.py" />
+        <option value="$PROJECT_DIR$/control/main.py" />
         <option value="$PROJECT_DIR$/control/advanced_thermal_control.py" />
       </list>
     </option>
@@ -207,12 +212,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558410228778</updated>
-      <workItem from="1558945114359" duration="2943000" />
+      <workItem from="1558945114359" duration="4827000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2943000" />
+    <option name="totallyTimeSpent" value="4827000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-928" y="-2160" width="1293" height="1407" extended-state="0" />
@@ -270,25 +275,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/control/templates/control/result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
+        <state relative-caret-position="252">
           <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="43" column="26" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2397">
-          <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+        <state relative-caret-position="901">
+          <caret line="813" column="79" selection-start-line="813" selection-start-column="79" selection-end-line="813" selection-end-column="79" />
           <folding>
             <element signature="e#24#42#0" expanded="true" />
             <element signature="e#429#5002#0" />
@@ -306,10 +301,13 @@
             <element signature="e#6276#6497#0" />
             <element signature="e#6571#6785#0" />
             <element signature="e#10675#11369#0" />
+            <element signature="e#11454#15734#0" />
             <element signature="e#11657#13296#0" />
             <element signature="e#15805#16448#0" />
             <element signature="e#16507#16888#0" />
+            <element signature="e#16951#18601#0" />
             <element signature="e#18651#22167#0" />
+            <element signature="e#22208#22521#0" />
             <element signature="e#22620#22848#0" />
             <element signature="e#22888#23277#0" />
             <element signature="e#23318#23691#0" />
@@ -320,10 +318,23 @@
             <element signature="e#26146#26688#0" />
             <element signature="e#26797#33341#0" />
             <element signature="e#33385#36519#0" />
+            <element signature="e#36575#36675#0" />
+            <element signature="e#36747#37199#0" />
             <element signature="e#37199#37409#0" />
             <element signature="e#37472#37844#0" />
+            <element signature="e#37933#38507#0" />
             <element signature="e#38580#39122#0" />
             <element signature="e#39161#39257#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="32" column="51" lean-forward="true" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>

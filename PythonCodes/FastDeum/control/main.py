@@ -11,6 +11,9 @@ import numpy as np
 import cv2
 import time
 
+import os, sys
+
+
 ip = '127.0.0.1'
 port = 8888
 max_power = 10
@@ -23,6 +26,11 @@ print("connect success")
 
 
 def auto_run():
+    try:
+        print("start sound_")
+        os.system('omxplayser --vol 5000 /start_analysis.mp3')
+    except:
+        print("fail to paly sound!! heheheehe start")
 
     ICC = atc.Initial_condition_checker()
     ATD = atc.Advanced_thermal_data_control()
@@ -34,7 +42,7 @@ def auto_run():
     initial_data = np.reshape(initial_data, (24, 32))
 
     ATD.run_initialization(ICC.run(initial_data))
-    time.sleep(2)
+    time.sleep(1)
     bin_data1 = clientSock.recv(1536)
     count = int(len(bin_data1) / 2)
     initial_data = struct.unpack('<' + ('h' * count), bin_data1)
@@ -45,6 +53,11 @@ def auto_run():
     ATD.run_reset_time()
 
     #######################################################
+    try:
+        print("start sound_2")
+        os.system('omxplayser --vol 5000 /start.mp3')
+    except:
+        print("fail to paly sound!! heheheehe start_2")
 
     print("----------------start_microwave_over--------------")
 
