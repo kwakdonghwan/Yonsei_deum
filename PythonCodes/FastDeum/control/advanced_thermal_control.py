@@ -336,7 +336,7 @@ class Advanced_thermal_data_control:
                 img2[py][px][0] = 125 - int(value_1)  # 0~120
                 img2[py][px][1] = int(value_2)
                 img2[py][px][2] = int(value_3)
-        img2 = cv2.resize(img2 , None, fx=(2/3), fy=1, interpolation=cv2.INTER_AREA)
+        img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
 
         for py in range(0,24):
             for px in range(0,24):
