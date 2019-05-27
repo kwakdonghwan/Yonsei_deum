@@ -225,7 +225,7 @@ class Advanced_thermal_data_control:
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
         self.time_break_time_counter = -1
-        self.time_break_time_default = 5
+        self.time_break_time_default = 6
         self.time_reach_below_10 = False  ## make flag to 11 and return True
         self.time_display_time_trash = 0
 
@@ -276,7 +276,7 @@ class Advanced_thermal_data_control:
         self.time_display_time_trash = self.time_display_time_trash+1
         display_time = input_time_data
         if input_time_data > 100:
-            display_time = int (input_time_data / 10)
+            display_time = int (input_time_data / 3)
 
             display_time = display_time - (self.time_display_time_trash % 10)
             if display_time < 1 :
@@ -769,7 +769,7 @@ class Advanced_thermal_data_control:
             if self.time_break_time_counter > 3 * self.time_break_time_default:
                 if self.DATA_all[self.DATA_all_index][4] > self.status_target_min:  #if target_min is over the refference than turn - off the microwave oven
                     self.status_target_next_max_or_avg_flag += 1
-                elif self.time_break_time_default < 1: # if there are too many operation! try to stop (this function for prevent infinity operation)
+                elif self.time_break_time_default < 2: # if there are too many operation! try to stop (this function for prevent infinity operation)
                     self.status_target_next_max_or_avg_flag += 1
                 else: # if fail to achive the target then run again! but run it less
                     self.status_target_next_max_or_avg_flag += - 1
