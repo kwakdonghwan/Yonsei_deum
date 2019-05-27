@@ -800,19 +800,19 @@ class Advanced_thermal_data_control:
             if self.condition_fire_count > 2:
                 try:
                     print("fire sound_will paly")
-                    os.system('omxplayer --vol 5000 /fire_sound.mp3')
+                    os.system('omxplayer --vol 5000 /pi/home/Desktop/sound/fire_1.mp3')
                 except:
                     print("failto play sound _ fire!!!! hehehehe")
             elif self.status_forced_stop_flag == True:
                 try:
                     print("forced_stop_sound_will paly")
-                    os.system('omxplayer --vol 5000 /forced_stop_sound.mp3')
+                    os.system('omxplayer --vol 5000 /pi/home/Desktop/sound/forced_1.mp3')
                 except:
                     print("fail to paly sound _ forced _stop case")
             else :
                 try:
                     print("normal_turn_off_sounr will paly")
-                    os.system('omxplayer --vol 5000 /normal_turn_off_sound.mp3')
+                    os.system('omxplayer --vol 5000 /pi/home/Desktop/sound/final_1.mp3')
                 except:
                     print("fail to play souend_ normal_ case")
     def run_initialization(self,icc_data):
