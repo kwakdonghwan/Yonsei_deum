@@ -1,4 +1,4 @@
-from .status_io import *
+from status_io import *
 import auto_contorol as auto_control
 import Temp_process_developer as Temp_process
 import advanced_thermal_control as atc
@@ -10,6 +10,9 @@ import struct
 import numpy as np
 import cv2
 import time
+
+import os, sys
+
 
 ip = '127.0.0.1'
 port = 8888
@@ -23,6 +26,11 @@ print("connect success")
 
 
 def auto_run():
+    try:
+        print("start sound_")
+        os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_1.mp3')
+    except:
+        print("fail to paly sound!! heheheehe start")
 
     ICC = atc.Initial_condition_checker()
     ATD = atc.Advanced_thermal_data_control()
@@ -34,7 +42,7 @@ def auto_run():
     initial_data = np.reshape(initial_data, (24, 32))
 
     ATD.run_initialization(ICC.run(initial_data))
-    time.sleep(2)
+    time.sleep(1)
     bin_data1 = clientSock.recv(1536)
     count = int(len(bin_data1) / 2)
     initial_data = struct.unpack('<' + ('h' * count), bin_data1)
@@ -45,6 +53,11 @@ def auto_run():
     ATD.run_reset_time()
 
     #######################################################
+    try:
+        print("start sound_2")
+        os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_2.mp3')
+    except:
+        print("fail to paly sound!! heheheehe start_2")
 
     print("----------------start_microwave_over--------------")
 
@@ -72,7 +85,7 @@ def manual_run(power, duration):
     manual_controller = ManualController()
     manual_controller.reset_param(power, duration)
     print("reset_the_manual_controller")
-    TD = Temp_process.Thermal_Data(255)
+    TD = Temp_process.Thermal_Data(255, duration)
 
     while True:
         bin_data = clientSock.recv(1536)
@@ -86,10 +99,10 @@ def manual_run(power, duration):
         Newdata = TD.Thermal_data_cut(short_arr)
         print("datcut complete")
         # min_tem = TD.run1(Newdata)
-        min_tem = TD.run3(Newdata)
+        min_tem = TD.run3(short_arr)
         print("run3")
         # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-        TD.absolute_HSV_Control5(Newdata)
+        TD.absolute_HSV_Control5(short_arr)  ## if you use 110 then use Newdata
 
 
         stop_wave = manual_controller.run()
