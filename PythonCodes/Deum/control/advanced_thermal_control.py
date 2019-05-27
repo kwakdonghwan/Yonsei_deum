@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+# 2019_05_27_ version
 import numpy as np
 import cv2
 import statistics as s
 import time
 from datetime import datetime
 import csv
-import os
+import os, sys
 import RPi.GPIO as GPIO
 from socket import *
 import struct
@@ -208,6 +209,7 @@ class Advanced_thermal_data_control:
         self.status_min_rise = 0
         self.status_10sec_flag = 0
         self.status_10sec_flag_pre = 0
+        self.status_forced_stop_flag = False
 
         self.status_target_max = 800
         self.status_target_max_flag = 0
@@ -218,6 +220,7 @@ class Advanced_thermal_data_control:
         self.status_target_min_can_not_reach_flag = False
         self.status_target_exist_max_temp = 0
         self.status_target_exist_max_temp_flag = False
+
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
@@ -240,6 +243,8 @@ class Advanced_thermal_data_control:
 
         self.wr.writerow(basic_info)
 
+        ####################### auto mode sound out ##############
+
 
 
         print("Advanced_thermal_data_control setup")
@@ -253,6 +258,18 @@ class Advanced_thermal_data_control:
             self.wr.writerows(self.DATA_all)
         except:
             print("fail_to_store_in_CSV")
+
+    def mouse_call_back(self,event,x,y,flags,parm):
+        print("stop button pressed")
+
+        if event == cv2.EVENT_LBUTTONUP:
+            if self.status_forced_stop_flag == False:
+                if 385 < x < 580:
+                    if 320 < y < 350:
+                        print("forced stop mode on")
+                        self.status_target_next_max_or_avg_flag = 14
+                        self.operation_flag = self.operation_turn_off
+                        self.status_forced_stop_flag = True
 
 
     def display_time_control(self,input_time_data):
@@ -279,7 +296,8 @@ class Advanced_thermal_data_control:
         img = np.zeros((24, 40, 3), np.uint8)
         thickness = 1
         #font = cv2.FONT_HERSHEY_SIMPLEX
-        font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
+        #font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
+        font = cv2.FONT_HERSHEY_DUPLEX
         fontScale = 0.7
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
@@ -322,26 +340,40 @@ class Advanced_thermal_data_control:
         display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10) + "'C"
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10) + "'C"
         display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10) + "'C"
-        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10) + "'C"
-        display_time_remain_operation_time =  str(display_time_value) + "s"
-        display_condition_flag = "flag:" + str(self.status_target_next_max_or_avg_flag)
+        display_edge_temp = "air:" + str(self.DATA_all[self.DATA_all_index][5]/10 - 3) + "'C"
+        display_time_remain_operation_time = str(display_time_value) + "s"
+        display_condition_flag = "phase:" + str(self.status_target_next_max_or_avg_flag)
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
         cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        #cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
-            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
         else:
-            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (385, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_condition_flag, (385, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_prograss, (385, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (385, 300), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (385, 160), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (385, 200), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (385, 240), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (385, 280), font, fontScale * 1.2, (255, 255, 255), thickness, cv2.LINE_AA)
+
+
+        #############################stop button#################################
+        cv2.rectangle(img,(385,320),(580,350),(150,150,150),-1)
+        cv2.putText(img, "STOP", (450, 343), font, fontScale *1.1 , (0, 0, 255), thickness+1, cv2.LINE_AA)
+
+
+
+
+        #########################################################################
+
+
 
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.setMouseCallback("frame", self.mouse_call_back)  # stop button click event
+
         cv2.imshow('frame', img)
         #try:
         #    cv2.moveWindow('frame' , 2, 2)
@@ -519,7 +551,7 @@ class Advanced_thermal_data_control:
             print("target_max_set:", target_max ,"min_rise:",min_rise )
         if self.status_target_min_flag == 0:
             if (self.DATA_initial_data[0] == self.condition_icy) or (self.DATA_initial_data[0] == self.condition_cool) or (self.DATA_initial_data[0] == self.condition_hot_and_cold) :
-                target_min = 510
+                target_min = 505
             else:
                 target_min = 600
             self.status_target_min_flag = 1
@@ -547,7 +579,7 @@ class Advanced_thermal_data_control:
         else:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
     def checker_food_exist(self):
-        if self.DATA_all[self.DATA_all_index][2] > 600:
+        if self.DATA_all[self.DATA_all_index][2] > 550:
             if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
                 self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
                 self.status_target_exist_max_temp_flag = True
@@ -722,6 +754,9 @@ class Advanced_thermal_data_control:
         if (self.status_target_next_max_or_avg_flag % 2) == 1:
             self.time_break_time_counter += 1
     def checker_operation_control(self):
+        if self.status_target_next_max_or_avg_flag == 0:
+            self.operation_flag = self.operation_all
+            return
         if self.status_target_next_max_or_avg_flag > 13 :
             self.operation_flag = self.operation_turn_off
         elif (self.status_target_next_max_or_avg_flag % 2) == 0:
@@ -752,7 +787,7 @@ class Advanced_thermal_data_control:
 
         self.checker_status_target_next_max_or_avg_flag_controller()
 
-        self.checker_operation_control()  ##########  << real out_put of this black box
+        # self.checker_operation_control()  #do not imoport it at this time
         if (self.DATA_operation_flag == True) and self.status_10sec_flag >=1:
             self.time_remain_operation_time += -1
         if self.time_remain_operation_time < 0:
@@ -760,6 +795,26 @@ class Advanced_thermal_data_control:
         self.checker_even_number()
         self.checker_10sec_break_time_update()
 # run code functions
+    def run_sound_out_finish(self):
+        if self.status_target_next_max_or_avg_flag > 13:
+            if self.condition_fire_count > 2:
+                try:
+                    print("fire sound_will paly")
+                    os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/fire_1.mp3')
+                except:
+                    print("failto play sound _ fire!!!! hehehehe")
+            elif self.status_forced_stop_flag == True:
+                try:
+                    print("forced_stop_sound_will paly")
+                    os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/forced_1.mp3')
+                except:
+                    print("fail to paly sound _ forced _stop case")
+            else :
+                try:
+                    print("normal_turn_off_sounr will paly")
+                    os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/final_1.mp3')
+                except:
+                    print("fail to play souend_ normal_ case")
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
         if self.DATA_initial_data[0] == 1:
@@ -783,17 +838,19 @@ class Advanced_thermal_data_control:
 
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
-            self.checker_10sec()
+            self.checker_10sec()  # if pass the 10sec than run it
         if self.status_10sec_flag > 0:
             self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
 
-        self.checker_food_exist()
+        self.checker_operation_control()
+
+        self.checker_food_exist() # must be placed before MUC.run
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
         # print("condition:",self.DATA_all[self.DATA_all_index][6])
         # print("breaktime:",self.time_break_time_counter)
-
+        self.run_sound_out_finish()
         if self.operation_flag == self.operation_turn_off:
             return True  ##operation finish
         else:
