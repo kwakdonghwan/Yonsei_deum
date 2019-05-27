@@ -297,6 +297,7 @@ class Advanced_thermal_data_control:
 # img show
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 40, 3), np.uint8)
+        img2 = np.zeros((24,32 ,3),np.uint8 )
         thickness = 1
         #font = cv2.FONT_HERSHEY_SIMPLEX
         #font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
@@ -332,9 +333,16 @@ class Advanced_thermal_data_control:
                     value_1 = 120
                     value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
 
-                img[py][px][0] = 125 - int(value_1)  # 0~120
-                img[py][px][1] = int(value_2)
-                img[py][px][2] = int(value_3)
+                img2[py][px][0] = 125 - int(value_1)  # 0~120
+                img2[py][px][1] = int(value_2)
+                img2[py][px][2] = int(value_3)
+        img2 = cv2.resize(img2 , None, fx=(2/3), fy=1, interpolation=cv2.INTER_AREA)
+
+        for py in range(0,24):
+            for px in range(0,24):
+                img[py][px][0] = img2[py][px][0]  # 0~120
+                img[py][px][1] = img2[py][px][1]
+                img[py][px][2] = img2[py][px][2]
 
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
         img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
@@ -464,7 +472,7 @@ class Advanced_thermal_data_control:
         self.status_reference_temp = [reference_temp1,reference_temp2]
 
         print("condition_flag:" , self.condition_flag)
-        
+
     def PostProcess_get_data(self,data):
         Number_of_real_temp = 0
         all_object_temp = []
