@@ -404,6 +404,7 @@ class Advanced_thermal_data_control:
         else:
             return  edge_4
     def PostProcess_Thermal_data_cut(self, data):
+        return data
         new_data = np.zeros((24, 24), np.int16)
         for py in range(0, 24):
             newpx = 0
@@ -479,6 +480,7 @@ class Advanced_thermal_data_control:
                         Number_of_real_temp += 1
                         real_object_temp.append(data[py][px])
 
+
         real_object_temp = sorted(real_object_temp)
         try: #this function will reduce the risk of flutuation
             min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
@@ -515,14 +517,14 @@ class Advanced_thermal_data_control:
         new_data = self.PostProcess_Thermal_data_cut(data)
 
         self.status_edge_temp = self.PostProcess_edge_temp_calculator(new_data)
-        #self.PostProcess_data_Condtion_checker(new_data)
-        self.PostProcess_data_Condtion_checker(data)
+        self.PostProcess_data_Condtion_checker(new_data)
+        #self.PostProcess_data_Condtion_checker(data)
 
-        #self.PostProcess_get_data(new_data)
-        self.PostProcess_get_data(data)
-        
-        #self.absolute_HSV_Control5(new_data)
-        self.absolute_HSV_Control5(data)
+        self.PostProcess_get_data(new_data)
+        #self.PostProcess_get_data(data)
+
+        self.absolute_HSV_Control5(new_data)
+        #self.absolute_HSV_Control5(data)
 # check operation condition form data functions
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
