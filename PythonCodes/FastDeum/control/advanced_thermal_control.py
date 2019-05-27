@@ -660,6 +660,18 @@ class Advanced_thermal_data_control:
                 self.status_target_next_max_or_avg_flag = 7
                 self.DATA_operation_flag = False
                 return
+            elif self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
 
         elif self.status_target_next_max_or_avg_flag == 4:
             if self.DATA_all[self.DATA_all_index][6] == self.condition_hot_and_cold and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot_and_cold:
@@ -670,11 +682,36 @@ class Advanced_thermal_data_control:
                 self.status_target_next_max_or_avg_flag = 7
                 self.DATA_operation_flag = False
                 return
+            elif self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
         elif self.status_target_next_max_or_avg_flag == 6:
             if self.DATA_all[self.DATA_all_index][6] == self.condition_hot and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot:
                 self.status_target_next_max_or_avg_flag = 7
                 self.DATA_operation_flag = False
                 return
+            elif self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+
 
         elif self.status_target_next_max_or_avg_flag == 8:
             if self.status_edge_up[7] == False:

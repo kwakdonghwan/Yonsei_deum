@@ -144,7 +144,7 @@ class Initial_condition_checker:
 
 class Thermal_Data:
 
-    def __init__(self, room_termp):
+    def __init__(self, room_termp,duration):
         self.No_condition = 0
 
         self.hot_condtion = 1
@@ -179,6 +179,8 @@ class Thermal_Data:
         self.average_rise_temp = 0
         self.average_middle = 0
         self.average_rise_middle = 0
+
+        self.duration = duration
 
 
 
@@ -956,15 +958,19 @@ class Thermal_Data:
 # img range in hsv => 1 = blue / red >> 360 * 2.5 / 7    ==> 127
 # color of img has been mdifyed
 
+        display_time= self.duration - self.times
 
-        img = np.zeros((24, 32, 3), np.uint8)
-        thickness = 2
+        img = np.zeros((24, 40, 3), np.uint8)
+        img2 = np.zeros((24, 32, 3), np.uint8)
+        thickness = 1
         org = (360, 10) # x =360 Y = 10
-        font = cv2.FONT_HERSHEY_SIMPLEX
+        #font = cv2.FONT_HERSHEY_SIMPLEX
+        font = cv2.FONT_HERSHEY_DUPLEX
         fontScale = 0.7
     #print("try to show img")
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
+                value_1 = 255
                 value_2 = 255
                 value_3 = 255
                 if 3000 >= data4[py][px] > 1200:  # 2000 = 200C  max = 300
@@ -992,11 +998,18 @@ class Thermal_Data:
                     value_1 = 120
                     value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
 
-                img[py][px][0] = 125 - int(value_1)  # 0~120
-                img[py][px][1] = int(value_2)
-                img[py][px][2] = int(value_3)
-
+                img2[py][px][0] = 125 - int(value_1)  # 0~120
+                img2[py][px][1] = int(value_2)
+                img2[py][px][2] = int(value_3)
+        img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
         # max_tmp = np.amax(data4) / 10
+
+
+        for py in range(0, 24):
+            for px in range(0, 24):
+                img[py][px][0] = img2[py][px][0]  # 0~120
+                img[py][px][1] = img2[py][px][1]
+                img[py][px][2] = img2[py][px][2]
 
         #text_for_display = "max_temp: " + str(max_tmp)
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
@@ -1008,17 +1021,17 @@ class Thermal_Data:
         display_mid_temp = "mid:" + str(self.average_temp/10)
         display_min_temp = "min:" + str(self.min_temp/10)
         display_average_middle_temp = "A_M:" + str(self.average_middle/10)
-        display_edge_temp = "edge:" + str(self.edge_temp_claculator(data4)/10)
-        display_sec_change = "7SEC:" + str(self.seven_sec_change / 10)
+        display_edge_temp = "air:" + str(self.edge_temp_claculator(data4)/10)
+        display_sec_change = "time:" + str(int(display_time))
         display_logo = "DEUM_yonsei"
 
-        cv2.putText(img, display_max_temp, (360,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (360, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (360, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_average_middle_temp, (360, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_edge_temp, (360, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_sec_change, (360, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (360, 270), font, fontScale-0.2, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        #cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        #cv2.putText(img, display_average_middle_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_sec_change, (385, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (385, 270), font, fontScale * 1.2, (255, 255, 255), thickness, cv2.LINE_AA)
 
 
         #############################################################
@@ -1034,15 +1047,16 @@ class Thermal_Data:
                     img[py * 15][px * 15][1] = 0
                     img[py * 15][px * 15][2] = 0
 
+        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
         cv2.imshow('frame', img)
-        try:
-            cv2.moveWindow('frame', 2, 2)
-        except:
-            print("fail_to move window")
+        #try:
+        #    cv2.moveWindow('frame' , 2, 2)
+        #except:
+        #    print("fail_to move window")
         cv2.waitKey(1)
         return img
-
-
 
 
 def absolute_HSV_Control2(data, img):

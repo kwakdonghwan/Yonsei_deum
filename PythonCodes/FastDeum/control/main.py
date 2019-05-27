@@ -85,7 +85,7 @@ def manual_run(power, duration):
     manual_controller = ManualController()
     manual_controller.reset_param(power, duration)
     print("reset_the_manual_controller")
-    TD = Temp_process.Thermal_Data(255)
+    TD = Temp_process.Thermal_Data(255, duration)
 
     while True:
         bin_data = clientSock.recv(1536)
@@ -99,10 +99,10 @@ def manual_run(power, duration):
         Newdata = TD.Thermal_data_cut(short_arr)
         print("datcut complete")
         # min_tem = TD.run1(Newdata)
-        min_tem = TD.run3(Newdata)
+        min_tem = TD.run3(short_arr)
         print("run3")
         # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-        TD.absolute_HSV_Control5(Newdata)
+        TD.absolute_HSV_Control5(short_arr)  ## if you use 110 then use Newdata
 
 
         stop_wave = manual_controller.run()
