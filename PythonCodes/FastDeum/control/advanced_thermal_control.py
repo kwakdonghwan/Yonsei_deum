@@ -361,7 +361,10 @@ class Advanced_thermal_data_control:
             cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
         else:
             cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (385, 160), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        if self.DATA_all_index < 10 :
+            cv2.putText(img, "calculating..", (385, 160), font * 0.8, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        else:
+            cv2.putText(img, display_time_remain_operation_time, (385, 160), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_condition_flag, (385, 200), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_prograss, (385, 240), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         cv2.putText(img, display_logo, (385, 280), font, fontScale * 1.2, (255, 255, 255), thickness, cv2.LINE_AA)
