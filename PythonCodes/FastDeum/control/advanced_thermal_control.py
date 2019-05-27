@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# 2019_05_27_ version
 import numpy as np
 import cv2
 import statistics as s
@@ -254,6 +255,16 @@ class Advanced_thermal_data_control:
         except:
             print("fail_to_store_in_CSV")
 
+    def mouse_call_back(self,event,x,y,flags,parm):
+        print("stop button pressed")
+
+        if event == cv2.EVENT_LBUTTONUP:
+            if 385 < x < 580:
+                if 320 < y < 350:
+                    print("forced stop mode on")
+                    self.status_target_exist_max_temp_flag = 14
+                    self.operation_flag = self.operation_turn_off
+
 
     def display_time_control(self,input_time_data):
         self.time_display_time_trash = self.time_display_time_trash+1
@@ -279,7 +290,8 @@ class Advanced_thermal_data_control:
         img = np.zeros((24, 40, 3), np.uint8)
         thickness = 1
         #font = cv2.FONT_HERSHEY_SIMPLEX
-        font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
+        #font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
+        font = cv2.FONT_HERSHEY_DUPLEX
         fontScale = 0.7
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
@@ -322,26 +334,40 @@ class Advanced_thermal_data_control:
         display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10) + "'C"
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10) + "'C"
         display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10) + "'C"
-        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10) + "'C"
-        display_time_remain_operation_time =  str(display_time_value) + "s"
-        display_condition_flag = "flag:" + str(self.status_target_next_max_or_avg_flag)
+        display_edge_temp = "air:" + str(self.DATA_all[self.DATA_all_index][5]/10 - 3) + "'C"
+        display_time_remain_operation_time = str(display_time_value) + "s"
+        display_condition_flag = "phase:" + str(self.status_target_next_max_or_avg_flag)
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
         cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        #cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 700), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
-            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
         else:
-            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (385, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_condition_flag, (385, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_prograss, (385, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (385, 300), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_time_remain_operation_time, (385, 160), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (385, 200), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (385, 240), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (385, 280), font, fontScale * 1.2, (255, 255, 255), thickness, cv2.LINE_AA)
+
+
+        #############################stop button#################################
+        cv2.rectangle(img,(385,320),(580,350),(150,150,150),-1)
+        cv2.putText(img, "STOP", (420, 330), font, fontScale * 1.2, (0, 0, 255), thickness+1, cv2.LINE_AA)
+
+
+
+
+        #########################################################################
+
+
 
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.setMouseCallback("frame", self.mouse_call_back)  # stop button click event
+
         cv2.imshow('frame', img)
         #try:
         #    cv2.moveWindow('frame' , 2, 2)
@@ -547,7 +573,7 @@ class Advanced_thermal_data_control:
         else:
             self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
     def checker_food_exist(self):
-        if self.DATA_all[self.DATA_all_index][2] > 600:
+        if self.DATA_all[self.DATA_all_index][2] > 550:
             if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
                 self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
                 self.status_target_exist_max_temp_flag = True
@@ -722,6 +748,9 @@ class Advanced_thermal_data_control:
         if (self.status_target_next_max_or_avg_flag % 2) == 1:
             self.time_break_time_counter += 1
     def checker_operation_control(self):
+        if self.status_target_next_max_or_avg_flag == 0:
+            self.operation_flag = self.operation_all
+            return
         if self.status_target_next_max_or_avg_flag > 13 :
             self.operation_flag = self.operation_turn_off
         elif (self.status_target_next_max_or_avg_flag % 2) == 0:
@@ -752,7 +781,7 @@ class Advanced_thermal_data_control:
 
         self.checker_status_target_next_max_or_avg_flag_controller()
 
-        self.checker_operation_control()  ##########  << real out_put of this black box
+        # self.checker_operation_control()  #do not imoport it at this time
         if (self.DATA_operation_flag == True) and self.status_10sec_flag >=1:
             self.time_remain_operation_time += -1
         if self.time_remain_operation_time < 0:
@@ -783,12 +812,14 @@ class Advanced_thermal_data_control:
 
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
-            self.checker_10sec()
+            self.checker_10sec()  # if pass the 10sec than run it
         if self.status_10sec_flag > 0:
             self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
 
-        self.checker_food_exist()
+        self.checker_operation_control()
+
+        self.checker_food_exist() # must be placed before MUC.run
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
         # print("condition:",self.DATA_all[self.DATA_all_index][6])
