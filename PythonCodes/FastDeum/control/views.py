@@ -21,12 +21,12 @@ device:
 
 def index(request):
 
+    write_status(0, 0, 0, 0, 0)
     return render(request, 'control/index.html')
 
 
 def manual(request):
     write_status(0, 0, 0, 0, 0)
-
     return render(request, 'control/manual.html')
 
 def auto(request):

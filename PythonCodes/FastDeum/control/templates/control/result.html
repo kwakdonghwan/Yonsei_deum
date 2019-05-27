@@ -22,6 +22,8 @@
     setInterval(checkStatus, 100);
     var found = false;
 
+    document.getElementById("pic").focus();
+
     function checkStatus()
     {
         if(found) return;
@@ -33,7 +35,7 @@
         if(status=="0") {
             found = true;
             var obj = document.getElementById('pic');
-            obj.setAttribute('src', '/static/control/images/done2.gif');
+            obj.setAttribute('src', '/static/control/images/done4.gif');
             setTimeout(function() { window.history.back(); }, 6000);
 
          }
@@ -45,7 +47,6 @@
 
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 
 body {
   background-color: black;
