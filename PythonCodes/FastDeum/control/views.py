@@ -16,6 +16,7 @@ status:
 device:
     0: display   1: phone
 '''
+write_status(0, 0, 0, 0, 0)
 
 
 

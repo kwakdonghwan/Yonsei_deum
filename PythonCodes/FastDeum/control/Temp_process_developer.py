@@ -1029,16 +1029,14 @@ class Thermal_Data:
                     img[py * 15][px * 15][0] = 255
                     img[py * 15][px * 15][1] = 255
                     img[py * 15][px * 15][2] = 255
-                if int(self.min_temp) <= data4[py][px] :
+                if int(self.min_temp) <= data4[py][px]:
                     img[py * 15][px * 15][0] = 0
                     img[py * 15][px * 15][1] = 0
                     img[py * 15][px * 15][2] = 0
 
+        cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow('frame', img)
-        try:
-            cv2.moveWindow('frame', 2, 2)
-        except:
-            print("fail_to move window")
         cv2.waitKey(1)
         return img
 
