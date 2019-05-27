@@ -386,7 +386,19 @@ class Advanced_thermal_data_control:
         return img
 # data analysis and store in this class
     def PostProcess_edge_temp_calculator(self, data):
-        return 280
+        max = np.amax(data)
+        min = np.amin(data)
+        average = np.mean(data)
+
+        if max > 700:
+            return max - 300
+        elif 700 >= max > 300:
+            return (max + min) / 2
+        else:
+            return 280
+
+
+
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
@@ -450,6 +462,9 @@ class Advanced_thermal_data_control:
         else:
             self.condition_fire_count = 0
         self.status_reference_temp = [reference_temp1,reference_temp2]
+
+        print("condition_flag:" , self.condition_flag)
+        
     def PostProcess_get_data(self,data):
         Number_of_real_temp = 0
         all_object_temp = []
