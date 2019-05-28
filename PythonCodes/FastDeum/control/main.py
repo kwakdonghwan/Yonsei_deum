@@ -28,7 +28,7 @@ print("connect success")
 def auto_run():
     try:
         print("start sound_")
-        cmd = "omxplayer /home/pi/sound/start.wav"
+        cmd = "omxplayer /home/pi/Desktop/sound/start.wav"
         Popen(cmd, stdin=PIPE)
     except:
         print("fail to paly sound!! heheheehe start")
@@ -75,15 +75,15 @@ def auto_run():
         if lets_stop:
             try:
                 print("normal_stop")
-                cmd = "omxplayer /home/pi/sound/normal_stop.wav"
-                Popen(cmd, stdin=PIPE)
+                cmd = "omxplayer /home/pi/Desktop/sound/normal_stop.wav"
+                Popen(cmd,stdin=PIPE,shell=True)
             except:
                 print("fail to paly sound!! heheheehe normal_stop")
             break
         if lets_stop == 3:
             try:
                 print("fire")
-                cmd = "omxplayer /home/pi/sound/fire.wav"
+                cmd = "omxplayer /home/pi/Desktop/sound/fire.wav"
                 Popen(cmd, stdin=PIPE)
             except:
                 print("fail to paly sound!! heheheehefire")
@@ -91,7 +91,7 @@ def auto_run():
         if lets_stop == 4:
             try:
                 print("food_is_out")
-                cmd = "omxplayer /home/pi/sound/food_is_out.wav"
+                cmd = "omxplayer /home/pi/Desktop/sound/food_is_out.wav"
                 Popen(cmd, stdin=PIPE)
             except:
                 print("fail to paly sound!! heheheehe food_is_out")
@@ -99,7 +99,7 @@ def auto_run():
         if lets_stop == 5:
             try:
                 print("no_food_detected")
-                cmd = "omxplayer /home/pi/sound/no_food_detected.wav"
+                cmd = "omxplayer /home/pi/Desktop/sound/no_food_detected.wav"
                 Popen(cmd, stdin=PIPE)
             except:
                 print("fail to paly sound!! heheheehe no_food_detected")
