@@ -924,7 +924,7 @@ class Advanced_thermal_data_control:
         self.MWC.run(self.operation_flag)
         # print("condition:",self.DATA_all[self.DATA_all_index][6])
         # print("breaktime:",self.time_break_time_counter)
-        self.run_sound_out_finish()
+        #self.run_sound_out_finish()
         if self.operation_flag == self.operation_turn_off:
             if self.status_checker_food_exist_flag == True:
                 return 4

@@ -28,8 +28,9 @@ print("connect success")
 def auto_run():
     try:
         print("start sound_")
-        cmd = "omxplayer /home/pi/Desktop/sound/start.wav"
-        Popen(cmd, stdin=PIPE)
+        os.system('omxplayer /home/pi/Desktop/sound/start.wav')
+        # cmd = "omxplayer /home/pi/Desktop/sound/start.wav"
+        # Popen(cmd, stdin=PIPE)
     except:
         print("fail to paly sound!! heheheehe start")
 
@@ -74,33 +75,41 @@ def auto_run():
 
         if lets_stop:
             try:
+                cv2.destroyAllWindows()
                 print("normal_stop")
-                cmd = "omxplayer /home/pi/Desktop/sound/normal_stop.wav"
-                Popen(cmd,stdin=PIPE,shell=True)
+                os.system('omxplayer /home/pi/Desktop/sound/normal_stop.wav')
+                # cmd = "omxplayer /home/pi/Desktop/sound/normal_stop.wav"
+                # Popen(cmd,stdin=PIPE,shell=True)
             except:
                 print("fail to paly sound!! heheheehe normal_stop")
             break
         if lets_stop == 3:
             try:
+                cv2.destroyAllWindows()
                 print("fire")
-                cmd = "omxplayer /home/pi/Desktop/sound/fire.wav"
-                Popen(cmd, stdin=PIPE)
+                os.system('omxplayer /home/pi/Desktop/sound/fire.wav')
+                # cmd = "omxplayer /home/pi/Desktop/sound/fire.wav"
+                # Popen(cmd,stdin=PIPE,shell=True)
             except:
                 print("fail to paly sound!! heheheehefire")
             break
         if lets_stop == 4:
             try:
+                cv2.destroyAllWindows()
                 print("food_is_out")
-                cmd = "omxplayer /home/pi/Desktop/sound/food_is_out.wav"
-                Popen(cmd, stdin=PIPE)
+                os.system('omxplayer /home/pi/Desktop/sound/food_is_out.wav')
+                # cmd = "omxplayer /home/pi/Desktop/sound/food_is_out.wav"
+                #Popen(cmd,stdin=PIPE,shell=True)
             except:
                 print("fail to paly sound!! heheheehe food_is_out")
             break
         if lets_stop == 5:
             try:
+                cv2.destroyAllWindows()
                 print("no_food_detected")
-                cmd = "omxplayer /home/pi/Desktop/sound/no_food_detected.wav"
-                Popen(cmd, stdin=PIPE)
+                os.system('omxplayer /home/pi/Desktop/sound/no_food_detected.wav')
+                # cmd = "omxplayer /home/pi/Desktop/sound/no_food_detected.wav"
+                # Popen(cmd,stdin=PIPE,shell=True)
             except:
                 print("fail to paly sound!! heheheehe no_food_detected")
             break
@@ -158,7 +167,10 @@ while True:
             manual_run(status["power"], status["duration"])
 
         write_status(0, 0, 0, 0, 0)
-        cv2.destroyAllWindows()
+        try:
+            cv2.destroyAllWindows()
+        except:
+            print("failto close_window")
 
 
     bin_data = clientSock.recv(1536)

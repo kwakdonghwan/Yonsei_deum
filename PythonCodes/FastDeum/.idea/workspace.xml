@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f529b1a4-b350-4542-8426-fefa6f142c8b" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,38 +15,12 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="553">
-                    <caret line="928" column="51" selection-start-line="928" selection-start-column="51" selection-end-line="928" selection-end-column="51" />
-                    <folding>
-                      <element signature="e#10715#10951#0" />
-                      <element signature="e#11013#11461#0" />
-                      <element signature="e#11524#12217#0" />
-                      <element signature="e#12280#17560#0" />
-                      <element signature="e#17663#18405#0" />
-                      <element signature="e#18464#18865#0" />
-                      <element signature="e#20685#24853#0" />
-                      <element signature="e#24894#25347#0" />
-                      <element signature="e#25446#25674#0" />
-                      <element signature="e#25714#26103#0" />
-                      <element signature="e#26144#26517#0" />
-                      <element signature="e#26652#27715#0" />
-                      <element signature="e#27759#28312#0" />
-                      <element signature="e#28360#28580#0" />
-                      <element signature="e#28624#28937#0" />
-                      <element signature="e#28980#29522#0" />
-                      <element signature="e#29631#38195#0" />
-                      <element signature="e#38239#41373#0" />
-                      <element signature="e#41429#41529#0" />
-                      <element signature="e#41579#42133#0" />
-                      <element signature="e#42182#42392#0" />
-                      <element signature="e#42455#42827#0" />
-                      <element signature="e#42916#43478#0" />
-                      <element signature="e#43544#44495#0" />
-                    </folding>
+                  <state relative-caret-position="739">
+                    <caret line="926" column="9" selection-start-line="926" selection-start-column="9" selection-end-line="926" selection-end-column="9" />
                   </state>
                 </provider>
               </entry>
@@ -60,12 +35,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/control/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="107" column="30" lean-forward="true" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="30" />
+            <state relative-caret-position="158">
+              <caret line="30" column="18" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="18" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <element signature="e#2159#3176#0" />
-                <element signature="e#3196#3620#0" />
+                <element signature="e#3300#4317#0" />
               </folding>
             </state>
           </provider>
@@ -134,6 +108,7 @@
       <find>time</find>
       <find>status_target_next_max_or_avg</find>
       <find>food</find>
+      <find>os.system(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,8 +123,8 @@
         <option value="$PROJECT_DIR$/control/status_io.py" />
         <option value="$PROJECT_DIR$/../Deum/control/advanced_thermal_control.py" />
         <option value="$PROJECT_DIR$/control/Temp_process_developer.py" />
-        <option value="$PROJECT_DIR$/control/advanced_thermal_control.py" />
         <option value="$PROJECT_DIR$/control/main.py" />
+        <option value="$PROJECT_DIR$/control/advanced_thermal_control.py" />
       </list>
     </option>
   </component>
@@ -228,12 +203,14 @@
       <workItem from="1558958517960" duration="1110000" />
       <workItem from="1558965908489" duration="83000" />
       <workItem from="1558966153655" duration="10357000" />
-      <workItem from="1559010414450" duration="2494000" />
+      <workItem from="1559010414450" duration="2955000" />
+      <workItem from="1559013761482" duration="597000" />
+      <workItem from="1559014424207" duration="260000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20703000" />
+    <option name="totallyTimeSpent" value="22021000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="953" y="0" width="974" height="1047" extended-state="0" />
@@ -281,6 +258,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/control/Temp_process_developer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="953" column="42" selection-start-line="953" selection-start-column="42" selection-end-line="953" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#465#4561#0" />
+            <element signature="e#32607#37715#0" />
+            <element signature="e#37762#42889#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/control/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
@@ -316,61 +306,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control/Temp_process_developer.py">
+    <entry file="file://$PROJECT_DIR$/control/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="953" column="42" selection-start-line="953" selection-start-column="42" selection-end-line="953" selection-end-column="42" />
+        <state relative-caret-position="158">
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="18" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#465#4561#0" />
-            <element signature="e#32607#37715#0" />
-            <element signature="e#37762#42889#0" />
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#3300#4317#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/control/advanced_thermal_control.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="928" column="51" selection-start-line="928" selection-start-column="51" selection-end-line="928" selection-end-column="51" />
-          <folding>
-            <element signature="e#10715#10951#0" />
-            <element signature="e#11013#11461#0" />
-            <element signature="e#11524#12217#0" />
-            <element signature="e#12280#17560#0" />
-            <element signature="e#17663#18405#0" />
-            <element signature="e#18464#18865#0" />
-            <element signature="e#20685#24853#0" />
-            <element signature="e#24894#25347#0" />
-            <element signature="e#25446#25674#0" />
-            <element signature="e#25714#26103#0" />
-            <element signature="e#26144#26517#0" />
-            <element signature="e#26652#27715#0" />
-            <element signature="e#27759#28312#0" />
-            <element signature="e#28360#28580#0" />
-            <element signature="e#28624#28937#0" />
-            <element signature="e#28980#29522#0" />
-            <element signature="e#29631#38195#0" />
-            <element signature="e#38239#41373#0" />
-            <element signature="e#41429#41529#0" />
-            <element signature="e#41579#42133#0" />
-            <element signature="e#42182#42392#0" />
-            <element signature="e#42455#42827#0" />
-            <element signature="e#42916#43478#0" />
-            <element signature="e#43544#44495#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="107" column="30" lean-forward="true" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#2159#3176#0" />
-            <element signature="e#3196#3620#0" />
-          </folding>
+        <state relative-caret-position="739">
+          <caret line="926" column="9" selection-start-line="926" selection-start-column="9" selection-end-line="926" selection-end-column="9" />
         </state>
       </provider>
     </entry>
