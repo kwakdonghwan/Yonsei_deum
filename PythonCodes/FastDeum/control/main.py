@@ -54,11 +54,11 @@ def auto_run():
     ATD.run_reset_time()
 
     #######################################################
-    try:
-        print("start sound")
-        os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_2.mp3')
-    except:
-        print("fail to paly sound!! heheheehe start sound")
+    #try:
+    #    print("start sound")
+    #    os.system('omxplayer /home/pi/Desktop/sound/start')
+    #except:
+    #    print("fail to paly sound!! heheheehe start sound")
 
     print("----------------start_microwave_over--------------")
 
