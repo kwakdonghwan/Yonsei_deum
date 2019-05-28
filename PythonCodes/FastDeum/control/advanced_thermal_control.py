@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+# 2019_05_27_ version
 import numpy as np
 import cv2
 import statistics as s
 import time
 from datetime import datetime
 import csv
-import os
+import os, sys
 import RPi.GPIO as GPIO
 from socket import *
 import struct
@@ -35,22 +36,20 @@ class Initial_condition_checker:
         self.min_tem = 0
         print("intitial_Checker_setup")
     def edge_temp_claculator(self, data):
+
+
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
         edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
+        # edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
+        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
+        # edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
-        max1 = max(edge)
-        if edge_1 == edge_2 == edge_3 == edge_4:
-            return edge_1
-        elif edge_1 < max1:
-            return edge_1
-        elif edge_2 < max1:
-            return edge_2
-        elif edge_3 < max1:
-            return edge_3
-        else:
-            return  edge_4
+        edge = sorted(edge)
+        edge.reverse()
+        return edge[2]
     def Thermal_data_cut(self, data):
 
         Newdata = np.zeros((24, 24), np.int16)  ##need to check
@@ -115,7 +114,9 @@ class Initial_condition_checker:
     def run(self,data):
         new_data = self.Thermal_data_cut(data)
         self.edge_data = self.edge_temp_claculator(new_data)
+        # self.data_Condtion_checker(new_data)
         self.data_Condtion_checker(new_data)
+        # self.realpart_number = self.realpart_finder(new_data)
         self.realpart_number = self.realpart_finder(new_data)
         print("(Initial_condition_checker) check is completed ")
         print([self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data])
@@ -208,6 +209,7 @@ class Advanced_thermal_data_control:
         self.status_min_rise = 0
         self.status_10sec_flag = 0
         self.status_10sec_flag_pre = 0
+        self.status_forced_stop_flag = False
 
         self.status_target_max = 800
         self.status_target_max_flag = 0
@@ -219,10 +221,14 @@ class Advanced_thermal_data_control:
         self.status_target_exist_max_temp = 0
         self.status_target_exist_max_temp_flag = False
 
+        self.status_checker_food_exist_flag = False
+        self.status_no_food_detect_flag = False
+
+
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
         self.time_break_time_counter = -1
-        self.time_break_time_default = 5
+        self.time_break_time_default = 6
         self.time_reach_below_10 = False  ## make flag to 11 and return True
         self.time_display_time_trash = 0
 
@@ -240,6 +246,8 @@ class Advanced_thermal_data_control:
 
         self.wr.writerow(basic_info)
 
+        ####################### auto mode sound out ##############
+
 
 
         print("Advanced_thermal_data_control setup")
@@ -254,12 +262,24 @@ class Advanced_thermal_data_control:
         except:
             print("fail_to_store_in_CSV")
 
+    def mouse_call_back(self,event,x,y,flags,parm):
+        print("stop button pressed")
+
+        if event == cv2.EVENT_LBUTTONUP:
+            if self.status_forced_stop_flag == False:
+                if 385 < x < 580:
+                    if 320 < y < 350:
+                        print("forced stop mode on")
+                        self.status_target_next_max_or_avg_flag = 14
+                        self.operation_flag = self.operation_turn_off
+                        self.status_forced_stop_flag = True
+
 
     def display_time_control(self,input_time_data):
         self.time_display_time_trash = self.time_display_time_trash+1
         display_time = input_time_data
         if input_time_data > 100:
-            display_time = int (input_time_data / 10)
+            display_time = int (input_time_data / 3)
 
             display_time = display_time - (self.time_display_time_trash % 10)
             if display_time < 1 :
@@ -277,9 +297,11 @@ class Advanced_thermal_data_control:
 # img show
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 40, 3), np.uint8)
+        # img2 = np.zeros((24,32 ,3),np.uint8 )
         thickness = 1
         #font = cv2.FONT_HERSHEY_SIMPLEX
-        font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
+        #font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
+        font = cv2.FONT_HERSHEY_DUPLEX
         fontScale = 0.7
         for py in range(data4.shape[0]):
             for px in range(data4.shape[1]):
@@ -314,6 +336,13 @@ class Advanced_thermal_data_control:
                 img[py][px][0] = 125 - int(value_1)  # 0~120
                 img[py][px][1] = int(value_2)
                 img[py][px][2] = int(value_3)
+        # img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
+        #
+        # for py in range(0,24):
+        #     for px in range(0,24):
+        #         img[py][px][0] = img2[py][px][0]  # 0~120
+        #         img[py][px][1] = img2[py][px][1]
+        #         img[py][px][2] = img2[py][px][2]
 
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
         img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
@@ -322,26 +351,43 @@ class Advanced_thermal_data_control:
         display_max_temp = "max:" + str(self.DATA_all[self.DATA_all_index][2]/10) + "'C"
         display_mid_temp = "mid:" + str(self.DATA_all[self.DATA_all_index][3] / 10) + "'C"
         display_min_temp = "min:" + str(self.DATA_all[self.DATA_all_index][4] / 10) + "'C"
-        display_edge_temp = "edge:" + str(self.DATA_all[self.DATA_all_index][5]/10) + "'C"
-        display_time_remain_operation_time =  str(display_time_value) + "s"
-        display_condition_flag = "flag:" + str(self.status_target_next_max_or_avg_flag)
+        display_edge_temp = "air:" + str(self.DATA_all[self.DATA_all_index][5]/10 - 1) + "'C"
+        display_time_remain_operation_time = str(display_time_value) + "s"
+        display_condition_flag = "phase:" + str(self.status_target_next_max_or_avg_flag)
         display_prograss =  "prgrass:" + str(int(self.status_target_next_max_or_avg_flag / 14 * 100)) + "%"
         display_logo = "DEUM_yonsei"
 
         cv2.putText(img, display_max_temp, (385,30), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_min_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        #cv2.putText(img, display_mid_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_min_temp, (385, 70), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
         if (self.status_edge_up[0] == True):
-            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 0, 0), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (0, 0, 255), thickness, cv2.LINE_AA)
         else:
-            cv2.putText(img, display_edge_temp, (385, 150), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_time_remain_operation_time, (385, 190), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_condition_flag, (385, 230), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_prograss, (385, 260), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
-        cv2.putText(img, display_logo, (385, 300), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+            cv2.putText(img, display_edge_temp, (385, 110), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        if self.DATA_all_index < 10 :
+            cv2.putText(img, "calculating..", (385, 160), font , fontScale * 0.8, (255, 255, 255), thickness, cv2.LINE_AA)
+        else:
+            cv2.putText(img, display_time_remain_operation_time, (385, 160), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_condition_flag, (385, 200), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_prograss, (385, 240), font, fontScale, (255, 255, 255), thickness, cv2.LINE_AA)
+        cv2.putText(img, display_logo, (385, 280), font, fontScale * 1.2, (255, 255, 255), thickness, cv2.LINE_AA)
+
+
+        #############################stop button#################################
+        cv2.rectangle(img,(385,320),(580,350),(150,150,150),-1)
+        cv2.putText(img, "STOP", (450, 343), font, fontScale *1.1 , (0, 0, 255), thickness+1, cv2.LINE_AA)
+
+
+
+
+        #########################################################################
+
+
 
         cv2.namedWindow("frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.setMouseCallback("frame", self.mouse_call_back)  # stop button click event
+
         cv2.imshow('frame', img)
         #try:
         #    cv2.moveWindow('frame' , 2, 2)
@@ -351,23 +397,22 @@ class Advanced_thermal_data_control:
         return img
 # data analysis and store in this class
     def PostProcess_edge_temp_calculator(self, data):
+
+
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
         edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
         edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
+        # edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
+        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
+        # edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
-        max1 = max(edge)
-        if edge_1 == edge_2 == edge_3 == edge_4:
-            return edge_1
-        elif edge_1 < max1:
-            return edge_1
-        elif edge_2 < max1:
-            return edge_2
-        elif edge_3 < max1:
-            return edge_3
-        else:
-            return  edge_4
+        edge = sorted(edge)
+        edge.reverse()
+        return edge[2]
     def PostProcess_Thermal_data_cut(self, data):
+        # return data
         new_data = np.zeros((24, 24), np.int16)
         for py in range(0, 24):
             newpx = 0
@@ -403,9 +448,9 @@ class Advanced_thermal_data_control:
             self.condition_flag = self.condition_steam
             reference_temp1 = (2*self.status_edge_temp + max_T) / 3
 
-        if max_T > 1400:
+        if max_T > 1100:
             self.condition_flag  = self.condition_fire
-            if self.condition_fire_count > 2:
+            if self.condition_fire_count > 1:
                 self.operation_flag = self.operation_turn_off
                 self.status_target_next_max_or_avg_flag = 14
             self.condition_fire_count += 1
@@ -413,6 +458,9 @@ class Advanced_thermal_data_control:
         else:
             self.condition_fire_count = 0
         self.status_reference_temp = [reference_temp1,reference_temp2]
+
+        print("condition_flag:" , self.condition_flag)
+
     def PostProcess_get_data(self,data):
         Number_of_real_temp = 0
         all_object_temp = []
@@ -443,18 +491,31 @@ class Advanced_thermal_data_control:
                         Number_of_real_temp += 1
                         real_object_temp.append(data[py][px])
 
-        real_object_temp = sorted(real_object_temp)
-        try: #this function will reduce the risk of flutuation
-            min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
-            real_object_temp.reverse()
-            max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+        try:
+            real_object_temp = sorted(real_object_temp)
+            try: #this function will reduce the risk of flutuation
+                min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+                real_object_temp.reverse()
+                max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+            except:
+                real_object_temp.reverse()
+                max_temp = max(real_object_temp)
+                min_temp = min(real_object_temp)
+            average_temp = s.mean(real_object_temp)
         except:
-            real_object_temp.reverse()
-            max_temp = max(real_object_temp)
-            min_temp = min(real_object_temp)
+            real_object_temp = sorted(all_object_temp)
+            try: #this function will reduce the risk of flutuation
+                min_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+                real_object_temp.reverse()
+                max_temp = int((real_object_temp[0] + real_object_temp[1] + real_object_temp[2]) / 3)
+            except:
+                real_object_temp.reverse()
+                max_temp = max(real_object_temp)
+                min_temp = min(real_object_temp)
+            average_temp = s.mean(real_object_temp)
+
 
         times = time.time() - self.time_initial_time
-        average_temp = s.mean(real_object_temp)
         self.DATA_all.append([times,Number_of_real_temp,max_temp,average_temp,min_temp,self.status_edge_temp,self.condition_flag,0])
         self.DATA_all_index += 1
 
@@ -477,10 +538,16 @@ class Advanced_thermal_data_control:
     def PostProcess(self,data):
         #print("post_process_start")
         new_data = self.PostProcess_Thermal_data_cut(data)
+
         self.status_edge_temp = self.PostProcess_edge_temp_calculator(new_data)
         self.PostProcess_data_Condtion_checker(new_data)
+        #self.PostProcess_data_Condtion_checker(data)
+
         self.PostProcess_get_data(new_data)
+        #self.PostProcess_get_data(data)
+
         self.absolute_HSV_Control5(new_data)
+        #self.absolute_HSV_Control5(data)
 # check operation condition form data functions
     def checker_edge_up_vinyl_flag(self):
         if self.DATA_all[self.DATA_all_index-1][4] /self.DATA_all[self.DATA_all_index-1][2] < 0.4:
@@ -519,7 +586,7 @@ class Advanced_thermal_data_control:
             print("target_max_set:", target_max ,"min_rise:",min_rise )
         if self.status_target_min_flag == 0:
             if (self.DATA_initial_data[0] == self.condition_icy) or (self.DATA_initial_data[0] == self.condition_cool) or (self.DATA_initial_data[0] == self.condition_hot_and_cold) :
-                target_min = 510
+                target_min = 505
             else:
                 target_min = 600
             self.status_target_min_flag = 1
@@ -543,17 +610,18 @@ class Advanced_thermal_data_control:
             print("steam_condition_detected, prepare to turn off")
     def checker_next_target(self):
         if self.status_edge_up[7] == True: # this is for vinyl detected
-            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][3] + self.status_target_max)
+            self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][3] + self.status_target_max))/2
         else:
-            self.status_target_next_max_or_avg = (self.DATA_all[self.DATA_all_index][2] + self.status_target_max)
+            self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][2] + self.status_target_max))/2
     def checker_food_exist(self):
-        if self.DATA_all[self.DATA_all_index][2] > 600:
+        if self.DATA_all[self.DATA_all_index][2] > 550:
             if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
                 self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
                 self.status_target_exist_max_temp_flag = True
         if self.status_target_exist_max_temp_flag == True:
             if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index][2]:
                 self.operation_flag = self.operation_turn_off
+                self.status_checker_food_exist_flag = True
                 print("food_is_out")
 
 
@@ -596,6 +664,18 @@ class Advanced_thermal_data_control:
                 self.status_target_next_max_or_avg_flag = 7
                 self.DATA_operation_flag = False
                 return
+            elif self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
 
         elif self.status_target_next_max_or_avg_flag == 4:
             if self.DATA_all[self.DATA_all_index][6] == self.condition_hot_and_cold and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot_and_cold:
@@ -606,11 +686,36 @@ class Advanced_thermal_data_control:
                 self.status_target_next_max_or_avg_flag = 7
                 self.DATA_operation_flag = False
                 return
+            elif self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
         elif self.status_target_next_max_or_avg_flag == 6:
             if self.DATA_all[self.DATA_all_index][6] == self.condition_hot and self.DATA_all[self.DATA_all_index-1][6] != self.condition_hot:
                 self.status_target_next_max_or_avg_flag = 7
                 self.DATA_operation_flag = False
                 return
+            elif self.status_edge_up[7] == False:
+                if self.DATA_all[self.DATA_all_index][2] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+            elif self.status_edge_up[7] == True:
+                if self.DATA_all[self.DATA_all_index][3] > self.status_target_next_max_or_avg :
+                    self.status_target_next_max_or_avg_flag = 9
+                    self.DATA_operation_flag = False
+                    self.checker_next_target()
+                    return
+
 
         elif self.status_target_next_max_or_avg_flag == 8:
             if self.status_edge_up[7] == False:
@@ -708,7 +813,7 @@ class Advanced_thermal_data_control:
             if self.time_break_time_counter > 3 * self.time_break_time_default:
                 if self.DATA_all[self.DATA_all_index][4] > self.status_target_min:  #if target_min is over the refference than turn - off the microwave oven
                     self.status_target_next_max_or_avg_flag += 1
-                elif self.time_break_time_default < 1: # if there are too many operation! try to stop (this function for prevent infinity operation)
+                elif self.time_break_time_default < 2: # if there are too many operation! try to stop (this function for prevent infinity operation)
                     self.status_target_next_max_or_avg_flag += 1
                 else: # if fail to achive the target then run again! but run it less
                     self.status_target_next_max_or_avg_flag += - 1
@@ -722,6 +827,9 @@ class Advanced_thermal_data_control:
         if (self.status_target_next_max_or_avg_flag % 2) == 1:
             self.time_break_time_counter += 1
     def checker_operation_control(self):
+        if self.status_target_next_max_or_avg_flag == 0:
+            self.operation_flag = self.operation_all
+            return
         if self.status_target_next_max_or_avg_flag > 13 :
             self.operation_flag = self.operation_turn_off
         elif (self.status_target_next_max_or_avg_flag % 2) == 0:
@@ -743,6 +851,7 @@ class Advanced_thermal_data_control:
         if (self.DATA_initial_data[0] < 3 ) and (self.status_10sec_flag >= 2):
             if self.DATA_all[self.DATA_all_index][2] < 400:
                 print("(checker_10sec) no food detected!")
+                self.status_no_food_detect_flag = True
                 self.status_target_next_max_or_avg_flag = 14
         self.checker_remain_time()
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
@@ -752,7 +861,7 @@ class Advanced_thermal_data_control:
 
         self.checker_status_target_next_max_or_avg_flag_controller()
 
-        self.checker_operation_control()  ##########  << real out_put of this black box
+        # self.checker_operation_control()  #do not imoport it at this time
         if (self.DATA_operation_flag == True) and self.status_10sec_flag >=1:
             self.time_remain_operation_time += -1
         if self.time_remain_operation_time < 0:
@@ -760,6 +869,26 @@ class Advanced_thermal_data_control:
         self.checker_even_number()
         self.checker_10sec_break_time_update()
 # run code functions
+    def run_sound_out_finish(self):
+        if self.status_target_next_max_or_avg_flag > 13:
+            if self.condition_fire_count > 2:
+                try:
+                    print("fire sound_will paly")
+                    os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/fire_1.mp3')
+                except:
+                    print("failto play sound _ fire!!!! hehehehe")
+            elif self.status_forced_stop_flag == True:
+                try:
+                    print("forced_stop_sound_will paly")
+                    os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/forced_1.mp3')
+                except:
+                    print("fail to paly sound _ forced _stop case")
+            else :
+                try:
+                    print("normal_turn_off_sounr will paly")
+                    os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/final_1.mp3')
+                except:
+                    print("fail to play souend_ normal_ case")
     def run_initialization(self,icc_data):
         self.DATA_initial_data.extend(icc_data)
         if self.DATA_initial_data[0] == 1:
@@ -783,19 +912,28 @@ class Advanced_thermal_data_control:
 
         self.status_10sec_flag = int(self.DATA_all[self.DATA_all_index][0] / 10)
         if self.status_10sec_flag_pre < self.status_10sec_flag:
-            self.checker_10sec()
+            self.checker_10sec()  # if pass the 10sec than run it
         if self.status_10sec_flag > 0:
             self.checker()
         self.status_10sec_flag_pre = self.status_10sec_flag
 
-        self.checker_food_exist()
+        self.checker_operation_control()
+
+        self.checker_food_exist() # must be placed before MUC.run
         #real_micorwave_run_code
         self.MWC.run(self.operation_flag)
         # print("condition:",self.DATA_all[self.DATA_all_index][6])
         # print("breaktime:",self.time_break_time_counter)
-
+        #self.run_sound_out_finish()
         if self.operation_flag == self.operation_turn_off:
-            return True  ##operation finish
+            if self.status_checker_food_exist_flag == True:
+                return 4
+            if self.status_no_food_detect_flag == True:
+                return 5
+            if self.condition_fire_count > 1:
+                return 3
+
+            return 1 ##operation finish
         else:
             return False
 #####################################################################################################################################

@@ -1,15 +1,18 @@
-from .status_io import *
+from status_io import *
 import auto_contorol as auto_control
 import Temp_process_developer as Temp_process
 import advanced_thermal_control as atc
 from microwave.manual_controller import ManualController
-
+from subprocess import Popen,PIPE
 
 from socket import *
 import struct
 import numpy as np
 import cv2
 import time
+
+import os, sys
+
 
 ip = '127.0.0.1'
 port = 8888
@@ -23,6 +26,13 @@ print("connect success")
 
 
 def auto_run():
+    try:
+        print("start sound_")
+        # os.system('omxplayer /home/pi/Desktop/sound/start.wav')
+        cmd = "omxplayer /home/pi/Desktop/sound/start.wav"
+        Popen(cmd,stdin=PIPE,shell=True)
+    except:
+        print("fail to paly sound!! heheheehe start")
 
     ICC = atc.Initial_condition_checker()
     ATD = atc.Advanced_thermal_data_control()
@@ -34,7 +44,7 @@ def auto_run():
     initial_data = np.reshape(initial_data, (24, 32))
 
     ATD.run_initialization(ICC.run(initial_data))
-    time.sleep(2)
+    time.sleep(1)
     bin_data1 = clientSock.recv(1536)
     count = int(len(bin_data1) / 2)
     initial_data = struct.unpack('<' + ('h' * count), bin_data1)
@@ -45,6 +55,11 @@ def auto_run():
     ATD.run_reset_time()
 
     #######################################################
+    #try:
+    #    print("start sound")
+    #    os.system('omxplayer /home/pi/Desktop/sound/start')
+    #except:
+    #    print("fail to paly sound!! heheheehe start sound")
 
     print("----------------start_microwave_over--------------")
 
@@ -57,7 +72,46 @@ def auto_run():
 
         lets_stop = ATD.run(short_arr)
 
-        if lets_stop:
+
+        if lets_stop == 1:
+            try:
+                cv2.destroyAllWindows()
+                print("normal_stop")
+                # os.system('omxplayer /home/pi/Desktop/sound/normal_stop.wav')
+                cmd = "omxplayer /home/pi/Desktop/sound/normal_stop.wav"
+                Popen(cmd,stdin=PIPE,shell=True)
+            except:
+                print("fail to paly sound!! heheheehe normal_stop")
+            break
+        if lets_stop == 3:
+            try:
+                cv2.destroyAllWindows()
+                print("fire")
+                # os.system('omxplayer /home/pi/Desktop/sound/fire.wav')
+                cmd = "omxplayer /home/pi/Desktop/sound/fire.wav"
+                Popen(cmd,stdin=PIPE,shell=True)
+            except:
+                print("fail to paly sound!! heheheehefire")
+            break
+        if lets_stop == 4:
+            try:
+                cv2.destroyAllWindows()
+                print("food_is_out")
+                # os.system('omxplayer /home/pi/Desktop/sound/food_is_out.wav')
+                cmd = "omxplayer /home/pi/Desktop/sound/food_is_out.wav"
+                Popen(cmd,stdin=PIPE,shell=True)
+            except:
+                print("fail to paly sound!! heheheehe food_is_out")
+            break
+        if lets_stop == 5:
+            try:
+                cv2.destroyAllWindows()
+                print("no_food_detected")
+                # os.system('omxplayer /home/pi/Desktop/sound/no_food_detected.wav')
+                cmd = "omxplayer /home/pi/Desktop/sound/no_food_detected.wav"
+                Popen(cmd,stdin=PIPE,shell=True)
+            except:
+                print("fail to paly sound!! heheheehe no_food_detected")
             break
 
         status = read_status()
@@ -72,7 +126,7 @@ def manual_run(power, duration):
     manual_controller = ManualController()
     manual_controller.reset_param(power, duration)
     print("reset_the_manual_controller")
-    TD = Temp_process.Thermal_Data(255)
+    TD = Temp_process.Thermal_Data(255, duration)
 
     while True:
         bin_data = clientSock.recv(1536)
@@ -89,7 +143,7 @@ def manual_run(power, duration):
         min_tem = TD.run3(Newdata)
         print("run3")
         # Temp_process.absolute_HSV_Control3_cut(Newdata, img,min_tem )
-        TD.absolute_HSV_Control5(Newdata)
+        TD.absolute_HSV_Control5(Newdata)  ## if you use 110 then use Newdata
 
 
         stop_wave = manual_controller.run()
@@ -113,7 +167,10 @@ while True:
             manual_run(status["power"], status["duration"])
 
         write_status(0, 0, 0, 0, 0)
-        cv2.destroyAllWindows()
+        try:
+            cv2.destroyAllWindows()
+        except:
+            print("failto close_window")
 
 
     bin_data = clientSock.recv(1536)

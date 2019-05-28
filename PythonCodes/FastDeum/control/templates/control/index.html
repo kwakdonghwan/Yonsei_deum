@@ -14,11 +14,11 @@
 
 </head>
 <body>
-    <section style="padding: 0px" id="auto">
+    <section style="padding: 0px; margin-bottom: 800px" id="auto">
         <div class="centerHolder">
             <!--<a href="/control/run" class="button center">Deum</a><br>-->
             <!--<img style="width: 300px" src="{% static 'control/images/logo2.png' %}" alt="">-->
-            <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 60px">
+            <form action="http://localhost:8000/control/result/" method="post" style="margin-top: 20px">
                 <!--{% csrf_token %}-->
 
                 <input type="hidden" class="center" type="text" name="mode" value="1">
@@ -34,15 +34,15 @@
 
                 <!--<input type="submit" value="자동데우기">-->
             </form>
-            <a style="margin-top: 100px" class="nav-link js-scroll-trigger" href="#manual"><img width="30px" src="/static/control/images/arrow_down.png" alt=""></a>
+            <a style="margin-top: 15px" class="nav-link js-scroll-trigger" href="#manual"><img width="30px" src="/static/control/images/arrow_down.png" alt=""></a>
         </div>
     </section>
+    
 
 
-
-    <section id="manual" style="margin-top:1000px">
+    <section id="manual" style="margin-top:0px; padding-top: 15px; padding-bottom: 0px">
         <div class="centerHolder">
-            <a style="margin-bottom: 100px" class="nav-link js-scroll-trigger" href="#auto"><img width="30px" src="/static/control/images/arrow_up.png" alt=""></a>
+            <a style="margin-bottom: 15px;" class="nav-link js-scroll-trigger" href="#auto"><img width="30px" src="/static/control/images/arrow_up.png" alt=""></a>
 
             <form action="http://localhost:8000/control/result/" method="post">
                 {% csrf_token %}
@@ -63,10 +63,12 @@
                 <input type="hidden" class="center" type="text" id="on" name="on" value="1">
 
                 <!--mode, on, duration, power, device-->
-                <button class="button_trans" id="btn" type="submit" style="width:120px" >GO</button>
+                <button class="button_trans" id="btn" type="submit" style="width:120px; margin-bottom: 400px" >GO</button>
+		<p style="font-size: 50px">hihi</p>
             </form>
         </div>
     </section>
+
 
 
 
