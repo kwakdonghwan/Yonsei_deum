@@ -221,6 +221,9 @@ class Advanced_thermal_data_control:
         self.status_target_exist_max_temp = 0
         self.status_target_exist_max_temp_flag = False
 
+        self.status_checker_food_exist_flag = False
+        self.status_no_food_detect_flag = False
+
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
@@ -618,6 +621,7 @@ class Advanced_thermal_data_control:
         if self.status_target_exist_max_temp_flag == True:
             if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index][2]:
                 self.operation_flag = self.operation_turn_off
+                self.status_checker_food_exist_flag = True
                 print("food_is_out")
 
 
@@ -847,6 +851,7 @@ class Advanced_thermal_data_control:
         if (self.DATA_initial_data[0] < 3 ) and (self.status_10sec_flag >= 2):
             if self.DATA_all[self.DATA_all_index][2] < 400:
                 print("(checker_10sec) no food detected!")
+                self.status_no_food_detect_flag = True
                 self.status_target_next_max_or_avg_flag = 14
         self.checker_remain_time()
     def checker(self):  #every 1 sec check / edge up , steam check , fire check
@@ -921,6 +926,13 @@ class Advanced_thermal_data_control:
         # print("breaktime:",self.time_break_time_counter)
         self.run_sound_out_finish()
         if self.operation_flag == self.operation_turn_off:
+            if self.status_checker_food_exist_flag == True:
+                return 4
+            if self.status_no_food_detect_flag == True:
+                return 5
+            if self.condition_fire_count > 2:
+                return 3
+
             return True  ##operation finish
         else:
             return False

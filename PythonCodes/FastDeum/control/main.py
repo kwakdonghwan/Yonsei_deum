@@ -3,7 +3,7 @@ import auto_contorol as auto_control
 import Temp_process_developer as Temp_process
 import advanced_thermal_control as atc
 from microwave.manual_controller import ManualController
-
+from subprocess import Popen,PIPE
 
 from socket import *
 import struct
@@ -28,7 +28,8 @@ print("connect success")
 def auto_run():
     try:
         print("start sound_")
-        os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_1.mp3')
+        cmd = "omxplayer /home/pi/sound/start.wav"
+        Popen(cmd, stdin=PIPE)
     except:
         print("fail to paly sound!! heheheehe start")
 
@@ -70,7 +71,38 @@ def auto_run():
 
         lets_stop = ATD.run(short_arr)
 
+
         if lets_stop:
+            try:
+                print("normal_stop")
+                cmd = "omxplayer /home/pi/sound/normal_stop.wav"
+                Popen(cmd, stdin=PIPE)
+            except:
+                print("fail to paly sound!! heheheehe start")
+            break
+        if lets_stop == 3:
+            try:
+                print("fire")
+                cmd = "omxplayer /home/pi/sound/fire.wav"
+                Popen(cmd, stdin=PIPE)
+            except:
+                print("fail to paly sound!! heheheehe start")
+            break
+        if lets_stop == 4:
+            try:
+                print("food_is_out")
+                cmd = "omxplayer /home/pi/sound/food_is_out.wav"
+                Popen(cmd, stdin=PIPE)
+            except:
+                print("fail to paly sound!! heheheehe start")
+            break
+        if lets_stop == 5:
+            try:
+                print("no_food_detected")
+                cmd = "omxplayer /home/pi/sound/no_food_detected.wav"
+                Popen(cmd, stdin=PIPE)
+            except:
+                print("fail to paly sound!! heheheehe start")
             break
 
         status = read_status()
