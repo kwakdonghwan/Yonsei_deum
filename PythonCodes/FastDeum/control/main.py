@@ -28,7 +28,7 @@ print("connect success")
 def auto_run():
     try:
         print("start sound_")
-        os.system('omxplayer --vol 1000 /home/pi/Desktop/sound/start.wav')
+        os.system('omxplayer /home/pi/Desktop/sound/start.wav')
         # cmd = "omxplayer /home/pi/Desktop/sound/start.wav"
         # Popen(cmd, stdin=PIPE)
     except:
@@ -77,7 +77,7 @@ def auto_run():
             try:
                 cv2.destroyAllWindows()
                 print("normal_stop")
-                os.system('omxplayer --vol 1000 /home/pi/Desktop/sound/normal_stop.wav')
+                os.system('omxplayer /home/pi/Desktop/sound/normal_stop.wav')
                 # cmd = "omxplayer /home/pi/Desktop/sound/normal_stop.wav"
                 # Popen(cmd,stdin=PIPE,shell=True)
             except:
@@ -87,7 +87,7 @@ def auto_run():
             try:
                 cv2.destroyAllWindows()
                 print("fire")
-                os.system('omxplayer --vol 1000 /home/pi/Desktop/sound/fire.wav')
+                os.system('omxplayer /home/pi/Desktop/sound/fire.wav')
                 # cmd = "omxplayer /home/pi/Desktop/sound/fire.wav"
                 # Popen(cmd,stdin=PIPE,shell=True)
             except:
@@ -97,7 +97,7 @@ def auto_run():
             try:
                 cv2.destroyAllWindows()
                 print("food_is_out")
-                os.system('omxplayer --vol 1000 /home/pi/Desktop/sound/food_is_out.wav')
+                os.system('omxplayer /home/pi/Desktop/sound/food_is_out.wav')
                 # cmd = "omxplayer /home/pi/Desktop/sound/food_is_out.wav"
                 #Popen(cmd,stdin=PIPE,shell=True)
             except:
@@ -107,7 +107,7 @@ def auto_run():
             try:
                 cv2.destroyAllWindows()
                 print("no_food_detected")
-                os.system('omxplayer --vol 1000 /home/pi/Desktop/sound/no_food_detected.wav')
+                os.system('omxplayer /home/pi/Desktop/sound/no_food_detected.wav')
                 # cmd = "omxplayer /home/pi/Desktop/sound/no_food_detected.wav"
                 # Popen(cmd,stdin=PIPE,shell=True)
             except:
