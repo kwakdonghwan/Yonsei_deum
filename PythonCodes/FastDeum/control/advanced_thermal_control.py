@@ -448,9 +448,9 @@ class Advanced_thermal_data_control:
             self.condition_flag = self.condition_steam
             reference_temp1 = (2*self.status_edge_temp + max_T) / 3
 
-        if max_T > 1400:
+        if max_T > 1100:
             self.condition_flag  = self.condition_fire
-            if self.condition_fire_count > 2:
+            if self.condition_fire_count > 1:
                 self.operation_flag = self.operation_turn_off
                 self.status_target_next_max_or_avg_flag = 14
             self.condition_fire_count += 1
@@ -930,7 +930,7 @@ class Advanced_thermal_data_control:
                 return 4
             if self.status_no_food_detect_flag == True:
                 return 5
-            if self.condition_fire_count > 2:
+            if self.condition_fire_count > 1:
                 return 3
 
             return 1 ##operation finish
