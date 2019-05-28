@@ -167,6 +167,7 @@ def manual_run(power, duration):
                 print("fail to paly sound!! heheheehe normal_stop")
             break
 
+
         status = read_status()
         if status["on"] == 0:
             break
