@@ -55,10 +55,10 @@ def auto_run():
 
     #######################################################
     try:
-        print("start sound_2")
+        print("start sound")
         os.system('omxplayer --vol 5000 /home/pi/Desktop/sound/start_2.mp3')
     except:
-        print("fail to paly sound!! heheheehe start_2")
+        print("fail to paly sound!! heheheehe start sound")
 
     print("----------------start_microwave_over--------------")
 
@@ -78,7 +78,7 @@ def auto_run():
                 cmd = "omxplayer /home/pi/sound/normal_stop.wav"
                 Popen(cmd, stdin=PIPE)
             except:
-                print("fail to paly sound!! heheheehe start")
+                print("fail to paly sound!! heheheehe normal_stop")
             break
         if lets_stop == 3:
             try:
@@ -86,7 +86,7 @@ def auto_run():
                 cmd = "omxplayer /home/pi/sound/fire.wav"
                 Popen(cmd, stdin=PIPE)
             except:
-                print("fail to paly sound!! heheheehe start")
+                print("fail to paly sound!! heheheehefire")
             break
         if lets_stop == 4:
             try:
@@ -94,7 +94,7 @@ def auto_run():
                 cmd = "omxplayer /home/pi/sound/food_is_out.wav"
                 Popen(cmd, stdin=PIPE)
             except:
-                print("fail to paly sound!! heheheehe start")
+                print("fail to paly sound!! heheheehe food_is_out")
             break
         if lets_stop == 5:
             try:
@@ -102,7 +102,7 @@ def auto_run():
                 cmd = "omxplayer /home/pi/sound/no_food_detected.wav"
                 Popen(cmd, stdin=PIPE)
             except:
-                print("fail to paly sound!! heheheehe start")
+                print("fail to paly sound!! heheheehe no_food_detected")
             break
 
         status = read_status()
