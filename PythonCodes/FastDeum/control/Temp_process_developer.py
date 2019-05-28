@@ -528,9 +528,15 @@ class Thermal_Data:
 
         self.Number_of_real_part = Number_of_real_temp
         self.condition = condition
-        self.max_temp = max(real_object_temp)
-        self.min_temp = min(real_object_temp)
-        self.average_temp = s.mean(real_object_temp)
+
+        try:
+            self.max_temp = max(real_object_temp)
+            self.min_temp = min(real_object_temp)
+            self.average_temp = s.mean(real_object_temp)
+        except:
+            self.max_temp = 300
+            self.min_temp = 300
+            self.average_temp = 300
 
         try:
             self.average_middle = middle_temperature_sum / count_middle
