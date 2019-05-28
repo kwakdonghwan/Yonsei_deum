@@ -123,6 +123,14 @@ def auto_run():
 
 def manual_run(power, duration):
 
+    try:
+        print("start sound_")
+        # os.system('omxplayer /home/pi/Desktop/sound/start.wav')
+        cmd = "omxplayer /home/pi/Desktop/sound/start.wav"
+        Popen(cmd,stdin=PIPE,shell=True)
+    except:
+        print("fail to paly sound!! heheheehe start")
+
     manual_controller = ManualController()
     manual_controller.reset_param(power, duration)
     print("reset_the_manual_controller")
@@ -149,7 +157,16 @@ def manual_run(power, duration):
         stop_wave = manual_controller.run()
 
         if stop_wave:
+            try:
+                cv2.destroyAllWindows()
+                print("normal_stop")
+                # os.system('omxplayer /home/pi/Desktop/sound/normal_stop.wav')
+                cmd = "omxplayer /home/pi/Desktop/sound/normal_stop.wav"
+                Popen(cmd,stdin=PIPE,shell=True)
+            except:
+                print("fail to paly sound!! heheheehe normal_stop")
             break
+
 
         status = read_status()
         if status["on"] == 0:
