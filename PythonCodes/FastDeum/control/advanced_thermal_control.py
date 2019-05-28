@@ -933,7 +933,7 @@ class Advanced_thermal_data_control:
             if self.condition_fire_count > 2:
                 return 3
 
-            return True  ##operation finish
+            return 1  ##operation finish
         else:
             return False
 #####################################################################################################################################
