@@ -961,7 +961,7 @@ class Thermal_Data:
         display_time= self.duration - self.times
 
         img = np.zeros((24, 40, 3), np.uint8)
-        img2 = np.zeros((24, 32, 3), np.uint8)
+        # img2 = np.zeros((24, 32, 3), np.uint8)
         thickness = 1
         org = (360, 10) # x =360 Y = 10
         #font = cv2.FONT_HERSHEY_SIMPLEX
@@ -998,18 +998,18 @@ class Thermal_Data:
                     value_1 = 120
                     value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
 
-                img2[py][px][0] = 125 - int(value_1)  # 0~120
-                img2[py][px][1] = int(value_2)
-                img2[py][px][2] = int(value_3)
-        img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
+                img[py][px][0] = 125 - int(value_1)  # 0~120
+                img[py][px][1] = int(value_2)
+                img[py][px][2] = int(value_3)
+        # img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
         # max_tmp = np.amax(data4) / 10
 
-
-        for py in range(0, 24):
-            for px in range(0, 24):
-                img[py][px][0] = img2[py][px][0]  # 0~120
-                img[py][px][1] = img2[py][px][1]
-                img[py][px][2] = img2[py][px][2]
+        #
+        # for py in range(0, 24):
+        #     for px in range(0, 24):
+        #         img[py][px][0] = img2[py][px][0]  # 0~120
+        #         img[py][px][1] = img2[py][px][1]
+        #         img[py][px][2] = img2[py][px][2]
 
         #text_for_display = "max_temp: " + str(max_tmp)
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)

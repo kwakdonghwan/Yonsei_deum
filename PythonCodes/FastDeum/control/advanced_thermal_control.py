@@ -36,16 +36,16 @@ class Initial_condition_checker:
         self.min_tem = 0
         print("intitial_Checker_setup")
     def edge_temp_claculator(self, data):
-        #
-        #
-        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
-        # edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
-        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
-        # edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+
+
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
-        edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
+        edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
-        edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
+        edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
+        # edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
+        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
+        # edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
         edge = sorted(edge)
         edge.reverse()
@@ -113,11 +113,11 @@ class Initial_condition_checker:
 # run initial condition checker
     def run(self,data):
         new_data = self.Thermal_data_cut(data)
-        self.edge_data = self.edge_temp_claculator(data)
+        self.edge_data = self.edge_temp_claculator(new_data)
         # self.data_Condtion_checker(new_data)
-        self.data_Condtion_checker(data)
+        self.data_Condtion_checker(new_data)
         # self.realpart_number = self.realpart_finder(new_data)
-        self.realpart_number = self.realpart_finder(data)
+        self.realpart_number = self.realpart_finder(new_data)
         print("(Initial_condition_checker) check is completed ")
         print([self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data])
         return [self.initial_condition, self.realpart_number, self.max_tem , self.average_tem , self.min_tem , self.edge_data]
@@ -297,7 +297,7 @@ class Advanced_thermal_data_control:
 # img show
     def absolute_HSV_Control5(self,data4):
         img = np.zeros((24, 40, 3), np.uint8)
-        img2 = np.zeros((24,32 ,3),np.uint8 )
+        # img2 = np.zeros((24,32 ,3),np.uint8 )
         thickness = 1
         #font = cv2.FONT_HERSHEY_SIMPLEX
         #font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX
@@ -333,16 +333,16 @@ class Advanced_thermal_data_control:
                     value_1 = 120
                     value_3 = ((data4[py][px] + 300) * 254 / 200)  ## 0 = black
 
-                img2[py][px][0] = 125 - int(value_1)  # 0~120
-                img2[py][px][1] = int(value_2)
-                img2[py][px][2] = int(value_3)
-        img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
-
-        for py in range(0,24):
-            for px in range(0,24):
-                img[py][px][0] = img2[py][px][0]  # 0~120
-                img[py][px][1] = img2[py][px][1]
-                img[py][px][2] = img2[py][px][2]
+                img[py][px][0] = 125 - int(value_1)  # 0~120
+                img[py][px][1] = int(value_2)
+                img[py][px][2] = int(value_3)
+        # img2 = cv2.resize(img2 , dsize=(24, 24), interpolation=cv2.INTER_AREA)
+        #
+        # for py in range(0,24):
+        #     for px in range(0,24):
+        #         img[py][px][0] = img2[py][px][0]  # 0~120
+        #         img[py][px][1] = img2[py][px][1]
+        #         img[py][px][2] = img2[py][px][2]
 
         img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
         img = cv2.resize(img, None, fx=15, fy=15, interpolation=cv2.INTER_CUBIC)
@@ -397,22 +397,22 @@ class Advanced_thermal_data_control:
         return img
 # data analysis and store in this class
     def PostProcess_edge_temp_calculator(self, data):
-        #
-        #
-        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
-        # edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
-        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
-        # edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+
+
         edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
-        edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
+        edge_2 = (data[0][22] + data[0][23] + data[1][22] + data[1][23])/4
         edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
-        edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
+        edge_4 = (data[22][22] + data[22][23] + data[23][22] + data[23][23])/4
+        # edge_1 = (data[0][0] + data[0][1] + data[1][1] + data[1][0])/4
+        # edge_2 = (data[0][30] + data[0][31] + data[1][30] + data[1][31])/4
+        # edge_3 = (data[22][0] + data[22][1] + data[23][1] + data[23][0])/4
+        # edge_4 = (data[22][30] + data[22][31] + data[23][30] + data[23][31])/4
         edge= [ edge_1, edge_2, edge_3 , edge_4]
         edge = sorted(edge)
         edge.reverse()
         return edge[2]
     def PostProcess_Thermal_data_cut(self, data):
-        return data
+        # return data
         new_data = np.zeros((24, 24), np.int16)
         for py in range(0, 24):
             newpx = 0
