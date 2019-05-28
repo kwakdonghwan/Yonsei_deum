@@ -73,7 +73,7 @@ def auto_run():
         lets_stop = ATD.run(short_arr)
 
 
-        if lets_stop:
+        if lets_stop == 1:
             try:
                 cv2.destroyAllWindows()
                 print("normal_stop")
