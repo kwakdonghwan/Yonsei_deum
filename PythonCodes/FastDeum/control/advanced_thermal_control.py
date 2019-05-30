@@ -224,6 +224,8 @@ class Advanced_thermal_data_control:
         self.status_checker_food_exist_flag = False
         self.status_no_food_detect_flag = False
 
+        self.status_target_exist_max_temp_flag_count = 0
+
 
         self.time_initial_time = 0   #when micro wave open start set it again
         self.time_remain_operation_time = 20
@@ -572,15 +574,15 @@ class Advanced_thermal_data_control:
         min_rise = self.checker_min_rise()
         if self.status_target_max_flag == 0:
             if min_rise > 6.0 :
-                target_max = 900 + self.DATA_initial_data[1]
+                target_max = 950 + self.DATA_initial_data[1]
             elif min_rise  > 3.5 :
                 if (self.DATA_initial_data[1] < 70):
                     s = 70
                 else:
                     s = self.DATA_initial_data[1]
-                target_max = 770 + s
+                target_max = 880 + s
             else:
-                target_max = 770
+                target_max = 880
             self.status_target_max_flag = 1
             self.status_target_max = target_max
             print("target_max_set:", target_max ,"min_rise:",min_rise )
@@ -614,15 +616,17 @@ class Advanced_thermal_data_control:
         else:
             self.status_target_next_max_or_avg = ((self.DATA_all[self.DATA_all_index][2] + self.status_target_max))/2
     def checker_food_exist(self):
-        if self.DATA_all[self.DATA_all_index][2] > 550:
-            if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
-                self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
-                self.status_target_exist_max_temp_flag = True
-        if self.status_target_exist_max_temp_flag == True:
+        if self.status_target_exist_max_temp_flag == True and self.status_target_exist_max_temp_flag_count > 3:
             if self.status_target_exist_max_temp * 0.7 >self.DATA_all[self.DATA_all_index][2]:
                 self.operation_flag = self.operation_turn_off
                 self.status_checker_food_exist_flag = True
                 print("food_is_out")
+
+        if self.DATA_all[self.DATA_all_index][2] > 550:
+            if self.status_target_exist_max_temp < self.DATA_all[self.DATA_all_index][2]:
+                self.status_target_exist_max_temp = self.DATA_all[self.DATA_all_index][2]
+                self.status_target_exist_max_temp_flag_count += 1
+                self.status_target_exist_max_temp_flag = True
 
 
 # control condtion functions
@@ -817,7 +821,7 @@ class Advanced_thermal_data_control:
                     self.status_target_next_max_or_avg_flag += 1
                 else: # if fail to achive the target then run again! but run it less
                     self.status_target_next_max_or_avg_flag += - 1
-                    self.time_break_time_default = int(self.time_break_time_default / 2)
+                    self.time_break_time_default = int(self.time_break_time_default / 1.5)
                     self.time_break_time_counter = -1
                     self.status_target_min_can_not_reach_flag = True
 
