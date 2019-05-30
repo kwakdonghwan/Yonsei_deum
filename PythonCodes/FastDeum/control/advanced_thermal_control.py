@@ -11,6 +11,11 @@ import RPi.GPIO as GPIO
 from socket import *
 import struct
 import threading
+import random
+
+
+from subprocess import Popen,PIPE
+
 
 
 ### the last version of microwave control
@@ -873,6 +878,150 @@ class Advanced_thermal_data_control:
             self.time_remain_operation_time = 0
         self.checker_even_number()
         self.checker_10sec_break_time_update()
+# fucking LEE _ trash
+
+    def fuck_LEE_SU_HONG_mouse_click (self, event, x, y, flags, parm):
+        print ("마우스 클릭이 들어왔다.")
+
+        #(41,261) > (239,326):yes!! ,,
+        # (323, 262) > (523,326):: NO!
+        if event == cv2.EVENT_LBUTTONUP:
+            if self.fuck_lee_su_hong_flag == 0:
+                if 41 < x < 239:
+                    if 261 < y < 326:
+                        print("오지게 착한 친구다! 맛있게 데워주자!")
+                        self.fuck_lee_su_hong_flag = 1
+                        return
+
+                if 323 < x < 523:
+                    if 262 < y < 326:
+                        print("씹새끼다 한번더 확인해보자 ")
+
+                        self.fuck_lee_su_hong_flag = 2
+                        return
+            elif self.fuck_lee_su_hong_flag == 2:
+                if 41 < x < 239:
+                    if 261 < y < 326:
+                        print("별로 애매한 놈이구먼 ")
+                        self.fuck_lee_su_hong_flag = 3
+                        return
+
+                if 323 < x < 523:
+                    if 262 < y < 326:
+                        print("진짜 개새끼 ")
+
+                        self.fuck_lee_su_hong_flag = 4
+                        return
+    def fuck_LEE_SU_HONG (self):
+        print("이수홍 씹새끼 확인 코드 들어갑니다. ")
+        self.fuck_lee_su_hong_flag = 0
+        cv2.destroyAllWindows()
+
+        while(1):
+
+            if self.fuck_lee_su_hong_flag == 0 or self.fuck_lee_su_hong_flag == 1 :
+                img = cv2.imread('/home/pi/Yonsei_deum/imgs/fuck_su_hong_lee.png', cv2.IMREAD_COLOR)
+            else:
+                img = cv2.imread('/home/pi/Yonsei_deum/imgs/fuck_su_hong_lee_2.png', cv2.IMREAD_COLOR)
+
+            cv2.namedWindow("fuck_you_lee_su_hong", cv2.WND_PROP_FULLSCREEN)
+            cv2.setWindowProperty("fuck_you_lee_su_hong", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+            cv2.setMouseCallback("fuck_you_lee_su_hong", self.fuck_LEE_SU_HONG_mouse_click)  # stop button click event
+
+            cv2.imshow('fuck_you_lee_su_hong', img)
+            cv2.waitKey(0)
+
+            if self.fuck_lee_su_hong_flag == 1:
+                cv2.destroyAllWindows()
+                #good boy
+                break
+            elif self.fuck_lee_su_hong_flag == 3:
+                cv2.destroyAllWindows()
+                #normal boy
+                break
+            elif self.fuck_lee_su_hong_flag == 4:
+                while(True):
+                    try:
+                        f = open("/home/pi/Yonsei_deum/PythonCodes/FastDeum/control/status_2.txt", "w")
+                        f.write("1")
+                        f.close()
+                        break
+                    except:
+                        print("이새낀 무조건 조진다.")
+
+
+                cv2.namedWindow("fuck_you_lee_su_hong_3", cv2.WND_PROP_FULLSCREEN)
+                cv2.setWindowProperty("fuck_you_lee_su_hong_3", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+                img2 = cv2.imread('/home/pi/Yonsei_deum/imgs/fuck_su_hong_lee_3.png', cv2.IMREAD_COLOR)
+
+                cv2.imshow('fuck_you_lee_su_hong_3', img2)
+                cv2.waitKey(0)
+                #sheep_see_kiy
+                break
+    def fuck_LEE_SU_HONG_Block (self):
+        count_tomany_fail = 0
+
+        cont22 = 0
+        file_path = "/home/pi/Yonsei_deum/PythonCodes/FastDeum/control/status2.txt"
+        if os.path.isfile(file_path) == False:
+            f = open("/home/pi/Yonsei_deum/PythonCodes/FastDeum/control/status2.txt", "w")
+            f.write("0")
+            f.close()
+
+        while(True):
+
+            try:
+                if count_tomany_fail > 100:
+                    f = open("/home/pi/Yonsei_deum/PythonCodes/FastDeum/control/status2.txt", "w")
+                    f.write("0")
+                    f.close()
+
+                f = open("/home/pi/Yonsei_deum/PythonCodes/FastDeum/control/status2.txt", "r")  ## 절대경로로 바꾸기
+
+                line = f.readline()
+                f.close()
+                fuck = int(line)
+
+                if fuck == 1:
+                    while(True):
+                        cv2.namedWindow("ban_fuck_you", cv2.WND_PROP_FULLSCREEN)
+                        cv2.setWindowProperty("ban_fuck_you", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+                        img = cv2.imread('/home/pi/Yonsei_deum/imgs/fuck_su_hong_lee_4.png', cv2.IMREAD_COLOR)
+
+                        cv2.imshow('ban_fuck_you', img)
+                        cv2.waitKey(0)
+
+                        time.sleep(0.05)
+                        cont22 += 1
+                        # you can`t escape from hear
+                        print("뒤져 씹새끼야")
+
+                        if (cont22 % 200) == 3:
+                            a = int (random.randrange(1, 3))
+
+                            try:
+                                if a == 1:
+                                    print("fuck_you")
+                                    cmd = "omxplayer /home/pi/Yonsei_deum/imgs/fuck_lee_su_hong.wav"
+                                    Popen(cmd, stdin=PIPE, shell=True)
+                                else:
+                                    print("fuck_you")
+                                    cmd = "omxplayer /home/pi/Yonsei_deum/imgs/Lee_worship.wav"
+                                    Popen(cmd, stdin=PIPE, shell=True)
+                            except:
+                                print("fail to paly sound!! heheheehe ")
+
+                if fuck == 0:
+                    print("normal_mode operation")
+                    break
+
+            except:
+                count_tomany_fail += 1
+                print("failed to read data")
+
+
 # run code functions
     def run_sound_out_finish(self):
         if self.status_target_next_max_or_avg_flag > 13:
@@ -912,6 +1061,8 @@ class Advanced_thermal_data_control:
 # main run of this class ,  if return True => turn off microwave oven
     def run(self,data):
 
+        self.fuck_LEE_SU_HONG_Block() ##check_block_motion
+
         #postprocess level (get data and update this class)
         self.PostProcess(data)
 
@@ -931,6 +1082,9 @@ class Advanced_thermal_data_control:
         # print("breaktime:",self.time_break_time_counter)
         #self.run_sound_out_finish()
         if self.operation_flag == self.operation_turn_off:
+
+            self.fuck_LEE_SU_HONG()
+
             if self.status_checker_food_exist_flag == True:
                 return 4
             if self.status_no_food_detect_flag == True:
