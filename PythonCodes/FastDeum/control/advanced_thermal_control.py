@@ -572,21 +572,21 @@ class Advanced_thermal_data_control:
         min_rise = self.checker_min_rise()
         if self.status_target_max_flag == 0:
             if min_rise > 6.0 :
-                target_max = 880 + self.DATA_initial_data[1]
+                target_max = 900 + self.DATA_initial_data[1]
             elif min_rise  > 3.5 :
                 if (self.DATA_initial_data[1] < 70):
                     s = 70
                 else:
                     s = self.DATA_initial_data[1]
-                target_max = 750 + s
+                target_max = 770 + s
             else:
-                target_max = 750
+                target_max = 770
             self.status_target_max_flag = 1
             self.status_target_max = target_max
             print("target_max_set:", target_max ,"min_rise:",min_rise )
         if self.status_target_min_flag == 0:
             if (self.DATA_initial_data[0] == self.condition_icy) or (self.DATA_initial_data[0] == self.condition_cool) or (self.DATA_initial_data[0] == self.condition_hot_and_cold) :
-                target_min = 505
+                target_min = 515
             else:
                 target_min = 600
             self.status_target_min_flag = 1
